@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e53dd916fef540ecb277c1aaff65cc59" Name="Diagram1">
+      <Diagram DiagramId="d563ddd4878d4e2690d2cea574ef7f67" Name="Diagram1">
         <EntityTypeShape EntityType="Model.DiemSo" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.GiangVien" Width="1.5" PointX="1.5" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.KeHoachHocTap" Width="1.5" PointX="8.25" PointY="2" IsExpanded="true" />
@@ -13,7 +13,8 @@
         <EntityTypeShape EntityType="Model.MonHoc" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Nganh" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SinhVien" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ThongBao" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ThongBao" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_DiemSo_MonHoc" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_DiemSo_SinhVien" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Lop_GiangVien" ManuallyRouted="false" />

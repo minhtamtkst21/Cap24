@@ -12,7 +12,7 @@ namespace WebApplication.Areas.Faculty.Controllers
 {
     public class CurriculumsController : Controller
     {
-        private Cap24 db = new Cap24();
+        private CAPK24Entities db = new CAPK24Entities();
 
         // GET: Faculty/MonHoc
         public ActionResult IndexMonHoc()
@@ -109,6 +109,8 @@ namespace WebApplication.Areas.Faculty.Controllers
             ViewBag.Nganh = new SelectList(db.Nganhs, "ID", "TenNganh", monHoc.Nganh);
             return View(monHoc);
         }
+
+        // GET: Faculty/Nganh/Edit
         public ActionResult EditNganh(int? id)
         {
             if (id == null)
