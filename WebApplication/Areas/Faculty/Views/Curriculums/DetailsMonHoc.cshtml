@@ -1,0 +1,91 @@
+﻿@model WebApplication.Models.MonHoc
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Faculty_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MonHoc</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaMonHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaMonHoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenMocHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenMocHoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoTinChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoTinChi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HocKy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HocKy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HocTruoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HocTruoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TienQuyet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TienQuyet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SongHanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SongHanh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Khoa1.TenKhoa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Khoa1.TenKhoa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nganh1.TenNganh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nganh1.TenNganh)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
