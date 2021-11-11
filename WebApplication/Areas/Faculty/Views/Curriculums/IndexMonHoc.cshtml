@@ -5,78 +5,113 @@
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title" style="font-family:Roboto">&emsp;CHƯƠNG TRÌNH ĐÀO TẠO</h4>
+            <div class="">
+                <select class="browser-default custom-select" aria-label="Default select example">
+                    <option selected>Chọn khóa</option>
+                    <option value="">K24</option>
+                    <option value="">K25</option>
+                    <option value="">K26</option>
+                    <option value="">K27</option>
+                </select>
+            </div>
+            <div>
+                <select class="browser-default custom-select" aria-label="Default select example">
+                    <option selected>Chọn ngành</option>
+                    <option value="">CNTT</option>
+                    <option value="">KTPM</option>
+                </select>
+            </div>
+            <div>
+                <select class="browser-default custom-select" aria-label="Default select example">
+                    <option selected>Chọn học kỳ</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                </select>
+            </div>
+            @using (Html.BeginForm("UploadMonHoc", "Curriculums", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="page-title-right">
+                    <input type="file" id="file" name="UploadedFile" style="display:none;" />
+                    <button type="button" id="button" name="button" value="Upload" onclick="thisFileUpload();" class="btn btn-secondary btn-rounded ">
+                        <i class="mdi mdi-microsoft-excel"></i> Import
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="col-xl-12">
+    <div class="card-box">
+        <div class="dropdown float-right">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaMonHoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenMocHoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SoTinChi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HocKy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HocTruoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TienQuyet)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SongHanh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Khoa1.TenKhoa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nganh1.TenNganh)
-        </th>
-        <th></th>
-    </tr>
+        </div>
+        <h4 class="header-title mt-0 mb-3" style="font-family: Roboto;">Kiến thức giáo dục đại cương (61 tín chỉ)</h4>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaMonHoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenMocHoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoTinChi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HocKy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HocTruoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TienQuyet)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SongHanh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Khoa1.TenKhoa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nganh1.TenNganh)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+        <div class="table-responsive" style="overflow: auto; height: 300px;">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã học phần</th>
+                        <th>Tên học phần</th>
+                        <th>Số tín chỉ</th>
+                        <th>BB/TC</th>
+                        <th>Học kỳ</th>
+                        <th>Điều chỉnh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>DCT0080 </td>
+                        <td>Triết học Mác Lênin</td>
+                        <td>3TC</td>
+                        <td>BB</td>
+                        <td>&emsp;1</td>
+                        <td><a href="#">&emsp;&ensp;Sửa</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!-- end col -->
+<div class="col-xl-12">
+    <div class="card-box">
+        <div class="dropdown float-right">
 
-</table>
+        </div>
+        <h4 class="header-title mt-0 mb-3" style="font-family: Roboto;">Kiến thức cơ sở ngành (36 tín chỉ = 18 bắt buộc + 18 tự chọn) </h4>
+
+        <div class="table-responsive" style="overflow: auto; height: 300px;">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã học phần</th>
+                        <th>Tên học phần</th>
+                        <th>Số tín chỉ</th>
+                        <th>BB/TC</th>
+                        <th>Học kỳ</th>
+                        <th>Điều chỉnh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>DIT0040</td>
+                        <td>Kỹ thuật lập trình</td>
+                        <td>3TC</td>
+                        <td>BB</td>
+                        <td>&emsp;2</td>
+                        <td><a href="#">&emsp;&ensp;Sửa</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!-- end col -->

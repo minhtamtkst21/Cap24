@@ -293,9 +293,7 @@
     <Content Include="Faculty_assets\images\layouts\light.png" />
     <Content Include="Faculty_assets\images\layouts\rtl.png" />
     <Content Include="Faculty_assets\images\loading.gif" />
-    <Content Include="Faculty_assets\images\logo-dark.png" />
     <Content Include="Faculty_assets\images\logo-light.png" />
-    <Content Include="Faculty_assets\images\logo-sm.png" />
     <Content Include="Faculty_assets\images\mail_confirm.png" />
     <Content Include="Faculty_assets\images\multiple-arrow.png" />
     <Content Include="Faculty_assets\images\profile.jpg" />
@@ -527,6 +525,10 @@
     <Content Include="Areas\Faculty\Views\Curriculums\CreateNganh.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\EditNganh.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\DeleteNganh.cshtml" />
+    <Content Include="Areas\Faculty\Views\Curriculums\IndexKhoa.cshtml" />
+    <Content Include="Areas\Faculty\Views\Curriculums\CreateKhoa.cshtml" />
+    <Content Include="Areas\Faculty\Views\Curriculums\EditKhoa.cshtml" />
+    <Content Include="Areas\Faculty\Views\Curriculums\DeleteKhoa.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
