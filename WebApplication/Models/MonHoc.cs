@@ -25,7 +25,7 @@ namespace WebApplication.Models
         public string MaMonHoc { get; set; }
         public string TenMocHoc { get; set; }
         public int SoTinChi { get; set; }
-        public int HocKy { get; set; }
+        public Nullable<int> HocKy { get; set; }
         public int Khoa { get; set; }
         public int Nganh { get; set; }
         public Nullable<int> HocTruoc { get; set; }
