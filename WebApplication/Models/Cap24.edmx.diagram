@@ -5,25 +5,30 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e53dd916fef540ecb277c1aaff65cc59" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.DiemSo" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.GiangVien" Width="1.5" PointX="1.5" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.KeHoachHocTap" Width="1.5" PointX="8.25" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Khoa" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Lop" Width="1.5" PointX="3.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.MonHoc" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Nganh" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.SinhVien" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ThongBao" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="Model.FK_DiemSo_MonHoc" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_DiemSo_SinhVien" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_Lop_GiangVien" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_KeHoachHocTap_MonHoc" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_KeHoachHocTap_SinhVien" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_MonHoc_Khoa" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_SinhVien_Khoa" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_SinhVien_Lop" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_MonHoc_Nganh" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_SinhVien_Nganh" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.DiemSo" Width="1.5" PointX="8.25" PointY="5.125" />
+        <EntityTypeShape EntityType="Model.GiangVien" Width="1.5" PointX="1.5" PointY="9.75" />
+        <EntityTypeShape EntityType="Model.HocKy" Width="1.5" PointX="3.75" PointY="1.25" />
+        <EntityTypeShape EntityType="Model.KeHoachHocTap" Width="1.5" PointX="8.25" PointY="2" />
+        <EntityTypeShape EntityType="Model.Khoa" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="Model.KhoiKienThuc" Width="1.5" PointX="3.75" PointY="9.5" />
+        <EntityTypeShape EntityType="Model.Lop" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="Model.MonHoc" Width="1.5" PointX="6" PointY="4" />
+        <EntityTypeShape EntityType="Model.Nganh" Width="1.5" PointX="0.75" PointY="12.875" />
+        <EntityTypeShape EntityType="Model.SinhVien" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Model.ThongBao" Width="1.5" PointX="5.75" PointY="9.75" />
+        <AssociationConnector Association="Model.FK_DiemSo_MonHoc" />
+        <AssociationConnector Association="Model.FK_DiemSo_SinhVien" />
+        <AssociationConnector Association="Model.FK_Lop_GiangVien" />
+        <AssociationConnector Association="Model.FK_MonHoc_HocKy" />
+        <AssociationConnector Association="Model.FK_KeHoachHocTap_MonHoc" />
+        <AssociationConnector Association="Model.FK_KeHoachHocTap_SinhVien" />
+        <AssociationConnector Association="Model.FK_MonHoc_Khoa" />
+        <AssociationConnector Association="Model.FK_SinhVien_Khoa" />
+        <AssociationConnector Association="Model.FK_MonHoc_KhoiKienThuc1" />
+        <AssociationConnector Association="Model.FK_SinhVien_Lop" />
+        <AssociationConnector Association="Model.FK_MonHoc_Nganh" />
+        <AssociationConnector Association="Model.FK_SinhVien_Nganh" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

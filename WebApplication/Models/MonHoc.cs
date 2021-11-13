@@ -24,19 +24,23 @@ namespace WebApplication.Models
         public int ID { get; set; }
         public string MaMonHoc { get; set; }
         public string TenMocHoc { get; set; }
-        public int SoTinChi { get; set; }
+        public string SoTinChi { get; set; }
         public Nullable<int> HocKy { get; set; }
-        public int Khoa { get; set; }
-        public int Nganh { get; set; }
-        public Nullable<int> HocTruoc { get; set; }
-        public Nullable<int> TienQuyet { get; set; }
-        public Nullable<int> SongHanh { get; set; }
+        public Nullable<int> Khoa { get; set; }
+        public Nullable<int> Nganh { get; set; }
+        public string HocTruoc { get; set; }
+        public string TienQuyet { get; set; }
+        public string SongHanh { get; set; }
+        public Nullable<int> KhoiKienThuc { get; set; }
+        public string BBTC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiemSo> DiemSoes { get; set; }
+        public virtual HocKy HocKy1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KeHoachHocTap> KeHoachHocTaps { get; set; }
         public virtual Khoa Khoa1 { get; set; }
+        public virtual KhoiKienThuc KhoiKienThuc1 { get; set; }
         public virtual Nganh Nganh1 { get; set; }
     }
 }

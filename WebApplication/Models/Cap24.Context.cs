@@ -27,12 +27,15 @@ namespace WebApplication.Models
     
         public virtual DbSet<DiemSo> DiemSoes { get; set; }
         public virtual DbSet<GiangVien> GiangViens { get; set; }
+        public virtual DbSet<HocKy> HocKies { get; set; }
         public virtual DbSet<KeHoachHocTap> KeHoachHocTaps { get; set; }
         public virtual DbSet<Khoa> Khoas { get; set; }
+        public virtual DbSet<KhoiKienThuc> KhoiKienThucs { get; set; }
         public virtual DbSet<Lop> Lops { get; set; }
         public virtual DbSet<MonHoc> MonHocs { get; set; }
         public virtual DbSet<Nganh> Nganhs { get; set; }
         public virtual DbSet<SinhVien> SinhViens { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
     }
 }

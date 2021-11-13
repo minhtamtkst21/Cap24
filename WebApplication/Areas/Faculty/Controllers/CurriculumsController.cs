@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,6 +19,10 @@ namespace WebApplication.Areas.Faculty.Controllers
         public ActionResult IndexMonHoc()
         {
             var monHocs = db.MonHocs.Include(m => m.Khoa1).Include(m => m.Nganh1);
+            ViewData["Nganh"] = db.Nganhs.ToList();
+            ViewData["Khoa"] = db.Khoas.ToList();
+            ViewData["KhoiKienThuc"] = db.KhoiKienThucs.ToList();
+            ViewData["HocKy"] = db.HocKies.ToList();
             return View(monHocs.ToList());
         }
 
@@ -74,47 +79,145 @@ namespace WebApplication.Areas.Faculty.Controllers
                     string fileContentType = file.ContentType;
                     byte[] fileBytes = new byte[file.ContentLength];
                     var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
-                    using (var package = new Exc    elPackage(file.InputStream))
+                    using (var package = new ExcelPackage(file.InputStream))
                     {
                         var currentSheet = package.Workbook.Worksheets;
                         var workSheet = currentSheet.First();
                         var noOfCol = workSheet.Dimension.End.Column;
                         var noOfRow = workSheet.Dimension.End.Row;
-                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                        //Khoi kien thuc
                         {
-                            var user = new SinhVien();
-                            user.MSSV = (workSheet.Cells[rowIterator, 1].Value).ToString();
-                            user.HoTen = (workSheet.Cells[rowIterator, 2].Value).ToString();
-                            user.NienKhoa = workSheet.Cells[rowIterator, 3].Value.ToString();
-                            if (workSheet.Cells[rowIterator, 4].Value != null)
+                            var listKhoiKT = new List<string>();
+                            foreach (var item in db.KhoiKienThucs.ToList())
                             {
-                                user.SoDienThoai = int.Parse(workSheet.Cells[rowIterator, 4].Value.ToString());
+                                listKhoiKT.Add(item.KhoiKT);
                             }
-                            user.mail = (workSheet.Cells[rowIterator, 5].Value).ToString();
-                            usersList.Add(user);
+                            for (int rowIterator = 4; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                var KhoiKienThuc = new KhoiKienThuc();
+                                string khoikienthuc = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                if (!FindList(khoikienthuc, listKhoiKT))
+                                {
+                                    KhoiKienThuc.KhoiKT = khoikienthuc;
+                                    db.KhoiKienThucs.Add(KhoiKienThuc);
+                                    db.SaveChanges();
+                                    listKhoiKT.Add(khoikienthuc);
+                                }
+                            }
+                        }
+                        //Hoc Ky
+                        {
+                            var listHK = new List<string>();
+                            foreach (var item in db.HocKies.ToList())
+                            {
+                                listHK.Add(item.HK.ToString());
+                            }
+                            for (int rowIterator = 4; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                var HocKy = new HocKy();
+                                if (workSheet.Cells[rowIterator, 8].Value != null)
+                                {
+                                    string hocky = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                    if (!FindList(hocky, listHK))
+                                    {
+                                        HocKy.HK = hocky;
+                                        db.HocKies.Add(HocKy);
+                                        db.SaveChanges();
+                                        listHK.Add(hocky);
+                                    }
+                                }
+                            }
+                        }
+                        //Nganh
+                        {
+                            var listNganh = new List<string>();
+                            foreach (var item in db.Nganhs.ToList())
+                            {
+                                listNganh.Add(item.TenNganh.ToString());
+                            }
+                                var Nganh = new Nganh();
+                                if (workSheet.Cells[1, 2].Value != null)
+                                {
+                                    string nganh = workSheet.Cells[1, 2].Value.ToString();
+                                    if (!FindList(nganh, listNganh))
+                                    {
+                                        Nganh.TenNganh = nganh;
+                                        db.Nganhs.Add(Nganh);
+                                        db.SaveChanges();
+                                    }
+                                }
+                        }
+                        //Khoa
+                        {
+                            var listKhoa = new List<string>();
+                            foreach (var item in db.Khoas.ToList())
+                            {
+                                listKhoa.Add(item.TenKhoa.ToString());
+                            }
+                            var Khoa = new Khoa();
+                            if (workSheet.Cells[1, 2].Value != null)
+                            {
+                                string khoa = workSheet.Cells[2, 2].Value.ToString();
+                                if (!FindList(khoa, listKhoa))
+                                {
+                                    Khoa.TenKhoa = khoa;
+                                    db.Khoas.Add(Khoa);
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+                        for (int rowIterator = 4; rowIterator <= noOfRow; rowIterator++)
+                        {
+                            var monhoc = new MonHoc();
+                            monhoc.MaMonHoc = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            monhoc.TenMocHoc = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            monhoc.SoTinChi = workSheet.Cells[rowIterator, 4].Value.ToString();
+                            monhoc.BBTC = workSheet.Cells[rowIterator, 5].Value.ToString();
+                            if (workSheet.Cells[rowIterator, 6].Value != null)
+                                monhoc.TienQuyet = workSheet.Cells[rowIterator, 6].Value.ToString();
+                            if (workSheet.Cells[rowIterator, 7].Value != null)
+                                monhoc.HocTruoc = workSheet.Cells[rowIterator, 7].Value.ToString();
+                            if (workSheet.Cells[rowIterator, 8].Value != null)
+                            {
+                                var HocKy = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                var monhoc_hocky = db.HocKies.FirstOrDefault(s => s.HK == HocKy);
+                                monhoc.HocKy1 = monhoc_hocky;
+                            }
+                            var khoikienthuc = workSheet.Cells[rowIterator, 9].Value.ToString();
+                            var KhoiKienThuc = db.KhoiKienThucs.FirstOrDefault(s => s.KhoiKT == khoikienthuc);
+                            if (KhoiKienThuc == null)
+                            {
+                                return RedirectToAction("IndexMonHoc");
+                            }
+                            monhoc.KhoiKienThuc1 = KhoiKienThuc;
+
+                            //Nganh - Khoa Mon Hoc
+                            var nganh = workSheet.Cells[1, 2].Value.ToString();
+                            var khoa = workSheet.Cells[2, 2].Value.ToString();
+
+                            var monhoc_nganh = db.Nganhs.FirstOrDefault(s => s.TenNganh == nganh);
+                            var monhoc_khoa = db.Khoas.FirstOrDefault(s => s.TenKhoa == khoa);
+
+                            monhoc.Khoa1 = monhoc_khoa;
+                            monhoc.Nganh1 = monhoc_nganh;
+
+                            db.MonHocs.Add(monhoc);
+                            db.SaveChanges();
                         }
                     }
                 }
-                else
-                {
-                    SetAlert("Bạn không thêm sinh viên thành công", "warning");
-                }
             }
-            foreach (var item in usersList)
-            {
-                db.SinhViens.Add(item);
-                var sv = new Login();
-                sv.username = item.mail.Substring(0, item.mail.Length - 14);
-                sv.password = "VLU" + sv.username.Substring(sv.username.Length - 10, 10);
-                db.Logins.Add(sv);
-            }
-            db.SaveChanges();
-            SetAlert("Bạn đã tạo thành công", "success");
-            ViewBag.Khoa = new SelectList(db.Khoas, "ID", "TenKhoa");
-            ViewBag.Nganh = new SelectList(db.Nganhs, "ID", "TenNganh");
-            return View();
+            return RedirectToAction("IndexMonHoc");
         }
-
+        public bool FindList(string txt, List<string> ls)
+        {
+            for (int i = 0; i < ls.Count; i++)
+            {
+                if (txt == ls[i])
+                    return true;
+            }
+            return false;
+        }
         // POST: Faculty/Nganh/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -157,6 +260,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             ViewBag.Khoa = new SelectList(db.Khoas, "ID", "TenKhoa", monHoc.Khoa);
             ViewBag.Nganh = new SelectList(db.Nganhs, "ID", "TenNganh", monHoc.Nganh);
+            ViewBag.KhoiKienthuc = new SelectList(db.KhoiKienThucs, "ID", "KhoiKT", monHoc.KhoiKienThuc);
             return View(monHoc);
         }
 
