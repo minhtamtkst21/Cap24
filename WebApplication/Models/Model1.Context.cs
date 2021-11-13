@@ -13,10 +13,10 @@ namespace WebApplication.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Cap24 : DbContext
+    public partial class CAPK24Entities : DbContext
     {
-        public Cap24()
-            : base("name=Cap24")
+        public CAPK24Entities()
+            : base("name=CAPK24Entities")
         {
         }
     

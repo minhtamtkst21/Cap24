@@ -24,6 +24,7 @@ namespace WebApplication.Models
         public int ID { get; set; }
         public string MaMonHoc { get; set; }
         public string TenMocHoc { get; set; }
+<<<<<<< HEAD
         public string SoTinChi { get; set; }
         public Nullable<int> HocKy { get; set; }
         public Nullable<int> Khoa { get; set; }
@@ -33,6 +34,15 @@ namespace WebApplication.Models
         public string SongHanh { get; set; }
         public Nullable<int> KhoiKienThuc { get; set; }
         public string BBTC { get; set; }
+=======
+        public int SoTinChi { get; set; }
+        public int HocKy { get; set; }
+        public int Khoa { get; set; }
+        public int Nganh { get; set; }
+        public Nullable<int> HocTruoc { get; set; }
+        public Nullable<int> TienQuyet { get; set; }
+        public Nullable<int> SongHanh { get; set; }
+>>>>>>> a1e3dde93d87b6e90a8755908d2538941bfe5842
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiemSo> DiemSoes { get; set; }
