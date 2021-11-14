@@ -13,10 +13,10 @@ namespace WebApplication.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CAPK24Entities : DbContext
+    public partial class Cap24 : DbContext
     {
-        public CAPK24Entities()
-            : base("name=CAPK24Entities")
+        public Cap24()
+            : base("name=Cap24")
         {
         }
     
@@ -35,7 +35,6 @@ namespace WebApplication.Models
         public virtual DbSet<MonHoc> MonHocs { get; set; }
         public virtual DbSet<Nganh> Nganhs { get; set; }
         public virtual DbSet<SinhVien> SinhViens { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
     }
 }

@@ -20,10 +20,10 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaGV" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TenGV" Type="nvarchar" MaxLength="50" />
+          <Property Name="TenGV" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SDT" Type="nvarchar" MaxLength="50" />
-          <Property Name="Title_GV" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title_GV" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="HocKy">
           <Key>
@@ -47,7 +47,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenKhoa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TenKhoa" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="KhoiKienThuc">
           <Key>
@@ -83,9 +83,9 @@
           <Property Name="BBTC" Type="nvarchar" MaxLength="50" />
 =======
           <Property Name="MaMonHoc" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TenMocHoc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TenMocHoc" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SoTinChi" Type="int" Nullable="false" />
-          <Property Name="HocKy" Type="int" Nullable="false" />
+          <Property Name="HocKy" Type="int" />
           <Property Name="Khoa" Type="int" Nullable="false" />
           <Property Name="Nganh" Type="int" Nullable="false" />
           <Property Name="HocTruoc" Type="int" />
@@ -98,7 +98,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenNganh" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TenNganh" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="SinhVien">
           <Key>
@@ -113,16 +113,6 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SDT" Type="nvarchar" MaxLength="50" />
           <Property Name="Title_SV" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="ThongBao">
           <Key>
@@ -289,7 +279,6 @@
           <EntitySet Name="MonHoc" EntityType="Self.MonHoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nganh" EntityType="Self.Nganh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThongBao" EntityType="Self.ThongBao" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_DiemSo_MonHoc" Association="Self.FK_DiemSo_MonHoc">
             <End Role="MonHoc" EntitySet="MonHoc" />
@@ -439,10 +428,10 @@
           <NavigationProperty Name="MonHocs" Relationship="Model.FK_MonHoc_HocKy" FromRole="HocKy" ToRole="MonHoc" />
 =======
           <Property Name="MaGV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TenGV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenGV" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title_GV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title_GV" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Lops" Relationship="Self.FK_Lop_GiangVien" FromRole="GiangVien" ToRole="Lop" />
 >>>>>>> a1e3dde93d87b6e90a8755908d2538941bfe5842:WebApplication/Models/Model1.edmx
         </EntityType>
@@ -463,6 +452,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+<<<<<<< HEAD:WebApplication/Models/Model1.edmx
 <<<<<<< HEAD:WebApplication/Models/Cap24.edmx
           <Property Name="TenKhoa" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MonHocs" Relationship="Model.FK_MonHoc_Khoa" FromRole="Khoa" ToRole="MonHoc" />
@@ -477,6 +467,9 @@
           <NavigationProperty Name="MonHocs" Relationship="Model.FK_MonHoc_KhoiKienThuc1" FromRole="KhoiKienThuc" ToRole="MonHoc" />
 =======
           <Property Name="TenKhoa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+=======
+          <Property Name="TenKhoa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+>>>>>>> d9eb9ba0433bf054913829d7978152872df050a1:WebApplication/Models/Cap24.edmx
           <NavigationProperty Name="MonHocs" Relationship="Self.FK_MonHoc_Khoa" FromRole="Khoa" ToRole="MonHoc" />
           <NavigationProperty Name="SinhViens" Relationship="Self.FK_SinhVien_Khoa" FromRole="Khoa" ToRole="SinhVien" />
 >>>>>>> a1e3dde93d87b6e90a8755908d2538941bfe5842:WebApplication/Models/Model1.edmx
@@ -516,9 +509,9 @@
           <NavigationProperty Name="Nganh1" Relationship="Model.FK_MonHoc_Nganh" FromRole="MonHoc" ToRole="Nganh" />
 =======
           <Property Name="MaMonHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TenMocHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenMocHoc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SoTinChi" Type="Int32" Nullable="false" />
-          <Property Name="HocKy" Type="Int32" Nullable="false" />
+          <Property Name="HocKy" Type="Int32" />
           <Property Name="Khoa" Type="Int32" Nullable="false" />
           <Property Name="Nganh" Type="Int32" Nullable="false" />
           <Property Name="HocTruoc" Type="Int32" />
@@ -535,12 +528,16 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+<<<<<<< HEAD:WebApplication/Models/Model1.edmx
 <<<<<<< HEAD:WebApplication/Models/Cap24.edmx
           <Property Name="TenNganh" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MonHocs" Relationship="Model.FK_MonHoc_Nganh" FromRole="Nganh" ToRole="MonHoc" />
           <NavigationProperty Name="SinhViens" Relationship="Model.FK_SinhVien_Nganh" FromRole="Nganh" ToRole="SinhVien" />
 =======
           <Property Name="TenNganh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+=======
+          <Property Name="TenNganh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+>>>>>>> d9eb9ba0433bf054913829d7978152872df050a1:WebApplication/Models/Cap24.edmx
           <NavigationProperty Name="MonHocs" Relationship="Self.FK_MonHoc_Nganh" FromRole="Nganh" ToRole="MonHoc" />
           <NavigationProperty Name="SinhViens" Relationship="Self.FK_SinhVien_Nganh" FromRole="Nganh" ToRole="SinhVien" />
 >>>>>>> a1e3dde93d87b6e90a8755908d2538941bfe5842:WebApplication/Models/Model1.edmx
@@ -569,16 +566,6 @@
             <PropertyRef Name="diagram_id" />
           </Key>
           <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -738,10 +725,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< HEAD:WebApplication/Models/Model1.edmx
 <<<<<<< HEAD:WebApplication/Models/Cap24.edmx
         </Schema>
 =======
         <EntityContainer Name="CAPK24Entities" annotation:LazyLoadingEnabled="true">
+=======
+        <EntityContainer Name="Cap24" annotation:LazyLoadingEnabled="true">
+>>>>>>> d9eb9ba0433bf054913829d7978152872df050a1:WebApplication/Models/Cap24.edmx
           <EntitySet Name="DiemSoes" EntityType="Self.DiemSo" />
           <EntitySet Name="GiangViens" EntityType="Self.GiangVien" />
           <EntitySet Name="KeHoachHocTaps" EntityType="Self.KeHoachHocTap" />
@@ -750,7 +741,6 @@
           <EntitySet Name="MonHocs" EntityType="Self.MonHoc" />
           <EntitySet Name="Nganhs" EntityType="Self.Nganh" />
           <EntitySet Name="SinhViens" EntityType="Self.SinhVien" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="ThongBaos" EntityType="Self.ThongBao" />
           <AssociationSet Name="FK_DiemSo_MonHoc" Association="Self.FK_DiemSo_MonHoc">
             <End Role="MonHoc" EntitySet="MonHocs" />
@@ -799,7 +789,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CAPK24Entities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Cap24">
           <EntitySetMapping Name="DiemSoes">
             <EntityTypeMapping TypeName="Model.DiemSo">
               <MappingFragment StoreEntitySet="DiemSo">
@@ -915,17 +905,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Model.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

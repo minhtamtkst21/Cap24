@@ -59,6 +59,7 @@ namespace WebApplication.Areas.Faculty.Controllers
         {
             return View();
         }
+<<<<<<< HEAD
 
         // POST: Faculty/Nganh/Create
         [HttpPost]
@@ -74,22 +75,12 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(nganh);
         }
         // GET: Faculty/Khoa/Create
+=======
+        // GET: Faculty/Nganh/Create
+>>>>>>> d9eb9ba0433bf054913829d7978152872df050a1
         public ActionResult CreateKhoa()
         {
             return View();
-        }
-        // POST: Faculty/Khoa/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateKhoa(Khoa khoa)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Khoas.Add(khoa);
-                db.SaveChanges();
-                return RedirectToAction("IndexKhoa");
-            }
-            return View(khoa);
         }
 
         // POST: Faculty/MonHoc/Create
@@ -236,6 +227,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return RedirectToAction("IndexMonHoc");
         }
+<<<<<<< HEAD
         public bool FindList(string txt, List<string> ls)
         {
             for (int i = 0; i < ls.Count; i++)
@@ -245,6 +237,37 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return false;
         }
+=======
+
+        // POST: Faculty/Nganh/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateNganh(Nganh nganh)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Nganhs.Add(nganh);
+                db.SaveChanges();
+                return RedirectToAction("IndexNganh");
+            }
+            return View(nganh);
+        }
+
+        // POST: Faculty/Khoa/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateKhoa(Khoa khoa)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Khoas.Add(khoa);
+                db.SaveChanges();
+                return RedirectToAction("IndexKhoa");
+            }
+            return View(khoa);
+        }
+
+>>>>>>> d9eb9ba0433bf054913829d7978152872df050a1
         // GET: Faculty/MonHoc/Edit
         public ActionResult EditMonHoc(int? id)
         {
@@ -262,6 +285,52 @@ namespace WebApplication.Areas.Faculty.Controllers
             ViewBag.KhoiKienthuc = new SelectList(db.KhoiKienThucs, "ID", "KhoiKT", monHoc.KhoiKienThuc);
             return View(monHoc);
         }
+
+        // GET: Faculty/Nganh/Edit
+        public ActionResult EditNganh(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Nganh nganh = db.Nganhs.Find(id);
+            if (nganh == null)
+            {
+                return HttpNotFound();
+            }
+            return View(nganh);
+        }
+<<<<<<< HEAD
+        // POST: Faculty/Nganh/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditNganh(Nganh nganh)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(nganh).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("IndexNganh");
+            }
+            return View(nganh);
+        }
+=======
+>>>>>>> d9eb9ba0433bf054913829d7978152872df050a1
+
+        // GET: Faculty/Khoa/Edit
+        public ActionResult EditKhoa(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Khoa khoa = db.Khoas.Find(id);
+            if (khoa == null)
+            {
+                return HttpNotFound();
+            }
+            return View(khoa);
+        }
         // POST: Faculty/MonHoc/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -278,20 +347,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(monHoc);
         }
 
-        // GET: Faculty/Nganh/Edit
-        public ActionResult EditNganh(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Nganh nganh = db.Nganhs.Find(id);
-            if (nganh == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nganh);
-        }
         // POST: Faculty/Nganh/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -305,24 +360,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(nganh);
         }
-
-        // GET: Faculty/Khoa/Edit
-        public ActionResult EditKhoa(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Khoa khoa = db.Khoas.Find(id);
-            if (khoa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khoa);
-        }
-        
-
-        
 
         // POST: Faculty/Khoa/Edit
         [HttpPost]
@@ -352,17 +389,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(monHoc);
         }
-        // POST: Faculty/Monhoc/Delete
-        [HttpPost, ActionName("DeleteMonHoc")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteMonHocConfirmed(int id)
-        {
-            MonHoc monHoc = db.MonHocs.Find(id);
-            db.MonHocs.Remove(monHoc);
-            db.SaveChanges();
-            return RedirectToAction("IndexMonHoc");
-        }
-
 
         // GET: Faculty/Nganh/Delete
         public ActionResult DeleteNganh(int? id)
@@ -377,16 +403,6 @@ namespace WebApplication.Areas.Faculty.Controllers
                 return HttpNotFound();
             }
             return View(nganh);
-        }
-        // POST: Faculty/Nganh/Delete
-        [HttpPost, ActionName("DeleteNganh")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteNganhConfirmed(int id)
-        {
-            Nganh nganh = db.Nganhs.Find(id);
-            db.Nganhs.Remove(nganh);
-            db.SaveChanges();
-            return RedirectToAction("IndexNganh");
         }
 
         // GET: Faculty/Khoa/Delete
@@ -403,7 +419,29 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(khoa);
         }
-                
+
+        // POST: Faculty/Monhoc/Delete
+        [HttpPost, ActionName("DeleteMonHoc")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteMonHocConfirmed(int id)
+        {
+            MonHoc monHoc = db.MonHocs.Find(id);
+            db.MonHocs.Remove(monHoc);
+            db.SaveChanges();
+            return RedirectToAction("IndexMonHoc");
+        }
+
+        // POST: Faculty/Nganh/Delete
+        [HttpPost, ActionName("DeleteNganh")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteNganhConfirmed(int id)
+        {
+            Nganh nganh = db.Nganhs.Find(id);
+            db.Nganhs.Remove(nganh);
+            db.SaveChanges();
+            return RedirectToAction("IndexNganh");
+        }
+
         // POST: Faculty/Khoa/Delete
         [HttpPost, ActionName("DeleteKhoa")]
         [ValidateAntiForgeryToken]
