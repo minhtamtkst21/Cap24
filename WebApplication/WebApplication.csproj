@@ -194,56 +194,56 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CAP24.Context.cs">
+    <Compile Include="Models\Cap24.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CAP24.Context.tt</DependentUpon>
+      <DependentUpon>Cap24.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CAP24.cs">
+    <Compile Include="Models\Cap24.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CAP24.Designer.cs">
+    <Compile Include="Models\Cap24.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CAP24.edmx</DependentUpon>
+      <DependentUpon>Cap24.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DiemSo.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GiangVien.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HocKy.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KeHoachHocTap.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Khoa.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KhoiKienThuc.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Lop.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MonHoc.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Nganh.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SinhVien.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ThongBao.cs">
-      <DependentUpon>CAP24.tt</DependentUpon>
+      <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -467,15 +467,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\CAP24.Context.tt">
+    <Content Include="Models\Cap24.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CAP24.edmx</DependentUpon>
-      <LastGenOutput>CAP24.Context.cs</LastGenOutput>
+      <DependentUpon>Cap24.edmx</DependentUpon>
+      <LastGenOutput>Cap24.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CAP24.tt">
+    <Content Include="Models\Cap24.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CAP24.edmx</DependentUpon>
-      <LastGenOutput>CAP24.cs</LastGenOutput>
+      <DependentUpon>Cap24.edmx</DependentUpon>
+      <LastGenOutput>Cap24.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -536,12 +536,12 @@
     <Content Include="Areas\Faculty\Views\Curriculums\CreateKhoa.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\EditKhoa.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\DeleteKhoa.cshtml" />
-    <EntityDeploy Include="Models\CAP24.edmx">
+    <EntityDeploy Include="Models\Cap24.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CAP24.Designer.cs</LastGenOutput>
+      <LastGenOutput>Cap24.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CAP24.edmx.diagram">
-      <DependentUpon>CAP24.edmx</DependentUpon>
+    <Content Include="Models\Cap24.edmx.diagram">
+      <DependentUpon>Cap24.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

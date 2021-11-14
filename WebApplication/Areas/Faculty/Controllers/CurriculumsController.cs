@@ -13,7 +13,7 @@ namespace WebApplication.Areas.Faculty.Controllers
 {
     public class CurriculumsController : Controller
     {
-        private CAP24 db = new CAP24();
+        private Cap24 db = new Cap24();
 
         // GET: Faculty/MonHoc
         public ActionResult IndexMonHoc()
@@ -59,8 +59,6 @@ namespace WebApplication.Areas.Faculty.Controllers
         {
             return View();
         }
-<<<<<<< HEAD
-
         // POST: Faculty/Nganh/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,10 +72,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(nganh);
         }
-        // GET: Faculty/Khoa/Create
-=======
-        // GET: Faculty/Nganh/Create
->>>>>>> d9eb9ba0433bf054913829d7978152872df050a1
         public ActionResult CreateKhoa()
         {
             return View();
@@ -227,7 +221,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return RedirectToAction("IndexMonHoc");
         }
-<<<<<<< HEAD
         public bool FindList(string txt, List<string> ls)
         {
             for (int i = 0; i < ls.Count; i++)
@@ -236,21 +229,6 @@ namespace WebApplication.Areas.Faculty.Controllers
                     return true;
             }
             return false;
-        }
-=======
-
-        // POST: Faculty/Nganh/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateNganh(Nganh nganh)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Nganhs.Add(nganh);
-                db.SaveChanges();
-                return RedirectToAction("IndexNganh");
-            }
-            return View(nganh);
         }
 
         // POST: Faculty/Khoa/Create
@@ -266,9 +244,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(khoa);
         }
-
->>>>>>> d9eb9ba0433bf054913829d7978152872df050a1
-        // GET: Faculty/MonHoc/Edit
         public ActionResult EditMonHoc(int? id)
         {
             if (id == null)
@@ -300,8 +275,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(nganh);
         }
-<<<<<<< HEAD
-        // POST: Faculty/Nganh/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditNganh(Nganh nganh)
@@ -314,8 +287,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(nganh);
         }
-=======
->>>>>>> d9eb9ba0433bf054913829d7978152872df050a1
 
         // GET: Faculty/Khoa/Edit
         public ActionResult EditKhoa(int? id)
@@ -345,20 +316,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             ViewBag.Khoa = new SelectList(db.Khoas, "ID", "TenKhoa", monHoc.Khoa);
             ViewBag.Nganh = new SelectList(db.Nganhs, "ID", "TenNganh", monHoc.Nganh);
             return View(monHoc);
-        }
-
-        // POST: Faculty/Nganh/Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditNganh(Nganh nganh)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(nganh).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("IndexNganh");
-            }
-            return View(nganh);
         }
 
         // POST: Faculty/Khoa/Edit

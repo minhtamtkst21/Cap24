@@ -13,10 +13,10 @@ namespace WebApplication.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CAP24 : DbContext
+    public partial class Cap24 : DbContext
     {
-        public CAP24()
-            : base("name=CAP24")
+        public Cap24()
+            : base("name=Cap24")
         {
         }
     
