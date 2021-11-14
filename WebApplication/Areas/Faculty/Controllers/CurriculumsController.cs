@@ -13,7 +13,7 @@ namespace WebApplication.Areas.Faculty.Controllers
 {
     public class CurriculumsController : Controller
     {
-        private Cap24 db = new Cap24();
+        private CAP24 db = new CAP24();
 
         // GET: Faculty/MonHoc
         public ActionResult IndexMonHoc()
@@ -65,7 +65,6 @@ namespace WebApplication.Areas.Faculty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateNganh(Nganh nganh)
         {
-            validateNganh(nganh);
             if (ModelState.IsValid)
             {
                 db.Nganhs.Add(nganh);
@@ -246,38 +245,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return false;
         }
-<<<<<<< HEAD
-        // POST: Faculty/Nganh/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateNganh(Nganh nganh)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Nganhs.Add(nganh);
-                db.SaveChanges();
-                return RedirectToAction("IndexNganh");
-            }
-            return View(nganh);
-        }
-
-        // POST: Faculty/Khoa/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateKhoa(Khoa khoa)
-=======
-
-        public void validateNganh(Nganh nganh)
->>>>>>> a1e3dde93d87b6e90a8755908d2538941bfe5842
-        {
-            if (nganh.TenNganh == null)
-            {
-                ModelState.AddModelError("tenNganh", "Không được để trống");
-            }
-        }
-        
-        
-
         // GET: Faculty/MonHoc/Edit
         public ActionResult EditMonHoc(int? id)
         {
@@ -330,7 +297,6 @@ namespace WebApplication.Areas.Faculty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditNganh(Nganh nganh)
         {
-            validateNganh(nganh);
             if (ModelState.IsValid)
             {
                 db.Entry(nganh).State = EntityState.Modified;

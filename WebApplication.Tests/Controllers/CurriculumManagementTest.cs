@@ -23,7 +23,7 @@ namespace WebApplication.Tests.Controllers
             //Return list Nganh
             var model = result.Model as List<Nganh>;                      
             Assert.IsNotNull(model);
-            var db = new CAPK24Entities();
+            var db = new CAP24();
             Assert.AreEqual(db.Nganhs.Count(), model.Count);
         }
 
@@ -75,7 +75,7 @@ namespace WebApplication.Tests.Controllers
             var result0 = controller.EditNganh(1000) as HttpNotFoundResult; //id 1000 chưa có
             Assert.IsNotNull(result0);
 
-            var db = new CAPK24Entities();
+            var db = new CAP24();
             var nganh = db.Nganhs.First();
             var result = controller.EditNganh(nganh.ID) as ViewResult;
             Assert.IsNotNull(result);
@@ -88,7 +88,7 @@ namespace WebApplication.Tests.Controllers
         [TestMethod]
         public void EditNganhTest()
         {           
-            var db = new CAPK24Entities();
+            var db = new CAP24();
             var nganh = db.Nganhs.AsNoTracking().First();
             nganh.TenNganh = "y dược";
             var controller = new CurriculumsController();
@@ -98,7 +98,7 @@ namespace WebApplication.Tests.Controllers
         [TestMethod]
         public void EditNganhNullTest()
         {
-            var db = new CAPK24Entities();
+            var db = new CAP24();
             var nganh = db.Nganhs.AsNoTracking().First();
             nganh.TenNganh = null;
             var controller = new CurriculumsController();
@@ -111,7 +111,7 @@ namespace WebApplication.Tests.Controllers
         [TestMethod]
         public void DeleteNganhView()
         {
-            var db = new CAPK24Entities();
+            var db = new CAP24();
             var nganh = db.Nganhs.AsNoTracking().First();
 
             var controller = new CurriculumsController();
@@ -122,7 +122,7 @@ namespace WebApplication.Tests.Controllers
         [TestMethod]
         public void DeleteNganh()
         {
-            var db = new CAPK24Entities();
+            var db = new CAP24();
             var nganh = db.Nganhs.AsNoTracking().First();
 
             var controller = new CurriculumsController();
