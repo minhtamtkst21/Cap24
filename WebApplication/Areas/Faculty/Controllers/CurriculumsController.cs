@@ -175,7 +175,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     KhoiKienThuc.KhoiKT = khoikienthuc;
                                     KhoiKienThuc.SoTinChiTuChon = int.Parse(workSheet.Cells[rowIterator, 6].Value.ToString());
                                     db.KhoiKienThucs.Add(KhoiKienThuc);
-                                    db.SaveChanges();   
+                                    db.SaveChanges();
                                     listKhoiKT.Add(khoikienthuc);
                                 }
                             }
@@ -213,6 +213,69 @@ namespace WebApplication.Areas.Faculty.Controllers
                             }
                         }
                     }
+                }
+            }
+            return RedirectToAction("IndexMonHoc");
+        }
+        public ActionResult ExportExcel()
+        {
+            ExcelPackage ep = new ExcelPackage();
+
+            var listKhoa = db.Khoas.ToList();
+            var listNganh = db.Nganhs.ToList();
+            var listMonHoc = db.MonHocs.ToList();
+
+            foreach (var khoa in listKhoa)
+            {
+                foreach (var nganh in listNganh)
+                {
+                    int STT = 0;
+                    var sheet = ep.Workbook.Worksheets.Add(khoa.TenKhoa + "-" + nganh.TenNganh);
+                    sheet.Cells["A1"].Value = "Ngành:";
+                    sheet.Cells["B1"].Value = "Khóa:";
+                    sheet.Cells["A2"].Value = nganh.TenNganh;
+                    sheet.Cells["B2"].Value = khoa.TenKhoa;
+
+                    sheet.Cells["A3"].Value = "STT";
+                    sheet.Cells["B3"].Value = "Khối kiến thức";
+                    sheet.Cells["C3"].Value = "Mã HP";
+                    sheet.Cells["D3"].Value = "Tên học phần";
+                    sheet.Cells["E3"].Value = "Số TC";
+                    sheet.Cells["F3"].Value = "BB/TC";
+                    sheet.Cells["G3"].Value = "Tiên quyết";
+                    sheet.Cells["H3"].Value = "Học trước";
+                    sheet.Cells["I3"].Value = "Học kỳ";
+
+                    int row = 4;
+                    foreach (var monhoc in listMonHoc)
+                    {
+                        STT++;
+                        if (monhoc.KhoiKienThuc1.KhoiKT != KHOIKIENTHUC)
+                        {
+                            KHOIKIENTHUC = monhoc.KhoiKienThuc1.KhoiKT;
+                            sheet.Cells[string.Format("B{0}", row)].Value = KHOIKIENTHUC;
+                            sheet.Cells[string.Format("E{0}", row)].Value = "Số tín chỉ tự chọn tối thiểu:";
+                            sheet.Cells[string.Format("F{0}", row)].Value = monhoc.KhoiKienThuc1.SoTinChiTuChon;
+                            row++;
+                        }
+
+                        sheet.Cells[string.Format("A{0}", row)].Value = STT;
+                        sheet.Cells[string.Format("C{0}", row)].Value = monhoc.MaMonHoc;
+                        sheet.Cells[string.Format("D{0}", row)].Value = monhoc.TenMocHoc;
+                        sheet.Cells[string.Format("E{0}", row)].Value = monhoc.SoTinChi;
+                        sheet.Cells[string.Format("F{0}", row)].Value = monhoc.BBTC;
+                        sheet.Cells[string.Format("G{0}", row)].Value = monhoc.TienQuyet;
+                        sheet.Cells[string.Format("H{0}", row)].Value = monhoc.HocTruoc;
+                        if (monhoc.HocKy1 != null)
+                            sheet.Cells[string.Format("I{0}", row)].Value = monhoc.HocKy1.HK;
+                        row++;
+                    }
+                    sheet.Cells["A:AZ"].AutoFitColumns();
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=" + "Export.xlsx");
+                    Response.BinaryWrite(ep.GetAsByteArray());
+                    Response.End();
                 }
             }
             return RedirectToAction("IndexMonHoc");

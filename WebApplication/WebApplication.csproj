@@ -187,6 +187,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Faculty\Controllers\ClassesController.cs" />
     <Compile Include="Areas\Faculty\Controllers\CurriculumsController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -543,6 +544,7 @@
     <Content Include="Models\Cap24.edmx.diagram">
       <DependentUpon>Cap24.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Faculty\Views\Classes\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
