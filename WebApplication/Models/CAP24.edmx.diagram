@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8ba95c1c6ffd44a9b76e3c0a0732bd60" Name="Diagram1">
+      <Diagram DiagramId="cd6c1e14683147f29cdd42208ebfd0f5" Name="Diagram1">
         <EntityTypeShape EntityType="Model.DiemSo" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.GiangVien" Width="1.5" PointX="1.5" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.HocKy" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.HocKy" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.KeHoachHocTap" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Khoa" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.KhoiKienThuc" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.KhoiKienThuc" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Lop" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.MonHoc" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Nganh" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />

@@ -55,6 +55,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KhoiKT" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SoTinChiTuChon" Type="int" />
         </EntityType>
         <EntityType Name="Lop">
           <Key>
@@ -391,6 +392,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KhoiKT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoTinChiTuChon" Type="Int32" />
           <NavigationProperty Name="MonHocs" Relationship="Self.FK_MonHoc_KhoiKienThuc1" FromRole="KhoiKienThuc" ToRole="MonHoc" />
         </EntityType>
         <EntityType Name="Lop">
@@ -740,6 +742,7 @@
               <MappingFragment StoreEntitySet="KhoiKienThuc">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="KhoiKT" ColumnName="KhoiKT" />
+                <ScalarProperty Name="SoTinChiTuChon" ColumnName="SoTinChiTuChon" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

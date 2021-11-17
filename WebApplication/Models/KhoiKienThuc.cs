@@ -22,6 +22,7 @@ namespace WebApplication.Models
     
         public int ID { get; set; }
         public string KhoiKT { get; set; }
+        public Nullable<int> SoTinChiTuChon { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonHoc> MonHocs { get; set; }

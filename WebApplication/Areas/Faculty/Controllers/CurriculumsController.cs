@@ -14,7 +14,7 @@ namespace WebApplication.Areas.Faculty.Controllers
     public class CurriculumsController : Controller
     {
         private Cap24 db = new Cap24();
-
+        private string KHOIKIENTHUC = "";
         // GET: Faculty/MonHoc
         public ActionResult IndexMonHoc()
         {
@@ -97,26 +97,6 @@ namespace WebApplication.Areas.Faculty.Controllers
                         var workSheet = currentSheet.First();
                         var noOfCol = workSheet.Dimension.End.Column;
                         var noOfRow = workSheet.Dimension.End.Row;
-                        //Khoi kien thuc
-                        {
-                            var listKhoiKT = new List<string>();
-                            foreach (var item in db.KhoiKienThucs.ToList())
-                            {
-                                listKhoiKT.Add(item.KhoiKT);
-                            }
-                            for (int rowIterator = 4; rowIterator <= noOfRow; rowIterator++)
-                            {
-                                var KhoiKienThuc = new KhoiKienThuc();
-                                string khoikienthuc = workSheet.Cells[rowIterator, 9].Value.ToString();
-                                if (!FindList(khoikienthuc, listKhoiKT))
-                                {
-                                    KhoiKienThuc.KhoiKT = khoikienthuc;
-                                    db.KhoiKienThucs.Add(KhoiKienThuc);
-                                    db.SaveChanges();
-                                    listKhoiKT.Add(khoikienthuc);
-                                }
-                            }
-                        }
                         //Hoc Ky
                         {
                             var listHK = new List<string>();
@@ -127,9 +107,9 @@ namespace WebApplication.Areas.Faculty.Controllers
                             for (int rowIterator = 4; rowIterator <= noOfRow; rowIterator++)
                             {
                                 var HocKy = new HocKy();
-                                if (workSheet.Cells[rowIterator, 8].Value != null)
+                                if (workSheet.Cells[rowIterator, 9].Value != null)
                                 {
-                                    string hocky = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                    string hocky = workSheet.Cells[rowIterator, 9].Value.ToString();
                                     if (!FindList(hocky, listHK))
                                     {
                                         HocKy.HK = hocky;
@@ -147,17 +127,17 @@ namespace WebApplication.Areas.Faculty.Controllers
                             {
                                 listNganh.Add(item.TenNganh.ToString());
                             }
-                                var Nganh = new Nganh();
-                                if (workSheet.Cells[1, 2].Value != null)
+                            var Nganh = new Nganh();
+                            if (workSheet.Cells[1, 2].Value != null)
+                            {
+                                string nganh = workSheet.Cells[1, 2].Value.ToString();
+                                if (!FindList(nganh, listNganh))
                                 {
-                                    string nganh = workSheet.Cells[1, 2].Value.ToString();
-                                    if (!FindList(nganh, listNganh))
-                                    {
-                                        Nganh.TenNganh = nganh;
-                                        db.Nganhs.Add(Nganh);
-                                        db.SaveChanges();
-                                    }
+                                    Nganh.TenNganh = nganh;
+                                    db.Nganhs.Add(Nganh);
+                                    db.SaveChanges();
                                 }
+                            }
                         }
                         //Khoa
                         {
@@ -180,41 +160,57 @@ namespace WebApplication.Areas.Faculty.Controllers
                         }
                         for (int rowIterator = 4; rowIterator <= noOfRow; rowIterator++)
                         {
-                            var monhoc = new MonHoc();
-                            monhoc.MaMonHoc = workSheet.Cells[rowIterator, 2].Value.ToString();
-                            monhoc.TenMocHoc = workSheet.Cells[rowIterator, 3].Value.ToString();
-                            monhoc.SoTinChi = workSheet.Cells[rowIterator, 4].Value.ToString();
-                            monhoc.BBTC = workSheet.Cells[rowIterator, 5].Value.ToString();
-                            if (workSheet.Cells[rowIterator, 6].Value != null)
-                                monhoc.TienQuyet = workSheet.Cells[rowIterator, 6].Value.ToString();
-                            if (workSheet.Cells[rowIterator, 7].Value != null)
-                                monhoc.HocTruoc = workSheet.Cells[rowIterator, 7].Value.ToString();
-                            if (workSheet.Cells[rowIterator, 8].Value != null)
+                            if (workSheet.Cells[rowIterator, 2].Value != null)
                             {
-                                var HocKy = workSheet.Cells[rowIterator, 8].Value.ToString();
-                                var monhoc_hocky = db.HocKies.FirstOrDefault(s => s.HK == HocKy);
-                                monhoc.HocKy1 = monhoc_hocky;
+                                var listKhoiKT = new List<string>();
+                                foreach (var item in db.KhoiKienThucs.ToList())
+                                {
+                                    listKhoiKT.Add(item.KhoiKT);
+                                }
+                                var KhoiKienThuc = new KhoiKienThuc();
+                                string khoikienthuc = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                KHOIKIENTHUC = khoikienthuc;
+                                if (!FindList(khoikienthuc, listKhoiKT))
+                                {
+                                    KhoiKienThuc.KhoiKT = khoikienthuc;
+                                    KhoiKienThuc.SoTinChiTuChon = int.Parse(workSheet.Cells[rowIterator, 6].Value.ToString());
+                                    db.KhoiKienThucs.Add(KhoiKienThuc);
+                                    db.SaveChanges();   
+                                    listKhoiKT.Add(khoikienthuc);
+                                }
                             }
-                            var khoikienthuc = workSheet.Cells[rowIterator, 9].Value.ToString();
-                            var KhoiKienThuc = db.KhoiKienThucs.FirstOrDefault(s => s.KhoiKT == khoikienthuc);
-                            if (KhoiKienThuc == null)
+                            else
                             {
-                                return RedirectToAction("IndexMonHoc");
+                                var monhoc = new MonHoc();
+                                var khoikt = db.KhoiKienThucs.FirstOrDefault(s => s.KhoiKT == KHOIKIENTHUC);
+                                monhoc.KhoiKienThuc1 = khoikt;
+                                monhoc.MaMonHoc = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                monhoc.TenMocHoc = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                monhoc.SoTinChi = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                monhoc.BBTC = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 7].Value != null)
+                                    monhoc.TienQuyet = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 8].Value != null)
+                                    monhoc.HocTruoc = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 9].Value != null)
+                                {
+                                    var HocKy = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                    var monhoc_hocky = db.HocKies.FirstOrDefault(s => s.HK == HocKy);
+                                    monhoc.HocKy1 = monhoc_hocky;
+                                }
+                                //Nganh - Khoa Mon Hoc
+                                var nganh = workSheet.Cells[1, 2].Value.ToString();
+                                var khoa = workSheet.Cells[2, 2].Value.ToString();
+
+                                var monhoc_nganh = db.Nganhs.FirstOrDefault(s => s.TenNganh == nganh);
+                                var monhoc_khoa = db.Khoas.FirstOrDefault(s => s.TenKhoa == khoa);
+
+                                monhoc.Khoa1 = monhoc_khoa;
+                                monhoc.Nganh1 = monhoc_nganh;
+
+                                db.MonHocs.Add(monhoc);
+                                db.SaveChanges();
                             }
-                            monhoc.KhoiKienThuc1 = KhoiKienThuc;
-
-                            //Nganh - Khoa Mon Hoc
-                            var nganh = workSheet.Cells[1, 2].Value.ToString();
-                            var khoa = workSheet.Cells[2, 2].Value.ToString();
-
-                            var monhoc_nganh = db.Nganhs.FirstOrDefault(s => s.TenNganh == nganh);
-                            var monhoc_khoa = db.Khoas.FirstOrDefault(s => s.TenKhoa == khoa);
-
-                            monhoc.Khoa1 = monhoc_khoa;
-                            monhoc.Nganh1 = monhoc_nganh;
-
-                            db.MonHocs.Add(monhoc);
-                            db.SaveChanges();
                         }
                     }
                 }

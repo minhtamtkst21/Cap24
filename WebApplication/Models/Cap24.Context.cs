@@ -35,6 +35,7 @@ namespace WebApplication.Models
         public virtual DbSet<MonHoc> MonHocs { get; set; }
         public virtual DbSet<Nganh> Nganhs { get; set; }
         public virtual DbSet<SinhVien> SinhViens { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
     }
 }
