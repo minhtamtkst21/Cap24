@@ -48,7 +48,7 @@ namespace WebApplication.Areas.Faculty.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,TenLop,ChuNhiemLop")] Lop lop)
+        public ActionResult Create(Lop lop)
         {
             if (ModelState.IsValid)
             {

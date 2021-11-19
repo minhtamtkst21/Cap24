@@ -232,8 +232,8 @@ namespace WebApplication.Areas.Faculty.Controllers
                     int STT = 0;
                     var sheet = ep.Workbook.Worksheets.Add(khoa.TenKhoa + "-" + nganh.TenNganh);
                     sheet.Cells["A1"].Value = "Ngành:";
-                    sheet.Cells["B1"].Value = "Khóa:";
-                    sheet.Cells["A2"].Value = nganh.TenNganh;
+                    sheet.Cells["B2"].Value = "Khóa:";
+                    sheet.Cells["B1"].Value = nganh.TenNganh;
                     sheet.Cells["B2"].Value = khoa.TenKhoa;
 
                     sheet.Cells["A3"].Value = "STT";
@@ -254,8 +254,8 @@ namespace WebApplication.Areas.Faculty.Controllers
                         {
                             KHOIKIENTHUC = monhoc.KhoiKienThuc1.KhoiKT;
                             sheet.Cells[string.Format("B{0}", row)].Value = KHOIKIENTHUC;
-                            sheet.Cells[string.Format("E{0}", row)].Value = "Số tín chỉ tự chọn tối thiểu:";
-                            sheet.Cells[string.Format("F{0}", row)].Value = monhoc.KhoiKienThuc1.SoTinChiTuChon;
+                            sheet.Cells[string.Format("D{0}", row)].Value = "Số tín chỉ tự chọn tối thiểu:";
+                            sheet.Cells[string.Format("E{0}", row)].Value = monhoc.KhoiKienThuc1.SoTinChiTuChon;
                             row++;
                         }
 
@@ -273,7 +273,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                     sheet.Cells["A:AZ"].AutoFitColumns();
                     Response.Clear();
                     Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    Response.AddHeader("content-disposition", "attachment; filename=" + "Export.xlsx");
+                    Response.AddHeader("content-disposition", "attachment; filename=" + "Xuất học phần.xlsx");
                     Response.BinaryWrite(ep.GetAsByteArray());
                     Response.End();
                 }
