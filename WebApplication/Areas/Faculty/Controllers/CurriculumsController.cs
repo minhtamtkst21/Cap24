@@ -181,36 +181,42 @@ namespace WebApplication.Areas.Faculty.Controllers
                             }
                             else
                             {
-                                var monhoc = new MonHoc();
-                                var khoikt = db.KhoiKienThucs.FirstOrDefault(s => s.KhoiKT == KHOIKIENTHUC);
-                                monhoc.KhoiKienThuc1 = khoikt;
-                                monhoc.MaMonHoc = workSheet.Cells[rowIterator, 3].Value.ToString();
-                                monhoc.TenMocHoc = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                monhoc.SoTinChi = workSheet.Cells[rowIterator, 5].Value.ToString();
-                                monhoc.BBTC = workSheet.Cells[rowIterator, 6].Value.ToString();
-                                if (workSheet.Cells[rowIterator, 7].Value != null)
-                                    monhoc.TienQuyet = workSheet.Cells[rowIterator, 7].Value.ToString();
-                                if (workSheet.Cells[rowIterator, 8].Value != null)
-                                    monhoc.HocTruoc = workSheet.Cells[rowIterator, 8].Value.ToString();
-                                if (workSheet.Cells[rowIterator, 9].Value != null)
-                                {
-                                    var HocKy = workSheet.Cells[rowIterator, 9].Value.ToString();
-                                    var monhoc_hocky = db.HocKies.FirstOrDefault(s => s.HK == HocKy);
-                                    monhoc.HocKy1 = monhoc_hocky;
-                                }
-                                //Nganh - Khoa Mon Hoc
+                                var tenmonhoc = workSheet.Cells[rowIterator, 4].Value.ToString();
                                 var nganh = workSheet.Cells[1, 2].Value.ToString();
                                 var khoa = workSheet.Cells[2, 2].Value.ToString();
+                                var database = db.MonHocs.Where(s => s.Khoa1.TenKhoa == khoa).Where(s => s.Nganh1.TenNganh == nganh);
+                                var DBMonhoc = database.FirstOrDefault(s => s.TenMocHoc == tenmonhoc);
+                                if (DBMonhoc == null)
+                                {
+                                    var monhoc = new MonHoc();
+                                    var khoikt = db.KhoiKienThucs.FirstOrDefault(s => s.KhoiKT == KHOIKIENTHUC);
+                                    monhoc.KhoiKienThuc1 = khoikt;
+                                    monhoc.MaMonHoc = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    monhoc.TenMocHoc = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    monhoc.SoTinChi = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    monhoc.BBTC = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 7].Value != null)
+                                        monhoc.TienQuyet = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 8].Value != null)
+                                        monhoc.HocTruoc = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 9].Value != null)
+                                    {
+                                        var HocKy = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                        var monhoc_hocky = db.HocKies.FirstOrDefault(s => s.HK == HocKy);
+                                        monhoc.HocKy1 = monhoc_hocky;
+                                    }
 
-                                var monhoc_nganh = db.Nganhs.FirstOrDefault(s => s.TenNganh == nganh);
-                                var monhoc_khoa = db.Khoas.FirstOrDefault(s => s.TenKhoa == khoa);
+                                    var monhoc_nganh = db.Nganhs.FirstOrDefault(s => s.TenNganh == nganh);
+                                    var monhoc_khoa = db.Khoas.FirstOrDefault(s => s.TenKhoa == khoa);
 
-                                monhoc.Khoa1 = monhoc_khoa;
-                                monhoc.Nganh1 = monhoc_nganh;
+                                    monhoc.Khoa1 = monhoc_khoa;
+                                    monhoc.Nganh1 = monhoc_nganh;
 
-                                db.MonHocs.Add(monhoc);
-                                db.SaveChanges();
+                                    db.MonHocs.Add(monhoc);
+                                    db.SaveChanges();
+                                }
                             }
+
                         }
                     }
                 }
