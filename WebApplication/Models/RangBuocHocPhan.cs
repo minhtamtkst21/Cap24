@@ -12,15 +12,14 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class KeHoachHocTap
+    public partial class RangBuocHocPhan
     {
         public int ID { get; set; }
-        public int SinhVien { get; set; }
-        public int MonHoc { get; set; }
-        public int HocKy { get; set; }
-        public bool DangKy { get; set; }
+        public Nullable<int> ID_HocPhan { get; set; }
+        public Nullable<int> ID_HocPhanRangBuoc { get; set; }
+        public string LoaiRangBuoc { get; set; }
     
-        public virtual MonHoc MonHoc1 { get; set; }
-        public virtual SinhVien SinhVien1 { get; set; }
+        public virtual HocPhanDaoTao HocPhanDaoTao { get; set; }
+        public virtual HocPhanDaoTao HocPhanDaoTao1 { get; set; }
     }
 }

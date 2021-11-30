@@ -17,14 +17,16 @@ namespace WebApplication.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhoiKienThuc()
         {
-            this.MonHocs = new HashSet<MonHoc>();
+            this.HocPhanDaoTaos = new HashSet<HocPhanDaoTao>();
         }
     
         public int ID { get; set; }
-        public string KhoiKT { get; set; }
-        public Nullable<int> SoTinChiTuChon { get; set; }
+        public string MaKhoiKienThuc { get; set; }
+        public string TenKhoiKienThuc { get; set; }
+        public Nullable<int> ID_ChuongTrinhDaoTao { get; set; }
     
+        public virtual ChuongTrinhDaoTao ChuongTrinhDaoTao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MonHoc> MonHocs { get; set; }
+        public virtual ICollection<HocPhanDaoTao> HocPhanDaoTaos { get; set; }
     }
 }

@@ -12,18 +12,23 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HocKy
+    public partial class ChuongTrinhDaoTao
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HocKy()
+        public ChuongTrinhDaoTao()
         {
-            this.MonHocs = new HashSet<MonHoc>();
+            this.KhoiKienThucs = new HashSet<KhoiKienThuc>();
         }
     
         public int ID { get; set; }
-        public string HK { get; set; }
+        public string ID_Nganh { get; set; }
+        public string ID_Khoa { get; set; }
+        public Nullable<int> ID_HocKyBatDau { get; set; }
     
+        public virtual HocKyDaoTao HocKyDaoTao { get; set; }
+        public virtual KhoaDaoTao KhoaDaoTao { get; set; }
+        public virtual NganhDaoTao NganhDaoTao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MonHoc> MonHocs { get; set; }
+        public virtual ICollection<KhoiKienThuc> KhoiKienThucs { get; set; }
     }
 }

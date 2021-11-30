@@ -184,14 +184,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\BundleConfig2.cs" />
-    <Compile Include="App_Start\BundleConfig3.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Faculty\Controllers\ClassesController.cs" />
     <Compile Include="Areas\Faculty\Controllers\CurriculumsController.cs" />
-    <Compile Include="Areas\Faculty\Controllers\ListOfStudentController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -213,40 +209,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cap24.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\DiemSo.cs">
+    <Compile Include="Models\ChuongTrinhDaoTao.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GiangVien.cs">
+    <Compile Include="Models\HocKyDaoTao.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HocKy.cs">
+    <Compile Include="Models\HocPhanDaoTao.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\KeHoachHocTap.cs">
-      <DependentUpon>Cap24.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Khoa.cs">
+    <Compile Include="Models\KhoaDaoTao.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KhoiKienThuc.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Lop.cs">
+    <Compile Include="Models\NganhDaoTao.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MonHoc.cs">
-      <DependentUpon>Cap24.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Nganh.cs">
-      <DependentUpon>Cap24.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SinhVien.cs">
+    <Compile Include="Models\RangBuocHocPhan.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Cap24.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ThongBao.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -540,6 +524,9 @@
     <Content Include="Areas\Faculty\Views\Curriculums\CreateKhoa.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\EditKhoa.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\DeleteKhoa.cshtml" />
+    <Content Include="Areas\Faculty\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Faculty\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Faculty\Views\Curriculums\PrintMonHoc.cshtml" />
     <EntityDeploy Include="Models\Cap24.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Cap24.Designer.cs</LastGenOutput>
@@ -547,10 +534,6 @@
     <Content Include="Models\Cap24.edmx.diagram">
       <DependentUpon>Cap24.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Faculty\Views\Classes\Index.cshtml" />
-    <Content Include="Areas\Faculty\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Faculty\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Faculty\Views\ListOfStudent\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -12,22 +12,17 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GiangVien
+    public partial class HocKyDaoTao
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GiangVien()
+        public HocKyDaoTao()
         {
-            this.Lops = new HashSet<Lop>();
+            this.ChuongTrinhDaoTaos = new HashSet<ChuongTrinhDaoTao>();
         }
     
-        public int ID { get; set; }
-        public string MaGV { get; set; }
-        public string TenGV { get; set; }
-        public string Email { get; set; }
-        public string SDT { get; set; }
-        public string Title_GV { get; set; }
+        public int HocKy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lop> Lops { get; set; }
+        public virtual ICollection<ChuongTrinhDaoTao> ChuongTrinhDaoTaos { get; set; }
     }
 }
