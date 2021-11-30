@@ -84,7 +84,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChuongTrinhDaoTao_Khoa">
+        <Association Name="FK_ChuongTrinhDaoTao_KhoaDaoTao">
           <End Role="KhoaDaoTao" Type="Self.KhoaDaoTao" Multiplicity="0..1" />
           <End Role="ChuongTrinhDaoTao" Type="Self.ChuongTrinhDaoTao" Multiplicity="*" />
           <ReferentialConstraint>
@@ -96,7 +96,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChuongTrinhDaoTao_Nganh">
+        <Association Name="FK_ChuongTrinhDaoTao_NganhDaoTao">
           <End Role="NganhDaoTao" Type="Self.NganhDaoTao" Multiplicity="0..1" />
           <End Role="ChuongTrinhDaoTao" Type="Self.ChuongTrinhDaoTao" Multiplicity="*" />
           <ReferentialConstraint>
@@ -181,11 +181,11 @@
             <End Role="HocKyDaoTao" EntitySet="HocKyDaoTao" />
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTao" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChuongTrinhDaoTao_Khoa" Association="Self.FK_ChuongTrinhDaoTao_Khoa">
+          <AssociationSet Name="FK_ChuongTrinhDaoTao_KhoaDaoTao" Association="Self.FK_ChuongTrinhDaoTao_KhoaDaoTao">
             <End Role="KhoaDaoTao" EntitySet="KhoaDaoTao" />
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTao" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChuongTrinhDaoTao_Nganh" Association="Self.FK_ChuongTrinhDaoTao_Nganh">
+          <AssociationSet Name="FK_ChuongTrinhDaoTao_NganhDaoTao" Association="Self.FK_ChuongTrinhDaoTao_NganhDaoTao">
             <End Role="NganhDaoTao" EntitySet="NganhDaoTao" />
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTao" />
           </AssociationSet>
@@ -227,11 +227,11 @@
             <End Role="HocKyDaoTao" EntitySet="HocKyDaoTaos" />
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTaos" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChuongTrinhDaoTao_Khoa" Association="CP24Team03Model.FK_ChuongTrinhDaoTao_Khoa">
+          <AssociationSet Name="FK_ChuongTrinhDaoTao_KhoaDaoTao" Association="CP24Team03Model.FK_ChuongTrinhDaoTao_KhoaDaoTao">
             <End Role="KhoaDaoTao" EntitySet="KhoaDaoTaos" />
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTaos" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChuongTrinhDaoTao_Nganh" Association="CP24Team03Model.FK_ChuongTrinhDaoTao_Nganh">
+          <AssociationSet Name="FK_ChuongTrinhDaoTao_NganhDaoTao" Association="CP24Team03Model.FK_ChuongTrinhDaoTao_NganhDaoTao">
             <End Role="NganhDaoTao" EntitySet="NganhDaoTaos" />
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTaos" />
           </AssociationSet>
@@ -265,8 +265,8 @@
           <Property Name="ID_Khoa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ID_HocKyBatDau" Type="Int32" />
           <NavigationProperty Name="HocKyDaoTao" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_HocKyDaoTao" FromRole="ChuongTrinhDaoTao" ToRole="HocKyDaoTao" />
-          <NavigationProperty Name="KhoaDaoTao" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_Khoa" FromRole="ChuongTrinhDaoTao" ToRole="KhoaDaoTao" />
-          <NavigationProperty Name="NganhDaoTao" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_Nganh" FromRole="ChuongTrinhDaoTao" ToRole="NganhDaoTao" />
+          <NavigationProperty Name="KhoaDaoTao" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_KhoaDaoTao" FromRole="ChuongTrinhDaoTao" ToRole="KhoaDaoTao" />
+          <NavigationProperty Name="NganhDaoTao" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_NganhDaoTao" FromRole="ChuongTrinhDaoTao" ToRole="NganhDaoTao" />
           <NavigationProperty Name="KhoiKienThucs" Relationship="CP24Team03Model.FK_KhoiKienThuc_ChuongTrinhDaoTao" FromRole="ChuongTrinhDaoTao" ToRole="KhoiKienThuc" />
         </EntityType>
         <EntityType Name="HocKyDaoTao">
@@ -298,7 +298,7 @@
             <PropertyRef Name="Khoa" />
           </Key>
           <Property Name="Khoa" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChuongTrinhDaoTaos" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_Khoa" FromRole="KhoaDaoTao" ToRole="ChuongTrinhDaoTao" />
+          <NavigationProperty Name="ChuongTrinhDaoTaos" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_KhoaDaoTao" FromRole="KhoaDaoTao" ToRole="ChuongTrinhDaoTao" />
         </EntityType>
         <EntityType Name="KhoiKienThuc">
           <Key>
@@ -316,7 +316,7 @@
             <PropertyRef Name="Nganh" />
           </Key>
           <Property Name="Nganh" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChuongTrinhDaoTaos" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_Nganh" FromRole="NganhDaoTao" ToRole="ChuongTrinhDaoTao" />
+          <NavigationProperty Name="ChuongTrinhDaoTaos" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_NganhDaoTao" FromRole="NganhDaoTao" ToRole="ChuongTrinhDaoTao" />
         </EntityType>
         <EntityType Name="RangBuocHocPhan">
           <Key>
@@ -351,7 +351,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChuongTrinhDaoTao_Khoa">
+        <Association Name="FK_ChuongTrinhDaoTao_KhoaDaoTao">
           <End Type="CP24Team03Model.KhoaDaoTao" Role="KhoaDaoTao" Multiplicity="0..1" />
           <End Type="CP24Team03Model.ChuongTrinhDaoTao" Role="ChuongTrinhDaoTao" Multiplicity="*" />
           <ReferentialConstraint>
@@ -363,7 +363,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChuongTrinhDaoTao_Nganh">
+        <Association Name="FK_ChuongTrinhDaoTao_NganhDaoTao">
           <End Type="CP24Team03Model.NganhDaoTao" Role="NganhDaoTao" Multiplicity="0..1" />
           <End Type="CP24Team03Model.ChuongTrinhDaoTao" Role="ChuongTrinhDaoTao" Multiplicity="*" />
           <ReferentialConstraint>
@@ -435,7 +435,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

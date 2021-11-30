@@ -6,16 +6,16 @@
     <edmx:Diagrams>
       <Diagram DiagramId="63a6173843ac411a8872914fa1d1592d" Name="Diagram1">
         <EntityTypeShape EntityType="CP24Team03Model.ChuongTrinhDaoTao" Width="1.5" PointX="3" PointY="1.375" />
-        <EntityTypeShape EntityType="CP24Team03Model.HocKyDaoTao" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="CP24Team03Model.HocKyDaoTao" Width="1.5" PointX="0.75" PointY="8" />
         <EntityTypeShape EntityType="CP24Team03Model.HocPhanDaoTao" Width="1.5" PointX="7.5" PointY="1" />
-        <EntityTypeShape EntityType="CP24Team03Model.KhoaDaoTao" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="CP24Team03Model.KhoaDaoTao" Width="1.5" PointX="0.75" PointY="4.875" />
         <EntityTypeShape EntityType="CP24Team03Model.KhoiKienThuc" Width="1.5" PointX="5.25" PointY="1.625" />
-        <EntityTypeShape EntityType="CP24Team03Model.NganhDaoTao" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="CP24Team03Model.NganhDaoTao" Width="1.5" PointX="0.75" PointY="2" />
         <EntityTypeShape EntityType="CP24Team03Model.RangBuocHocPhan" Width="1.5" PointX="9.75" PointY="1.625" />
         <EntityTypeShape EntityType="CP24Team03Model.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" />
         <AssociationConnector Association="CP24Team03Model.FK_ChuongTrinhDaoTao_HocKyDaoTao" />
-        <AssociationConnector Association="CP24Team03Model.FK_ChuongTrinhDaoTao_Khoa" />
-        <AssociationConnector Association="CP24Team03Model.FK_ChuongTrinhDaoTao_Nganh" />
+        <AssociationConnector Association="CP24Team03Model.FK_ChuongTrinhDaoTao_KhoaDaoTao" />
+        <AssociationConnector Association="CP24Team03Model.FK_ChuongTrinhDaoTao_NganhDaoTao" />
         <AssociationConnector Association="CP24Team03Model.FK_KhoiKienThuc_ChuongTrinhDaoTao" />
         <AssociationConnector Association="CP24Team03Model.FK_HocPhanBatBuoc_KhoiKienThuc" />
         <AssociationConnector Association="CP24Team03Model.FK_HocPhanDaoTao_HocPhanDaoTao" />
