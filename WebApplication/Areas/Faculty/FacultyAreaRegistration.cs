@@ -17,7 +17,7 @@ namespace WebApplication.Areas.Faculty
             context.MapRoute(
                 "Faculty_default",
                 "Faculty/{controller}/{action}/{id}",
-                new { action = "IndexMonHoc", controller = "Curriculums", id = UrlParameter.Optional }
+                new { action = "ListCTDaoTao", controller = "ChuongTrinhDaoTao", id = UrlParameter.Optional }
             );
         }
     }

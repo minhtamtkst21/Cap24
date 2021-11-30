@@ -1,36 +1,41 @@
-﻿@model WebApplication.Models.Nganh
+﻿@model WebApplication.Models.NganhDaoTao
 
 @{
-    ViewBag.Title = "CreateNganh";
+    ViewBag.Title = "SuaNganhDT";
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
 }
 
-<h2>Thêm mới Ngành học</h2>
-
+<h2>Chỉnh sửa Ngành @Model.Nganh</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Nganh)
+
         <div class="form-group">
             @Html.Label("Tên ngành", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TenNganh, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenNganh, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Nganh, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nganh, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Tạo mới" class="btn btn-secondary btn-rounded" />
-                <input type="submit" value="Trở về" class="btn btn-secondary btn-rounded" formaction=@Url.Action("IndexNganh", "Curriculums") />
+                <input type="submit" value="Lưu thay đổi" class="btn btn-secondary btn-rounded" />
             </div>
         </div>
     </div>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

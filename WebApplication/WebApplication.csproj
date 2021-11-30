@@ -187,7 +187,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Faculty\Controllers\ChuongTrinhDaoTaoController.cs" />
     <Compile Include="Areas\Faculty\Controllers\CurriculumsController.cs" />
+    <Compile Include="Areas\Faculty\Controllers\NganhDaoTaosController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -516,14 +518,14 @@
     <Content Include="Areas\Faculty\Views\Curriculums\DetailsMonHoc.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\EditMonHoc.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\IndexMonHoc.cshtml" />
-    <Content Include="Areas\Faculty\Views\Curriculums\IndexNganh.cshtml" />
-    <Content Include="Areas\Faculty\Views\Curriculums\CreateNganh.cshtml" />
-    <Content Include="Areas\Faculty\Views\Curriculums\EditNganh.cshtml" />
-    <Content Include="Areas\Faculty\Views\Curriculums\DeleteNganh.cshtml" />
-    <Content Include="Areas\Faculty\Views\Curriculums\IndexKhoa.cshtml" />
-    <Content Include="Areas\Faculty\Views\Curriculums\CreateKhoa.cshtml" />
-    <Content Include="Areas\Faculty\Views\Curriculums\EditKhoa.cshtml" />
-    <Content Include="Areas\Faculty\Views\Curriculums\DeleteKhoa.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ListNganhDT.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\TaoMoiNganh.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\SuaNganhDT.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\DeleteNganh.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ListKhoaDT.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\TaoMoiKhoa.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\SuaKhoaDT.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\DeleteKhoa.cshtml" />
     <Content Include="Areas\Faculty\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Faculty\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\PrintMonHoc.cshtml" />
@@ -534,6 +536,7 @@
     <Content Include="Models\Cap24.edmx.diagram">
       <DependentUpon>Cap24.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ListCTDaoTao.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -566,6 +569,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Faculty\Data\" />
+    <Folder Include="Areas\Faculty\Views\NganhDaoTaos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

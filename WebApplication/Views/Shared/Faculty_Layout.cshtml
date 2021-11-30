@@ -16,6 +16,7 @@
     <link href="@Url.Content("~/Faculty_assets/libs/datatables/buttons.bootstrap4.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Faculty_assets/libs/datatables/select.bootstrap4.css")" rel="stylesheet" type="text/css" />
     <!-- third party css end -->
+    <link href="@Url.Content("~/Faculty_assets/libs/dropify/dropify.min.css")" rel="stylesheet" type="text/css" />
     <!-- Bootstrap Css -->
     <link href="@Url.Content("~/Faculty_assets/css/bootstrap.min.css")" id="bootstrap-stylesheet" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -207,7 +208,7 @@
 
                     <!-- LOGO -->
                     <div class="logo-box">
-                        <a href="@Url.Action("IndexMonHoc","Curriculums")" class="logo logo-light">
+                        <a href="@Url.Action("ListCTDaoTao","ChuongTrinhDaoTao")" class="logo logo-light">
                             <span class="logo-lg">
                                 <img src="@Url.Content("~/Faculty_assets/images/VLU.png")" alt="" height="50">
                             </span>
@@ -228,13 +229,13 @@
                         <!-- Navigation Menu-->
                         <ul class="navigation-menu">
                             <li class="has-submenu">
-                                <a href="@Url.Action("IndexNganh","Curriculums")" style="font-family:Roboto"> <i class="mdi mdi-text-box-multiple-outline "></i>Quản lý ngành học</a>
+                                <a href="@Url.Action("ListNganhDT","ChuongTrinhDaoTao")" style="font-family:Roboto"> <i class="mdi mdi-text-box-multiple-outline "></i>Quản lý ngành học</a>
                             </li>
                             <li class="has-submenu">
-                                <a href="@Url.Action("IndexKhoa","Curriculums")" style="font-family:Roboto"> <i class="mdi mdi-text-box-multiple-outline "></i>Quản lý khóa</a>
+                                <a href="@Url.Action("ListKhoaDT","ChuongTrinhDaoTao")" style="font-family:Roboto"> <i class="mdi mdi-text-box-multiple-outline "></i>Quản lý khóa</a>
                             </li>
                             <li class="has-submenu">
-                                <a href="@Url.Action("IndexMonHoc","Curriculums")" style="font-family:Roboto"> <i class="mdi mdi-text-box-multiple-outline "></i>Quản lý chương trình đào tạo</a>
+                                <a href="@Url.Action("ListCTDaoTao","ChuongTrinhDaoTao")" style="font-family:Roboto"> <i class="mdi mdi-text-box-multiple-outline "></i>Quản lý chương trình đào tạo</a>
                             </li>
                             <li class="has-submenu">
                                 <a href="@Url.Action("Index","Classes")" style="font-family:Roboto">
@@ -350,6 +351,10 @@
     <!-- Table editable init-->
     <script src="@Url.Content("~/Faculty_assets/js/pages/tabledit.init.js")"></script>
 
+    <script src="@Url.Content("~/Faculty_assets/libs/dropify/dropify.min.js")"></script>
+
+    <!-- form-upload init -->
+    <script src="@Url.Content("~/Faculty_assets/js/pages/form-fileupload.init.js")"></script>
     <!-- App js -->
     <script src="@Url.Content("~/Faculty_assets/js/app.min.js")"></script>
     <script>
@@ -357,6 +362,17 @@
             document.getElementById("file").click();
         };
     </script>
+
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+        })
+    </script>
+
     @RenderSection("scripts", required: false)
 
 </body>

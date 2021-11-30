@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication.Models.Nganh>
+﻿@model IEnumerable<WebApplication.Models.NganhDaoTao>
 
 @{
     ViewBag.Title = "IndexNganh";
@@ -11,7 +11,7 @@
             <h4 class="page-title" style="font-family:Roboto">&emsp;NGÀNH HỌC</h4>
             <div class="page-title-right">
                 <form>
-                    <button type="submit" id="button" formaction="@Url.Action("CreateNganh")" class="btn btn-secondary btn-rounded">
+                    <button type="submit" id="button" formaction="@Url.Action("TaoMoiNganh")" class="btn btn-secondary btn-rounded">
                         Tạo mới
                     </button>
                 </form>
@@ -23,8 +23,6 @@
     <div class="card-box">
         <div class="dropdown float-right">
         </div>
-        <h4 class="header-title mt-0 mb-3" style="font-family: Roboto;">Ngành học</h4>
-
         <div class="table-responsive" style="overflow: auto; height: 300px;">
             <table class="table table-hover mb-0">
                 <thead>
@@ -40,10 +38,10 @@
                         STT++;
                         <tr>
                             <td>@STT</td>
-                            <td>@item.TenNganh</td>
+                            <td>@item.Nganh</td>
                             <td>
-                                <a href="@Url.Action("EditNganh", new { id = item.ID })">Sửa</a> |
-                                <a href="@Url.Action("DeleteNganh", new { id = item.ID })">Xóa</a>
+                                <a href="@Url.Action("SuaNganhDT", new { id = item.Nganh })">Sửa</a> |
+                                <a href="@Url.Action("DeleteNganh", new { id = item.Nganh })">Xóa</a>
                             </td>
                         </tr>
                     }
