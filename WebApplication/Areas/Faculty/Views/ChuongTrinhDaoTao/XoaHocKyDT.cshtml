@@ -1,4 +1,4 @@
-﻿@model WebApplication.Models.KhoaDaoTao
+﻿@model WebApplication.Models.HocKyDaoTao
 
 @{
     ViewBag.Title = "DeleteKhoa";
@@ -6,18 +6,18 @@
 }
 
 <h2>
-    Xóa Khóa @Model.Khoa
+    Xóa Học kỳ @Model.HocKy
 </h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Khóa
+            Học kỳ
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Khoa)
+            @Html.DisplayFor(model => model.HocKy)
         </dd>
 
     </dl>
@@ -27,7 +27,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Xóa Khóa" class="btn btn-secondary btn-rounded" /> 
+            <input type="submit" value="Xóa học kỳ" class="btn btn-secondary btn-rounded" /> 
             <input type="submit" value="Trở về" class="btn btn-secondary btn-rounded" formaction="@Url.Action("ListKhoaDT")" />
         </div>
     }

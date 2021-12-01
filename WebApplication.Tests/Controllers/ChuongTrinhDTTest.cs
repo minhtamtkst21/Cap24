@@ -72,12 +72,12 @@ namespace WebApplication.Tests.Controllers
         public void EditNganhViewTest()
         {
             var controller = new ChuongTrinhDaoTaoController();
-            var result0 = controller.SuaNganhDT("aaaaaa") as HttpNotFoundResult;
+            var result0 = controller.SuaNganhDT(1) as HttpNotFoundResult;
             Assert.IsNotNull(result0);
 
             var db = new Cap24();
             var nganh = db.NganhDaoTaos.First();
-            var result = controller.SuaNganhDT(nganh.Nganh) as ViewResult;
+            var result = controller.SuaNganhDT(nganh.ID) as ViewResult;
             Assert.IsNotNull(result);
 
             var model = result.Model as NganhDaoTao;
@@ -155,12 +155,12 @@ namespace WebApplication.Tests.Controllers
         public void EditKhoaViewTest()
         {
             var controller = new ChuongTrinhDaoTaoController();
-            var result0 = controller.SuaKhoaDT("") as HttpNotFoundResult; //id 1000 chưa có
+            var result0 = controller.SuaKhoaDT(0) as HttpNotFoundResult; //id 1000 chưa có
             Assert.IsNotNull(result0);
 
             var db = new Cap24();
             var khoa = db.KhoaDaoTaos.First();
-            var result = controller.SuaKhoaDT(khoa.Khoa) as ViewResult;
+            var result = controller.SuaKhoaDT(khoa.ID) as ViewResult;
             Assert.IsNotNull(result);
 
             var model = result.Model as KhoaDaoTao;
