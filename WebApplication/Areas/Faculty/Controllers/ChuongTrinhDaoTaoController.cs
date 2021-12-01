@@ -14,6 +14,80 @@ namespace WebApplication.Areas.Faculty.Controllers
     {
         private Cap24 db = new Cap24();
 
+        public ActionResult ListHocKyDT()
+        {
+            return View(db.HocKyDaoTaos.ToList());
+        }
+
+        public ActionResult TaoMoiHocKy()
+        {
+            return View();
+        }
+        // POST: Faculty/Nganh/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TaoMoiHocKy(HocKyDaoTao hocKyDaoTao)
+        {
+            if (ModelState.IsValid)
+            {
+                db.HocKyDaoTaos.Add(hocKyDaoTao);
+                db.SaveChanges();
+                return RedirectToAction("ListHocKyDT");
+            }
+            return View(hocKyDaoTao);
+        }
+
+        public ActionResult SuaHocKyDT(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            HocKyDaoTao hocKyDaoTao = db.HocKyDaoTaos.Find(id);
+            if (hocKyDaoTao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(hocKyDaoTao);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SuaHocKyDT(HocKyDaoTao hocKyDaoTao)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(hocKyDaoTao).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ListHocKyDT");
+            }
+            return View(hocKyDaoTao);
+        }
+
+        public ActionResult XoaHocKyDT(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            HocKyDaoTao hocKyDaoTao = db.HocKyDaoTaos.Find(id);
+            if (hocKyDaoTao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(hocKyDaoTao);
+        }
+
+        // POST: Faculty/NganhDaoTaos/Delete/5
+        [HttpPost, ActionName("XoaHocKyDT")]
+        [ValidateAntiForgeryToken]
+        public ActionResult XacNhanXoaHocKyDT(int id)
+        {
+            KhoaDaoTao khoaDaoTao = db.KhoaDaoTaos.Find(id);
+            db.KhoaDaoTaos.Remove(khoaDaoTao);
+            db.SaveChanges();
+            return RedirectToAction("ListKhoaDT");
+        }
+
         public ActionResult ListKhoaDT()
         {
             return View(db.KhoaDaoTaos.ToList());
@@ -37,7 +111,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(khoaDaoTao);
         }
 
-        public ActionResult SuaKhoaDT(string id)
+        public ActionResult SuaKhoaDT(int? id)
         {
             if (id == null)
             {
@@ -63,6 +137,31 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(khoaDaoTao);
         }
 
+        public ActionResult XoaKhoaDT(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            KhoaDaoTao khoaDaoTao = db.KhoaDaoTaos.Find(id);
+            if (khoaDaoTao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(khoaDaoTao);
+        }
+
+        // POST: Faculty/NganhDaoTaos/Delete/5
+        [HttpPost, ActionName("XoaKhoaDT")]
+        [ValidateAntiForgeryToken]
+        public ActionResult XacNhanXoaKhoaDT(int id)
+        {
+            KhoaDaoTao khoaDaoTao = db.KhoaDaoTaos.Find(id);
+            db.KhoaDaoTaos.Remove(khoaDaoTao);
+            db.SaveChanges();
+            return RedirectToAction("ListKhoaDT");
+        }
+
         public ActionResult ListNganhDT()
         {
             return View(db.NganhDaoTaos.ToList());
@@ -86,7 +185,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(nganhDaoTao);
         }
 
-        public ActionResult SuaNganhDT(string id)
+        public ActionResult SuaNganhDT(int? id)
         {
             if (id == null)
             {
@@ -112,9 +211,37 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(nganhDaoTao);
         }
 
+        public ActionResult XoaNganhDT(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            NganhDaoTao nganhDaoTao = db.NganhDaoTaos.Find(id);
+            if (nganhDaoTao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(nganhDaoTao);
+        }
+
+        // POST: Faculty/NganhDaoTaos/Delete/5
+        [HttpPost, ActionName("XoaNganhDT")]
+        [ValidateAntiForgeryToken]
+        public ActionResult XacNhanXoaNganhDT(int id)
+        {
+            NganhDaoTao nganhDaoTao = db.NganhDaoTaos.Find(id);
+            db.NganhDaoTaos.Remove(nganhDaoTao);
+            db.SaveChanges();
+            return RedirectToAction("ListNganhDT");
+        }
+
         public ActionResult ListCTDaoTao()
         {
             var ListChuongTrinhDaoTao = db.ChuongTrinhDaoTaos.Include(h => h.NganhDaoTao).Include(h => h.KhoaDaoTao).Include(h => h.HocKyDaoTao);
+            ViewData["NganhDaoTao"] = db.NganhDaoTaos.ToList();
+            ViewData["KhoaDaoTao"] = db.KhoaDaoTaos.ToList();
+            ViewData["HocKyDaoTao"] = db.HocKyDaoTaos.ToList();
             return View(ListChuongTrinhDaoTao.ToList());
         }
 
@@ -146,7 +273,7 @@ namespace WebApplication.Areas.Faculty.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,MaHocPhan,TenHocPhan,SoTinChi,HocKy,ID_KhoiKienThuc,ID_HocPhanTuChon")] HocPhanDaoTao hocPhanDaoTao)
+        public ActionResult Create(HocPhanDaoTao hocPhanDaoTao)
         {
             if (ModelState.IsValid)
             {
@@ -182,7 +309,7 @@ namespace WebApplication.Areas.Faculty.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,MaHocPhan,TenHocPhan,SoTinChi,HocKy,ID_KhoiKienThuc,ID_HocPhanTuChon")] HocPhanDaoTao hocPhanDaoTao)
+        public ActionResult Edit(HocPhanDaoTao hocPhanDaoTao)
         {
             if (ModelState.IsValid)
             {

@@ -21,6 +21,7 @@ namespace WebApplication.Models
         }
     
         public string Nganh { get; set; }
+        public int ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChuongTrinhDaoTao> ChuongTrinhDaoTaos { get; set; }

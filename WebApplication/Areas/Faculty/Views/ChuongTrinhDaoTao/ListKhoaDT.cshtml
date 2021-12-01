@@ -40,8 +40,8 @@
                                     <td>@STT</td>
                                     <td>@item.Khoa</td>
                                     <td>
-                                        <a href="@Url.Action("EditKhoa", new { id = item.Khoa })">Sửa</a> |
-                                        <a href="@Url.Action("DeleteKhoa", new { id = item.Khoa })">Xóa</a>
+                                        <a href="@Url.Action("SuaKhoaDT", new { id = item.ID })">Sửa</a> |
+                                        <a href="@Url.Action("XoaKhoaDT", new { id = item.ID })">Xóa</a>
                                     </td>
                                 </tr>
                             }

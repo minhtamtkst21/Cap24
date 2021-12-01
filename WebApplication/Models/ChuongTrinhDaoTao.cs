@@ -21,8 +21,8 @@ namespace WebApplication.Models
         }
     
         public int ID { get; set; }
-        public string ID_Nganh { get; set; }
-        public string ID_Khoa { get; set; }
+        public Nullable<int> ID_Nganh { get; set; }
+        public Nullable<int> ID_Khoa { get; set; }
         public Nullable<int> ID_HocKyBatDau { get; set; }
     
         public virtual HocKyDaoTao HocKyDaoTao { get; set; }

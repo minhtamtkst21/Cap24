@@ -1,11 +1,11 @@
-﻿@model WebApplication.Models.Nganh
+﻿@model WebApplication.Models.NganhDaoTao
 
 @{
     ViewBag.Title = "DeleteNganh";
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
 }
 
-<h2>Xóa ngành @Model.TenNganh</h2>
+<h2>Xóa ngành @Model.Nganh</h2>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -14,7 +14,7 @@
         </dt>
 
         <dd>
-            @Model.TenNganh
+            @Model.Nganh
         </dd>
 
     </dl>
@@ -23,8 +23,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="bbtn btn-secondary btn-rounded" /> |
-            @Html.ActionLink("Trở về", "IndexNganh")
+            <input type="submit" value="Delete" class="btn btn-secondary btn-rounded" />
+            <input type="submit" value="Trở về" class="btn btn-secondary btn-rounded" formaction="@Url.Action("ListNganhDT")"/>
         </div>
     }
 </div>

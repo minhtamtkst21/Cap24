@@ -189,7 +189,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Faculty\Controllers\ChuongTrinhDaoTaoController.cs" />
     <Compile Include="Areas\Faculty\Controllers\CurriculumsController.cs" />
-    <Compile Include="Areas\Faculty\Controllers\NganhDaoTaosController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -521,11 +520,11 @@
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ListNganhDT.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\TaoMoiNganh.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\SuaNganhDT.cshtml" />
-    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\DeleteNganh.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\XoaNganhDT.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ListKhoaDT.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\TaoMoiKhoa.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\SuaKhoaDT.cshtml" />
-    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\DeleteKhoa.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\XoaKhoaDT.cshtml" />
     <Content Include="Areas\Faculty\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Faculty\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Faculty\Views\Curriculums\PrintMonHoc.cshtml" />
@@ -569,7 +568,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Faculty\Data\" />
-    <Folder Include="Areas\Faculty\Views\NganhDaoTaos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
