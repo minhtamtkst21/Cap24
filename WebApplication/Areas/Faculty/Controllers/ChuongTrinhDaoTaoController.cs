@@ -36,6 +36,11 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(hocKyDaoTao);
         }
+        private void validateHocKyDaoTao(HocKyDaoTao hocKyDaoTao)
+        {
+            if (hocKyDaoTao.HocKy < 0)
+                ModelState.AddModelError("HocKyDaoTao", "Học kì phải lớn hơn 0");
+        }
 
         public ActionResult SuaHocKyDT(int? id)
         {
@@ -110,6 +115,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(khoaDaoTao);
         }
+       
 
         public ActionResult SuaKhoaDT(int? id)
         {

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\Cap24\WebApplication\Models\Cap24.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\84901\Source\Repos\minhtamtkst21\Cap24\WebApplication\Models\Cap24.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
