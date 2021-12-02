@@ -26,11 +26,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaHocPhan" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="TenHocPhan" Type="nvarchar" MaxLength="100" />
-          <Property Name="SoTinChi" Type="nvarchar" MaxLength="20" />
-          <Property Name="HocKy" Type="int" Nullable="false" />
-          <Property Name="ID_KhoiKienThuc" Type="int" />
+          <Property Name="MaHocPhan" Type="nvarchar" MaxLength="20" />
+          <Property Name="TenHocPhan" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SoTinChi" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="HocKy" Type="int" />
+          <Property Name="ID_KhoiKienThuc" Type="int" Nullable="false" />
           <Property Name="ID_HocPhanTuChon" Type="int" />
         </EntityType>
         <EntityType Name="KhoaDaoTao">
@@ -46,7 +46,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaKhoiKienThuc" Type="char" MaxLength="2" />
-          <Property Name="TenKhoiKienThuc" Type="nvarchar" MaxLength="100" />
+          <Property Name="TenKhoiKienThuc" Type="nvarchar" MaxLength="200" />
           <Property Name="ID_ChuongTrinhDaoTao" Type="int" />
         </EntityType>
         <EntityType Name="NganhDaoTao">
@@ -112,7 +112,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HocPhanBatBuoc_KhoiKienThuc">
-          <End Role="KhoiKienThuc" Type="Self.KhoiKienThuc" Multiplicity="0..1" />
+          <End Role="KhoiKienThuc" Type="Self.KhoiKienThuc" Multiplicity="1" />
           <End Role="HocPhanDaoTao" Type="Self.HocPhanDaoTao" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoiKienThuc">
@@ -285,11 +285,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaHocPhan" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TenHocPhan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SoTinChi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="HocKy" Type="Int32" Nullable="false" />
-          <Property Name="ID_KhoiKienThuc" Type="Int32" />
+          <Property Name="MaHocPhan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TenHocPhan" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoTinChi" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="HocKy" Type="Int32" />
+          <Property Name="ID_KhoiKienThuc" Type="Int32" Nullable="false" />
           <Property Name="ID_HocPhanTuChon" Type="Int32" />
           <NavigationProperty Name="KhoiKienThuc" Relationship="CP24Team03Model.FK_HocPhanBatBuoc_KhoiKienThuc" FromRole="HocPhanDaoTao" ToRole="KhoiKienThuc" />
           <NavigationProperty Name="HocPhanDaoTao1" Relationship="CP24Team03Model.FK_HocPhanDaoTao_HocPhanDaoTao" FromRole="HocPhanDaoTao" ToRole="HocPhanDaoTao1" />
@@ -311,7 +311,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaKhoiKienThuc" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="TenKhoiKienThuc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TenKhoiKienThuc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ID_ChuongTrinhDaoTao" Type="Int32" />
           <NavigationProperty Name="ChuongTrinhDaoTao" Relationship="CP24Team03Model.FK_KhoiKienThuc_ChuongTrinhDaoTao" FromRole="KhoiKienThuc" ToRole="ChuongTrinhDaoTao" />
           <NavigationProperty Name="HocPhanDaoTaos" Relationship="CP24Team03Model.FK_HocPhanBatBuoc_KhoiKienThuc" FromRole="KhoiKienThuc" ToRole="HocPhanDaoTao" />
@@ -394,7 +394,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HocPhanBatBuoc_KhoiKienThuc">
-          <End Type="CP24Team03Model.KhoiKienThuc" Role="KhoiKienThuc" Multiplicity="0..1" />
+          <End Type="CP24Team03Model.KhoiKienThuc" Role="KhoiKienThuc" Multiplicity="1" />
           <End Type="CP24Team03Model.HocPhanDaoTao" Role="HocPhanDaoTao" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoiKienThuc">

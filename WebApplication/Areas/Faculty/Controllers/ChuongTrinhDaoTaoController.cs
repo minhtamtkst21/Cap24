@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -82,10 +83,10 @@ namespace WebApplication.Areas.Faculty.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult XacNhanXoaHocKyDT(int id)
         {
-            KhoaDaoTao khoaDaoTao = db.KhoaDaoTaos.Find(id);
-            db.KhoaDaoTaos.Remove(khoaDaoTao);
+            HocKyDaoTao hocKyDaoTao = db.HocKyDaoTaos.Find(id);
+            db.HocKyDaoTaos.Remove(hocKyDaoTao);
             db.SaveChanges();
-            return RedirectToAction("ListKhoaDT");
+            return RedirectToAction("ListHocKyDT");
         }
 
         public ActionResult ListKhoaDT()
@@ -245,81 +246,200 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(ListChuongTrinhDaoTao.ToList());
         }
 
-        // GET: Faculty/ChuongTrinhDaoTao/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult UploadCTDaoTao(FormCollection formCollection, string Nganh, string Khoa, string HocKy)
         {
-            if (id == null)
+            if (Nganh is null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new ArgumentNullException(nameof(Nganh));
             }
-            HocPhanDaoTao hocPhanDaoTao = db.HocPhanDaoTaos.Find(id);
-            if (hocPhanDaoTao == null)
+
+            if (Khoa is null)
             {
-                return HttpNotFound();
+                throw new ArgumentNullException(nameof(Khoa));
             }
-            return View(hocPhanDaoTao);
-        }
 
-        // GET: Faculty/ChuongTrinhDaoTao/Create
-        public ActionResult Create()
-        {
-            ViewBag.ID_KhoiKienThuc = new SelectList(db.KhoiKienThucs, "ID", "MaKhoiKienThuc");
-            ViewBag.ID_HocPhanTuChon = new SelectList(db.HocPhanDaoTaos, "ID", "MaHocPhan");
-            return View();
-        }
-
-        // POST: Faculty/ChuongTrinhDaoTao/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(HocPhanDaoTao hocPhanDaoTao)
-        {
-            if (ModelState.IsValid)
+            if (HocKy is null)
             {
-                db.HocPhanDaoTaos.Add(hocPhanDaoTao);
+                throw new ArgumentNullException(nameof(HocKy));
+            }
+            if (Request != null)
+            {
+                ChuongTrinhDaoTao chuongTrinhDaoTao = new ChuongTrinhDaoTao();
+                chuongTrinhDaoTao.KhoaDaoTao = db.KhoaDaoTaos.ToList().FirstOrDefault(s => s.Khoa == Khoa);
+                chuongTrinhDaoTao.NganhDaoTao = db.NganhDaoTaos.ToList().FirstOrDefault(s => s.Nganh == Nganh);
+                chuongTrinhDaoTao.HocKyDaoTao = db.HocKyDaoTaos.ToList().FirstOrDefault(s => s.HocKy.ToString() == HocKy);
+                db.ChuongTrinhDaoTaos.Add(chuongTrinhDaoTao);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                var CHUONGTRINHDAOTAO = db.ChuongTrinhDaoTaos.Where(s => s.NganhDaoTao.Nganh == Nganh).FirstOrDefault(s => s.KhoaDaoTao.Khoa == Khoa);
 
-            ViewBag.ID_KhoiKienThuc = new SelectList(db.KhoiKienThucs, "ID", "MaKhoiKienThuc", hocPhanDaoTao.ID_KhoiKienThuc);
-            ViewBag.ID_HocPhanTuChon = new SelectList(db.HocPhanDaoTaos, "ID", "MaHocPhan", hocPhanDaoTao.ID_HocPhanTuChon);
-            return View(hocPhanDaoTao);
-        }
-
-        // GET: Faculty/ChuongTrinhDaoTao/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                HttpPostedFileBase file = Request.Files["UploadedFile"];
+                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                {
+                    string fileName = file.FileName;
+                    string fileContentType = file.ContentType;
+                    byte[] fileBytes = new byte[file.ContentLength];
+                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        var noOfCol = workSheet.Dimension.End.Column;
+                        var noOfRow = workSheet.Dimension.End.Row;
+                        string KHOIKIENTHUC = "";
+                        string HPBATBUOC = "";
+                        string khoikienthuc = "";
+                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                        {
+                            if (workSheet.Cells[rowIterator, 1].Value != null)
+                            {
+                                khoikienthuc = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            }
+                            if (int.TryParse(khoikienthuc, out int stt))
+                            {
+                                HocPhanDaoTao hocPhanDaoTao = new HocPhanDaoTao();
+                                if (workSheet.Cells[rowIterator, 2].Value != null)
+                                {
+                                    hocPhanDaoTao.MaHocPhan = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                }
+                                if (workSheet.Cells[rowIterator, 3].Value != null)
+                                {
+                                    hocPhanDaoTao.TenHocPhan = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                }
+                                if (workSheet.Cells[rowIterator, 4].Value != null)
+                                {
+                                    hocPhanDaoTao.SoTinChi = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                }
+                                if (workSheet.Cells[rowIterator, 5].Value != null)
+                                {
+                                    var LoaiHP = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    if (LoaiHP == "TC")
+                                    {
+                                        hocPhanDaoTao.HocPhanDaoTao2 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HPBATBUOC);
+                                    }
+                                    else
+                                    {
+                                        HPBATBUOC = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    }
+                                }
+                                if (workSheet.Cells[rowIterator, 9].Value != null)
+                                {
+                                    hocPhanDaoTao.HocKy = int.Parse(workSheet.Cells[rowIterator, 9].Value.ToString());
+                                }
+                                hocPhanDaoTao.KhoiKienThuc = db.KhoiKienThucs.FirstOrDefault(s => s.TenKhoiKienThuc == KHOIKIENTHUC);
+                                db.HocPhanDaoTaos.Add(hocPhanDaoTao);
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                KhoiKienThuc taoKKT = new KhoiKienThuc();
+                                taoKKT.MaKhoiKienThuc = khoikienthuc;
+                                taoKKT.TenKhoiKienThuc = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                taoKKT.ChuongTrinhDaoTao = CHUONGTRINHDAOTAO;
+                                db.KhoiKienThucs.Add(taoKKT);
+                                db.SaveChanges();
+                                KHOIKIENTHUC = taoKKT.TenKhoiKienThuc;
+                            }
+                        }
+                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                        {
+                            if(workSheet.Cells[rowIterator, 6].Value != null)
+                            {
+                                RangBuocHocPhan rangBuocHocPhan = new RangBuocHocPhan();
+                                string HocPhanRangBuoc = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                string HocPhan = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                string[] ListHP = HocPhanRangBuoc.Split(new char[] { ',' });
+                                foreach(string HP in ListHP)
+                                {
+                                    var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
+                                    if (mahocphan == null)
+                                    {
+                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HP);
+                                        if(tenhocphan != null)
+                                        {
+                                            rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
+                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                            rangBuocHocPhan.LoaiRangBuoc = "Tiên quyết";
+                                            db.RangBuocHocPhans.Add(rangBuocHocPhan);
+                                            db.SaveChanges();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        rangBuocHocPhan.HocPhanDaoTao = mahocphan;
+                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                        rangBuocHocPhan.LoaiRangBuoc = "Tiên quyết";
+                                        db.RangBuocHocPhans.Add(rangBuocHocPhan);
+                                        db.SaveChanges();
+                                    }
+                                }
+                            }
+                            if (workSheet.Cells[rowIterator, 7].Value != null)
+                            {
+                                RangBuocHocPhan rangBuocHocPhan = new RangBuocHocPhan();
+                                string HocPhanRangBuoc = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                string HocPhan = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                string[] ListHP = HocPhanRangBuoc.Split(new char[] { ',' });
+                                foreach (string HP in ListHP)
+                                {
+                                    var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
+                                    if (mahocphan == null)
+                                    {
+                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HP);
+                                        if (tenhocphan != null)
+                                        {
+                                            rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
+                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                            rangBuocHocPhan.LoaiRangBuoc = "Học trước";
+                                            db.RangBuocHocPhans.Add(rangBuocHocPhan);
+                                            db.SaveChanges();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        rangBuocHocPhan.HocPhanDaoTao = mahocphan;
+                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                        rangBuocHocPhan.LoaiRangBuoc = "Học trước";
+                                        db.RangBuocHocPhans.Add(rangBuocHocPhan);
+                                        db.SaveChanges();
+                                    }
+                                }
+                            }
+                            if (workSheet.Cells[rowIterator, 8].Value != null)
+                            {
+                                RangBuocHocPhan rangBuocHocPhan = new RangBuocHocPhan();
+                                string HocPhanRangBuoc = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                string HocPhan = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                string[] ListHP = HocPhanRangBuoc.Split(new char[] { ',' });
+                                foreach (string HP in ListHP)
+                                {
+                                    var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
+                                    if (mahocphan == null)
+                                    {
+                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HP);
+                                        if (tenhocphan != null)
+                                        {
+                                            rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
+                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                            rangBuocHocPhan.LoaiRangBuoc = "Song hành";
+                                            db.RangBuocHocPhans.Add(rangBuocHocPhan);
+                                            db.SaveChanges();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        rangBuocHocPhan.HocPhanDaoTao = mahocphan;
+                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                        rangBuocHocPhan.LoaiRangBuoc = "Song hành";
+                                        db.RangBuocHocPhans.Add(rangBuocHocPhan);
+                                        db.SaveChanges();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            HocPhanDaoTao hocPhanDaoTao = db.HocPhanDaoTaos.Find(id);
-            if (hocPhanDaoTao == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ID_KhoiKienThuc = new SelectList(db.KhoiKienThucs, "ID", "MaKhoiKienThuc", hocPhanDaoTao.ID_KhoiKienThuc);
-            ViewBag.ID_HocPhanTuChon = new SelectList(db.HocPhanDaoTaos, "ID", "MaHocPhan", hocPhanDaoTao.ID_HocPhanTuChon);
-            return View(hocPhanDaoTao);
-        }
-
-        // POST: Faculty/ChuongTrinhDaoTao/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(HocPhanDaoTao hocPhanDaoTao)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(hocPhanDaoTao).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ID_KhoiKienThuc = new SelectList(db.KhoiKienThucs, "ID", "MaKhoiKienThuc", hocPhanDaoTao.ID_KhoiKienThuc);
-            ViewBag.ID_HocPhanTuChon = new SelectList(db.HocPhanDaoTaos, "ID", "MaHocPhan", hocPhanDaoTao.ID_HocPhanTuChon);
-            return View(hocPhanDaoTao);
+            return RedirectToAction("ListCTDaoTao");
         }
 
         // GET: Faculty/ChuongTrinhDaoTao/Delete/5

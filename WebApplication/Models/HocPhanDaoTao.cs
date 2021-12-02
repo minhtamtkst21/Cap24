@@ -26,8 +26,8 @@ namespace WebApplication.Models
         public string MaHocPhan { get; set; }
         public string TenHocPhan { get; set; }
         public string SoTinChi { get; set; }
-        public int HocKy { get; set; }
-        public Nullable<int> ID_KhoiKienThuc { get; set; }
+        public Nullable<int> HocKy { get; set; }
+        public int ID_KhoiKienThuc { get; set; }
         public Nullable<int> ID_HocPhanTuChon { get; set; }
     
         public virtual KhoiKienThuc KhoiKienThuc { get; set; }

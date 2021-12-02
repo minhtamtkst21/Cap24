@@ -27,7 +27,7 @@
                     <li>
                         <div class="kanban-box">
                             <div class="kanban-detail">
-                                <h5 class="mt-0" style="font-family: Roboto;"><a href="#" style="color: black;">CTĐT Ngành @item.NganhDaoTao.ChuongTrinhDaoTaos - Khóa @item.KhoaDaoTao.Khoa</a></h5>
+                                <h5 class="mt-0" style="font-family: Roboto;"><a href="#" style="color: black;">CTĐT Ngành @item.NganhDaoTao.Nganh - Khóa @item.KhoaDaoTao.Khoa</a></h5>
                             </div>
                         </div>
                     </li>
@@ -46,38 +46,43 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                @using (Html.BeginForm("UploadCTDaoTao", "ChuongTrinhDaoTao", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Khóa:</label>
-                        <select class="form-control">
-                            <option selected>Chọn khóa</option>
-                            <option>K27</option>
+                        <select class="form-control" name="Khoa">
+                            @foreach (var khoa in ViewData["KhoaDaoTao"] as List<WebApplication.Models.KhoaDaoTao>)
+                            {
+                                <option value="@khoa.Khoa" selected>Khóa @khoa.Khoa</option>
+                            }
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Ngành:</label>
-                        <select class="form-control">
-                            <option selected>Chọn ngành</option>
-                            <option>Công nghệ thông tin</option>
-                            <option>Kỹ thuật phần mềm</option>
+                        <select class="form-control" name="Nganh">
+                            @foreach (var nganh in ViewData["NganhDaoTao"] as List<WebApplication.Models.NganhDaoTao>)
+                            {
+                                <option value="@nganh.Nganh">Ngành @nganh.Nganh</option>
+                            }
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Học kỳ:</label>
-                        <select class="form-control">
-                            <option selected>Chọn học kỳ</option>
-                            <option>1</option>
-                            <option>2</option>
+                        <label for="message-text" class="col-form-label">Học kỳ bắt đầu:</label>
+                        <select class="form-control" name="HocKy">
+                            @foreach (var hocky in ViewData["HocKyDaoTao"] as List<WebApplication.Models.HocKyDaoTao>)
+                            {
+                                <option value="@hocky.HocKy">@hocky.HocKy</option>
+                            }
                         </select>
                     </div>
                     <div class="file-upload-wrapper">
-                        <input type="file" id="input-file-now" class="dropify" />
+                        <input type="file" id="file" name="UploadedFile" class="dropify" />
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary"><a href="import-details.html" style="color: white;">Import</a></button>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Đóng" />
+                        <input type="submit" class="btn btn-primary" value="Xem trước" />
+                    </div>
+                }
             </div>
         </div>
     </div>
