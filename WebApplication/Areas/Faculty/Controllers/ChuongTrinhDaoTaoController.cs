@@ -314,18 +314,21 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     var LoaiHP = workSheet.Cells[rowIterator, 5].Value.ToString();
                                     if (LoaiHP == "TC")
                                     {
-                                        hocPhanDaoTao.HocPhanDaoTao2 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HPBATBUOC);
+                                        hocPhanDaoTao.HocPhanDaoTao2 = db.HocPhanDaoTaos.Where(s=>s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).Where(s=>s.KhoiKienThuc.TenKhoiKienThuc == KHOIKIENTHUC).FirstOrDefault(s => s.TenHocPhan == HPBATBUOC);
                                     }
                                     else
                                     {
                                         HPBATBUOC = workSheet.Cells[rowIterator, 3].Value.ToString();
                                     }
+                                } else
+                                {
+                                    HPBATBUOC = workSheet.Cells[rowIterator, 3].Value.ToString();
                                 }
                                 if (workSheet.Cells[rowIterator, 9].Value != null)
                                 {
                                     hocPhanDaoTao.HocKy = int.Parse(workSheet.Cells[rowIterator, 9].Value.ToString());
                                 }
-                                hocPhanDaoTao.KhoiKienThuc = db.KhoiKienThucs.FirstOrDefault(s => s.TenKhoiKienThuc == KHOIKIENTHUC);
+                                hocPhanDaoTao.KhoiKienThuc = db.KhoiKienThucs.Where(s=>s.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenKhoiKienThuc == KHOIKIENTHUC);
                                 db.HocPhanDaoTaos.Add(hocPhanDaoTao);
                                 db.SaveChanges();
                             }
@@ -353,7 +356,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
                                     if (mahocphan == null)
                                     {
-                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HP);
+                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan.Contains(HP));
                                         if(tenhocphan != null)
                                         {
                                             rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
@@ -384,7 +387,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
                                     if (mahocphan == null)
                                     {
-                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HP);
+                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan.Contains(HP));
                                         if (tenhocphan != null)
                                         {
                                             rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
@@ -415,7 +418,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
                                     if (mahocphan == null)
                                     {
-                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HP);
+                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan.Contains(HP));
                                         if (tenhocphan != null)
                                         {
                                             rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
@@ -440,6 +443,23 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
             }
             return RedirectToAction("ListCTDaoTao");
+        }
+
+        public ActionResult ChiTietCTDaoTao(int? id)
+        {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+            var ChuongTrinhDaoTao = db.ChuongTrinhDaoTaos.Find(id);
+            if (ChuongTrinhDaoTao == null)
+            {
+                return RedirectToAction("ListCTDaoTao");
+            }
+            ViewData["KhoiKienThuc"] = db.KhoiKienThucs.Where(s=>s.ChuongTrinhDaoTao.ID == id).ToList();
+            ViewData["RangBuocHocPhan"] = db.RangBuocHocPhans.ToList();
+            ViewData["HocPhan"] = db.HocPhanDaoTaos.ToList();
+            return View(ChuongTrinhDaoTao);
         }
 
         // GET: Faculty/ChuongTrinhDaoTao/Delete/5

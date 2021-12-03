@@ -542,6 +542,8 @@
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\SuaHocKyDT.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\TaoMoiHocKy.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\XoaHocKyDT.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ChiTietCTDaoTao.cshtml" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
