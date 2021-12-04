@@ -262,6 +262,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             {
                 throw new ArgumentNullException(nameof(HocKy));
             }
+            var ctdt = db.ChuongTrinhDaoTaos.Where(s => s.KhoaDaoTao.Khoa == Khoa).Where(s => s.NganhDaoTao.Nganh == Nganh);
             if (Request != null)
             {
                 ChuongTrinhDaoTao chuongTrinhDaoTao = new ChuongTrinhDaoTao();
@@ -314,13 +315,14 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     var LoaiHP = workSheet.Cells[rowIterator, 5].Value.ToString();
                                     if (LoaiHP == "TC")
                                     {
-                                        hocPhanDaoTao.HocPhanDaoTao2 = db.HocPhanDaoTaos.Where(s=>s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).Where(s=>s.KhoiKienThuc.TenKhoiKienThuc == KHOIKIENTHUC).FirstOrDefault(s => s.TenHocPhan == HPBATBUOC);
+                                        hocPhanDaoTao.HocPhanDaoTao2 = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).Where(s => s.KhoiKienThuc.TenKhoiKienThuc == KHOIKIENTHUC).FirstOrDefault(s => s.TenHocPhan == HPBATBUOC);
                                     }
                                     else
                                     {
                                         HPBATBUOC = workSheet.Cells[rowIterator, 3].Value.ToString();
                                     }
-                                } else
+                                }
+                                else
                                 {
                                     HPBATBUOC = workSheet.Cells[rowIterator, 3].Value.ToString();
                                 }
@@ -328,7 +330,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                 {
                                     hocPhanDaoTao.HocKy = int.Parse(workSheet.Cells[rowIterator, 9].Value.ToString());
                                 }
-                                hocPhanDaoTao.KhoiKienThuc = db.KhoiKienThucs.Where(s=>s.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenKhoiKienThuc == KHOIKIENTHUC);
+                                hocPhanDaoTao.KhoiKienThuc = db.KhoiKienThucs.Where(s => s.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenKhoiKienThuc == KHOIKIENTHUC);
                                 db.HocPhanDaoTaos.Add(hocPhanDaoTao);
                                 db.SaveChanges();
                             }
@@ -345,22 +347,22 @@ namespace WebApplication.Areas.Faculty.Controllers
                         }
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            if(workSheet.Cells[rowIterator, 6].Value != null)
+                            if (workSheet.Cells[rowIterator, 6].Value != null)
                             {
                                 RangBuocHocPhan rangBuocHocPhan = new RangBuocHocPhan();
                                 string HocPhanRangBuoc = workSheet.Cells[rowIterator, 6].Value.ToString();
                                 string HocPhan = workSheet.Cells[rowIterator, 3].Value.ToString();
                                 string[] ListHP = HocPhanRangBuoc.Split(new char[] { ',' });
-                                foreach(string HP in ListHP)
+                                foreach (string HP in ListHP)
                                 {
-                                    var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
+                                    var mahocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.MaHocPhan == HP);
                                     if (mahocphan == null)
                                     {
-                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan.Contains(HP));
-                                        if(tenhocphan != null)
+                                        var tenhocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan.Contains(HP));
+                                        if (tenhocphan != null)
                                         {
                                             rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
-                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan == HocPhan);
                                             rangBuocHocPhan.LoaiRangBuoc = "Tiên quyết";
                                             db.RangBuocHocPhans.Add(rangBuocHocPhan);
                                             db.SaveChanges();
@@ -369,7 +371,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     else
                                     {
                                         rangBuocHocPhan.HocPhanDaoTao = mahocphan;
-                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan == HocPhan);
                                         rangBuocHocPhan.LoaiRangBuoc = "Tiên quyết";
                                         db.RangBuocHocPhans.Add(rangBuocHocPhan);
                                         db.SaveChanges();
@@ -384,14 +386,14 @@ namespace WebApplication.Areas.Faculty.Controllers
                                 string[] ListHP = HocPhanRangBuoc.Split(new char[] { ',' });
                                 foreach (string HP in ListHP)
                                 {
-                                    var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
+                                    var mahocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.MaHocPhan == HP);
                                     if (mahocphan == null)
                                     {
-                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan.Contains(HP));
+                                        var tenhocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan.Contains(HP));
                                         if (tenhocphan != null)
                                         {
                                             rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
-                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan == HocPhan);
                                             rangBuocHocPhan.LoaiRangBuoc = "Học trước";
                                             db.RangBuocHocPhans.Add(rangBuocHocPhan);
                                             db.SaveChanges();
@@ -400,7 +402,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     else
                                     {
                                         rangBuocHocPhan.HocPhanDaoTao = mahocphan;
-                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan == HocPhan);
                                         rangBuocHocPhan.LoaiRangBuoc = "Học trước";
                                         db.RangBuocHocPhans.Add(rangBuocHocPhan);
                                         db.SaveChanges();
@@ -415,14 +417,14 @@ namespace WebApplication.Areas.Faculty.Controllers
                                 string[] ListHP = HocPhanRangBuoc.Split(new char[] { ',' });
                                 foreach (string HP in ListHP)
                                 {
-                                    var mahocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.MaHocPhan == HP);
+                                    var mahocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.MaHocPhan == HP);
                                     if (mahocphan == null)
                                     {
-                                        var tenhocphan = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan.Contains(HP));
+                                        var tenhocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan.Contains(HP));
                                         if (tenhocphan != null)
                                         {
                                             rangBuocHocPhan.HocPhanDaoTao = tenhocphan;
-                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                            rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan == HocPhan);
                                             rangBuocHocPhan.LoaiRangBuoc = "Song hành";
                                             db.RangBuocHocPhans.Add(rangBuocHocPhan);
                                             db.SaveChanges();
@@ -431,7 +433,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     else
                                     {
                                         rangBuocHocPhan.HocPhanDaoTao = mahocphan;
-                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.FirstOrDefault(s => s.TenHocPhan == HocPhan);
+                                        rangBuocHocPhan.HocPhanDaoTao1 = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ChuongTrinhDaoTao.ID == CHUONGTRINHDAOTAO.ID).FirstOrDefault(s => s.TenHocPhan == HocPhan);
                                         rangBuocHocPhan.LoaiRangBuoc = "Song hành";
                                         db.RangBuocHocPhans.Add(rangBuocHocPhan);
                                         db.SaveChanges();
@@ -456,12 +458,147 @@ namespace WebApplication.Areas.Faculty.Controllers
             {
                 return RedirectToAction("ListCTDaoTao");
             }
-            ViewData["KhoiKienThuc"] = db.KhoiKienThucs.Where(s=>s.ChuongTrinhDaoTao.ID == id).ToList();
-            ViewData["RangBuocHocPhan"] = db.RangBuocHocPhans.ToList();
+            ViewData["KhoiKienThuc"] = db.KhoiKienThucs.Where(s => s.ChuongTrinhDaoTao.ID == id).ToList();
+            ViewData["RangBuocHocPhan"] = db.RangBuocHocPhans.Where(s => s.HocPhanDaoTao.KhoiKienThuc.ChuongTrinhDaoTao.ID == id).ToList();
             ViewData["HocPhan"] = db.HocPhanDaoTaos.ToList();
             return View(ChuongTrinhDaoTao);
         }
 
+        public ActionResult XuatCTDaoTao(int? id)
+        {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+            var chuongTrinhDaoTao = db.ChuongTrinhDaoTaos.Find(id);
+            var khoiKienThuc = db.KhoiKienThucs.Where(s => s.ChuongTrinhDaoTao.ID == chuongTrinhDaoTao.ID);
+            ExcelPackage ep = new ExcelPackage();
+            var sheet = ep.Workbook.Worksheets.Add("Ngành " + chuongTrinhDaoTao.NganhDaoTao.Nganh + " Khóa " + chuongTrinhDaoTao.KhoaDaoTao.Khoa);
+
+            sheet.Cells["A1"].Value = "STT";
+            sheet.Cells["B1"].Value = "Mã HP";
+            sheet.Cells["C1"].Value = "TÊN HỌC PHẦN";
+            sheet.Cells["D1"].Value = "SỐ TC";
+            sheet.Cells["E1"].Value = "BB/TC";
+            sheet.Cells["F1"].Value = "Tiên quyết";
+            sheet.Cells["G1"].Value = "Học trước";
+            sheet.Cells["H1"].Value = "Song hành";
+            sheet.Cells["I1"].Value = "Học kỳ";
+            sheet.Cells["A1:I1"].Style.Font.Bold = true;
+
+            int row = 2;
+            int STT = 0;
+            foreach (var khoikt in khoiKienThuc)
+            {
+                sheet.Cells[string.Format("A{0}", row)].Value = khoikt.MaKhoiKienThuc;
+                sheet.Cells[string.Format("B{0}", row)].Value = khoikt.TenKhoiKienThuc;
+                sheet.Cells[string.Format("A{0}:B{0}", row)].Style.Font.Bold = true;
+                row++;
+                var hocPhan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ID == khoikt.ID);
+                var rangBuocHocPhan = db.RangBuocHocPhans.ToList();
+                foreach (var hp in hocPhan)
+                {
+                    if (hp.ID_HocPhanTuChon == null)
+                    {
+                        STT++;
+                        sheet.Cells[string.Format("A{0}", row)].Value = STT;
+                        sheet.Cells[string.Format("E{0}", row)].Value = "BB";
+                    }
+                    else
+                    {
+                        sheet.Cells[string.Format("E{0}", row)].Value = "TC";
+                    }
+                    sheet.Cells[string.Format("B{0}", row)].Value = hp.MaHocPhan;
+                    sheet.Cells[string.Format("C{0}", row)].Value = hp.TenHocPhan;
+                    sheet.Cells[string.Format("D{0}", row)].Value = hp.SoTinChi;
+                    sheet.Cells[string.Format("I{0}", row)].Value = hp.HocKy;
+
+                    string HPTienQuyet = "";
+                    string HPHocTruoc = "";
+                    string HPSongHanh = "";
+                    foreach (var rbHocPhan in rangBuocHocPhan)
+                    {
+                        if (rbHocPhan.LoaiRangBuoc == "Tiên quyết" && rbHocPhan.HocPhanDaoTao1.ID == hp.ID)
+                        {
+                            if (HPTienQuyet != "")
+                            {
+                                HPTienQuyet += ",";
+                            }
+                            if (rbHocPhan.HocPhanDaoTao.MaHocPhan != null)
+                            {
+                                HPTienQuyet += rbHocPhan.HocPhanDaoTao.MaHocPhan;
+                            }
+                            else
+                            {
+                                HPTienQuyet += rbHocPhan.HocPhanDaoTao.TenHocPhan;
+                            }
+                        }
+                        if (rbHocPhan.LoaiRangBuoc == "Học trước" && rbHocPhan.HocPhanDaoTao1.ID == hp.ID)
+                        {
+                            if (HPHocTruoc != "")
+                            {
+                                HPHocTruoc += ",";
+                            }
+                            if (rbHocPhan.HocPhanDaoTao.MaHocPhan != null)
+                            {
+                                HPHocTruoc += rbHocPhan.HocPhanDaoTao.MaHocPhan;
+                            }
+                            else
+                            {
+                                HPHocTruoc += rbHocPhan.HocPhanDaoTao.TenHocPhan;
+                            }
+                        }
+                        if (rbHocPhan.LoaiRangBuoc == "Song hành" && rbHocPhan.HocPhanDaoTao1.ID == hp.ID)
+                        {
+                            if (HPSongHanh != "")
+                            {
+                                HPSongHanh += ",";
+                            }
+                            if (rbHocPhan.HocPhanDaoTao.MaHocPhan != null)
+                            {
+                                HPSongHanh += rbHocPhan.HocPhanDaoTao.MaHocPhan;
+                            }
+                            else
+                            {
+                                HPSongHanh += rbHocPhan.HocPhanDaoTao.TenHocPhan;
+                            }
+                        }
+                    }
+                    sheet.Cells[string.Format("F{0}", row)].Value = HPTienQuyet;
+                    sheet.Cells[string.Format("G{0}", row)].Value = HPHocTruoc;
+                    sheet.Cells[string.Format("H{0}", row)].Value = HPSongHanh;
+                    row++;
+                }
+            }
+            sheet.Cells["A:A"].AutoFitColumns();
+            sheet.Cells["C:E"].AutoFitColumns();
+            sheet.Cells["I:AZ"].AutoFitColumns();
+
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Xuất học phần.xlsx");
+            Response.BinaryWrite(ep.GetAsByteArray());
+            Response.End();
+
+            return RedirectToAction("ChiTietCTDaoTao", new { id });
+        }
+
+        public ActionResult InCTDaoTao(int? id)
+        {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+            var ChuongTrinhDaoTao = db.ChuongTrinhDaoTaos.Find(id);
+            if (ChuongTrinhDaoTao == null)
+            {
+                return RedirectToAction("ListCTDaoTao");
+            }
+            ViewData["KhoiKienThuc"] = db.KhoiKienThucs.Where(s => s.ChuongTrinhDaoTao.ID == id).ToList();
+            ViewData["RangBuocHocPhan"] = db.RangBuocHocPhans.Where(s => s.HocPhanDaoTao.KhoiKienThuc.ChuongTrinhDaoTao.ID == id).ToList();
+            ViewData["HocPhan"] = db.HocPhanDaoTaos.ToList();
+            return View(ChuongTrinhDaoTao);
+        }
         // GET: Faculty/ChuongTrinhDaoTao/Delete/5
         public ActionResult Delete(int? id)
         {

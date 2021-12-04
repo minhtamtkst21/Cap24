@@ -24,10 +24,10 @@
             <ul class="sortable-list list-unstyled taskList" id="upcoming">
                 @foreach (var item in Model)
                 {
-                    <li>
+                    <li style="background-color:lightblue">
                         <div class="kanban-box">
                             <div class="kanban-detail">
-                                <h5 class="mt-0" style="font-family: Roboto;"><a href="@Url.Action("ChiTietCTDaoTao", new { id = item.ID })" style="color: black;">CTĐT Ngành @item.NganhDaoTao.Nganh - Khóa @item.KhoaDaoTao.Khoa</a></h5>
+                                <h5 class="mt-0" style="font-family: Roboto"><a href="@Url.Action("ChiTietCTDaoTao", new { id = item.ID })" style="color: black">CTĐT Ngành @item.NganhDaoTao.Nganh - Khóa @item.KhoaDaoTao.Khoa</a></h5>
                             </div>
                         </div>
                     </li>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Đóng" />
-                        <input type="submit" class="btn btn-primary" value="Xem trước" />
+                        <input type="submit" class="btn btn-primary" value="Tải lên" />
                     </div>
                 }
             </div>
