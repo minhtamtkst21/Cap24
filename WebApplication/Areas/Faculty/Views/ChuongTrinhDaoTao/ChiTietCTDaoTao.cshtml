@@ -15,7 +15,7 @@
         <div class="page-title-box d-flex align-items-center justify-content-between">
             <h4 class="page-title" style="font-family:Roboto">&emsp;CHƯƠNG TRÌNH ĐÀO TẠO KHÓA @Model.KhoaDaoTao.Khoa NGÀNH @Model.NganhDaoTao.Nganh.ToUpper()</h4>
             <form>
-                <input type="number" value="@Model.ID" name="@Model.ID" hidden/>
+                <input type="number" value="@Model.ID" name="@Model.ID" hidden />
                 <div class="page-title-right">
                     <input type="file" id="file" style="display:none;" />
                     <button type="button" id="button" name="button" value="Upload" class="btn btn-secondary btn-rounded" data-toggle="modal" data-target="#exampleModal">
@@ -50,11 +50,12 @@
                                         Xác nhận xóa chương trình đào tạo khóa 27 - CNTT
                                     </div>
                                     <label for="recipient-name" class="col-form-label">Nhập "Ngành @Model.NganhDaoTao.Nganh - Khóa @Model.KhoaDaoTao.Khoa" để xác nhận xóa:</label>
-                                    <input type="text" class="form-control" id="TextXacNhan" placeholder="Nhập">
+                                    <input type="text" class="form-control" id="TextXacNhan" onchange="GetText(this.value)" value="" placeholder="Ngành @Model.NganhDaoTao.Nganh - Khóa @Model.KhoaDaoTao.Khoa">
+                                    <input id="textXacNhan" value="Ngành @Model.NganhDaoTao.Nganh - Khóa @Model.KhoaDaoTao.Khoa" hidden/>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                    <button type="button" class="btn btn-primary" disabled>Xóa</button>
+                                    <button type="button" id="XacNhanBtn" class="btn btn-primary" disabled>Xóa</button>
                                 </div>
                             </div>
                         </div>
@@ -65,6 +66,14 @@
                             var button = $(event.relatedTarget);
                             var modal = $(this);
                         });
+                        function GetText(val) {
+                            var text = document.getElementById("textXacNhan").value;
+                            if (val == text) {
+                                document.getElementById("XacNhanBtn").disabled = false;
+                            } else {
+                                document.getElementById("XacNhanBtn").disabled = true;
+                            }
+                        }
                     </script>
                 </div>
             </form>
