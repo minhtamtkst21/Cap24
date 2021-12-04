@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
 }
 
-<h2>Chỉnh sửa Học kỳ @Model.HocKy</h2>
+<h2 style="font-family: Roboto">Chỉnh sửa Học kỳ @Model.HocKy</h2>
 
 
 @using (Html.BeginForm())
@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.Label("Khóa", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HocKy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.HocKy, new { htmlAttributes = new { @class = "form-control"} })
                 @Html.ValidationMessageFor(model => model.HocKy, "", new { @class = "text-danger" })
             </div>
         </div>

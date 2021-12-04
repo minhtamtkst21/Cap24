@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
 }
 
-<h2>Thêm mới Ngành học</h2>
+<h2 style="font-family: Roboto">Thêm mới Ngành học</h2>
 
 
 @using (Html.BeginForm())
@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.Label("Tên ngành", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nganh, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Nganh, new { htmlAttributes = new { @class = "form-control", @required = true, @minLength = "1", @maxLength = "100"} })
                 @Html.ValidationMessageFor(model => model.Nganh, "", new { @class = "text-danger" })
             </div>
         </div>
