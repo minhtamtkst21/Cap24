@@ -611,37 +611,31 @@ namespace WebApplication.Areas.Faculty.Controllers
             if (listkkt != null)
                 foreach (var khoikienthuc in listkkt.ToList())
                 {
-                    var listhocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ID == khoikienthuc.ID).OrderByDescending(s => s.ID);
+                    var listhocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ID == khoikienthuc.ID);
                     if (listhocphan != null)
-                        foreach(var hocphan in listhocphan.ToList())
+                    {
+                        foreach (var hocphan in listhocphan.ToList())
                         {
-                            var listRangBuocHP = db.RangBuocHocPhans.Where(s => s.HocPhanDaoTao.ID == hocphan.ID);
+                            var listRangBuocHP = db.RangBuocHocPhans.Where(s => s.ID_HocPhan == hocphan.ID);
                             if (listRangBuocHP != null)
                                 foreach (var rangbuoc in listRangBuocHP.ToList())
                                 {
                                     db.RangBuocHocPhans.Remove(rangbuoc);
                                     db.SaveChanges();
                                 }
+                        }
+                        foreach(var hocphan in listhocphan.OrderByDescending(s => s.ID).ToList())
+                        {
                             db.HocPhanDaoTaos.Remove(hocphan);
                             db.SaveChanges();
                         }
+                    }
                     db.KhoiKienThucs.Remove(khoikienthuc);
                     db.SaveChanges();
                 }
             db.ChuongTrinhDaoTaos.Remove(ChuongTrinhDaoTao);
             db.SaveChanges();
             return RedirectToAction("ChiTietCTDaoTao", new { id });
-        }
-
-        // POST: Faculty/ChuongTrinhDaoTao/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            HocPhanDaoTao hocPhanDaoTao = db.HocPhanDaoTaos.Find(id);
-            db.HocPhanDaoTaos.Remove(hocPhanDaoTao);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

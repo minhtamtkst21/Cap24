@@ -457,8 +457,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\VL.png" />
-    <Content Include="images\VLU.png" />
     <Content Include="Models\Cap24.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Cap24.edmx</DependentUpon>
@@ -572,6 +570,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Faculty\Data\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
