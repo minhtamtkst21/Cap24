@@ -24,7 +24,7 @@
             <ul class="sortable-list list-unstyled taskList" id="upcoming">
                 @foreach (var item in Model)
                 {
-                    <li style="background-color:lightblue">
+                    <li style="background-color:lightcyan">
                         <div class="kanban-box">
                             <div class="kanban-detail">
                                 <h5 class="mt-0" style="font-family: Roboto"><a href="@Url.Action("ChiTietCTDaoTao", new { id = item.ID })" style="color: black">CTĐT Ngành @item.NganhDaoTao.Nganh - Khóa @item.KhoaDaoTao.Khoa</a></h5>
