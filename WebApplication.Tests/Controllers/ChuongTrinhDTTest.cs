@@ -151,7 +151,7 @@ namespace WebApplication.Tests.Controllers
             var rand = new Random();
             var khoa = new KhoaDaoTao
             {
-                Khoa = rand.NextDouble().ToString()
+                Khoa = rand.Next()
 
             };
             var controller = new ChuongTrinhDaoTaoController();
@@ -198,7 +198,7 @@ namespace WebApplication.Tests.Controllers
         {
             var db = new Cap24();
             var khoa = db.KhoaDaoTaos.AsNoTracking().First();
-            khoa.Khoa = "300";
+            khoa.Khoa = 300;
             var controller = new ChuongTrinhDaoTaoController();
             var result = controller.SuaKhoaDT(khoa);
             Assert.IsNotNull(result);

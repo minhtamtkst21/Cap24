@@ -262,16 +262,16 @@ namespace WebApplication.Areas.Faculty.Controllers
             {
                 throw new ArgumentNullException(nameof(HocKy));
             }
-            var ctdt = db.ChuongTrinhDaoTaos.Where(s => s.KhoaDaoTao.Khoa == Khoa).Where(s => s.NganhDaoTao.Nganh == Nganh);
+            var ctdt = db.ChuongTrinhDaoTaos.Where(s => s.KhoaDaoTao.Khoa.ToString() == Khoa.ToString()).Where(s => s.NganhDaoTao.Nganh == Nganh);
             if (Request != null)
             {
                 ChuongTrinhDaoTao chuongTrinhDaoTao = new ChuongTrinhDaoTao();
-                chuongTrinhDaoTao.KhoaDaoTao = db.KhoaDaoTaos.ToList().FirstOrDefault(s => s.Khoa == Khoa);
+                chuongTrinhDaoTao.KhoaDaoTao = db.KhoaDaoTaos.ToList().FirstOrDefault(s => s.Khoa.ToString() == Khoa.ToString()); ;
                 chuongTrinhDaoTao.NganhDaoTao = db.NganhDaoTaos.ToList().FirstOrDefault(s => s.Nganh == Nganh);
                 chuongTrinhDaoTao.HocKyDaoTao = db.HocKyDaoTaos.ToList().FirstOrDefault(s => s.HocKy.ToString() == HocKy);
                 db.ChuongTrinhDaoTaos.Add(chuongTrinhDaoTao);
                 db.SaveChanges();
-                var CHUONGTRINHDAOTAO = db.ChuongTrinhDaoTaos.Where(s => s.NganhDaoTao.Nganh == Nganh).FirstOrDefault(s => s.KhoaDaoTao.Khoa == Khoa);
+                var CHUONGTRINHDAOTAO = db.ChuongTrinhDaoTaos.Where(s => s.NganhDaoTao.Nganh == Nganh).FirstOrDefault(s => s.KhoaDaoTao.Khoa.ToString() == Khoa.ToString()); ;
 
                 HttpPostedFileBase file = Request.Files["UploadedFile"];
                 if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
@@ -599,19 +599,38 @@ namespace WebApplication.Areas.Faculty.Controllers
             ViewData["HocPhan"] = db.HocPhanDaoTaos.ToList();
             return View(ChuongTrinhDaoTao);
         }
-        // GET: Faculty/ChuongTrinhDaoTao/Delete/5
-        public ActionResult Delete(int? id)
+
+        public ActionResult XoaCTDT(int id)
         {
-            if (id == null)
+            var ChuongTrinhDaoTao = db.ChuongTrinhDaoTaos.Find(id);
+            if (ChuongTrinhDaoTao == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("ListCTDaoTao");
             }
-            HocPhanDaoTao hocPhanDaoTao = db.HocPhanDaoTaos.Find(id);
-            if (hocPhanDaoTao == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hocPhanDaoTao);
+            var listkkt = db.KhoiKienThucs.Where(s => s.ChuongTrinhDaoTao.ID == ChuongTrinhDaoTao.ID);
+            if (listkkt != null)
+                foreach (var khoikienthuc in listkkt.ToList())
+                {
+                    var listhocphan = db.HocPhanDaoTaos.Where(s => s.KhoiKienThuc.ID == khoikienthuc.ID).OrderByDescending(s => s.ID);
+                    if (listhocphan != null)
+                        foreach(var hocphan in listhocphan.ToList())
+                        {
+                            var listRangBuocHP = db.RangBuocHocPhans.Where(s => s.HocPhanDaoTao.ID == hocphan.ID);
+                            if (listRangBuocHP != null)
+                                foreach (var rangbuoc in listRangBuocHP.ToList())
+                                {
+                                    db.RangBuocHocPhans.Remove(rangbuoc);
+                                    db.SaveChanges();
+                                }
+                            db.HocPhanDaoTaos.Remove(hocphan);
+                            db.SaveChanges();
+                        }
+                    db.KhoiKienThucs.Remove(khoikienthuc);
+                    db.SaveChanges();
+                }
+            db.ChuongTrinhDaoTaos.Remove(ChuongTrinhDaoTao);
+            db.SaveChanges();
+            return RedirectToAction("ChiTietCTDaoTao", new { id });
         }
 
         // POST: Faculty/ChuongTrinhDaoTao/Delete/5
