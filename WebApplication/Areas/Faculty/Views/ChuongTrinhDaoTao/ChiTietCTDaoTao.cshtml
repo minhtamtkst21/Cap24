@@ -1,0 +1,199 @@
+﻿@model WebApplication.Models.ChuongTrinhDaoTao
+
+@{
+    ViewBag.Title = "ChiTietCTDaoTao";
+    Layout = "~/Views/Shared/Faculty_Layout.cshtml";
+    int STT = 0;
+}
+<style>
+    th, tr {
+        color: black;
+    }
+</style>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title" style="font-family:Roboto">&emsp;CHƯƠNG TRÌNH ĐÀO TẠO KHÓA @Model.KhoaDaoTao.Khoa NGÀNH @Model.NganhDaoTao.Nganh.ToUpper()</h4>
+            <div class="page-title-right">
+                <form>
+                    <input type="number" value="@Model.ID" name="@Model.ID" hidden />
+                    <input type="file" id="file" style="display:none;" />
+                    <button type="button" id="button" name="button" value="Upload" class="btn btn-secondary btn-rounded" data-toggle="modal" data-target="#exampleModal">
+                        <i class="mdi mdi-microsoft-excel"></i> Import
+                    </button>
+                    &ensp;
+                    <button type="submit" id="button" name="button" value="Export" class="btn btn-secondary btn-rounded" formaction="@Url.Action("XuatCTDaoTao", new { id = Model.ID })">
+                        <i class="mdi mdi-microsoft-excel"></i> Export
+                    </button>
+
+                    &ensp;
+                    <button type="submit" id="button" name="button" value="Upload" class="btn btn-secondary btn-rounded " formaction="@Url.Action("InCTDaoTao", new { id = Model.ID })">
+                        <i class="mdi mdi-cloud-print-outline"></i> Print
+                    </button>
+                    &ensp;
+                    <button type="button" id="button" name="button" value="Xóa" class="btn btn-secondary btn-rounded " data-toggle="modal" data-target="#modelId">
+                        <i class="mdi mdi-delete-outline"></i> Xóa
+                    </button>
+                </form>
+                <!-- Modal -->
+                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" style="font-family: Roboto;">Xóa chương trình đào tạo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    Xác nhận xóa chương trình đào tạo khóa 27 - CNTT
+                                </div>
+                                <label for="recipient-name" class="col-form-label">Nhập "Ngành @Model.NganhDaoTao.Nganh - Khóa @Model.KhoaDaoTao.Khoa" để xác nhận xóa:</label>
+                                <input type="text" class="form-control" id="TextXacNhan" onchange="GetText(this.value)" value="" placeholder="Ngành @Model.NganhDaoTao.Nganh - Khóa @Model.KhoaDaoTao.Khoa">
+                                <input id="textXacNhan" value="Ngành @Model.NganhDaoTao.Nganh - Khóa @Model.KhoaDaoTao.Khoa" hidden />
+                            </div>
+                            <form>
+                                <div class="modal-footer">
+                                    <input type="number" value="@Model.ID" name="id" hidden />
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    <button type="submit" id="XacNhanBtn" class="btn btn-primary" formaction=@Url.Action("XoaCTDT") disabled>Xóa</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $('#exampleModal').on('show.bs.modal', event => {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                });
+                function GetText(val) {
+                    var text = document.getElementById("textXacNhan").value;
+                    if (val == text) {
+                        document.getElementById("XacNhanBtn").disabled = false;
+                    } else {
+                        document.getElementById("XacNhanBtn").disabled = true;
+                    }
+                }
+            </script>
+        </div>
+    </div>
+</div>
+</div>
+<!-- end page title -->
+@foreach (var khoikienthuc in ViewData["KhoiKienThuc"] as List<WebApplication.Models.KhoiKienThuc>)
+{
+    <div class="col-xl-12">
+        <div class="card-box">
+            <div class="dropdown float-right">
+            </div>
+            <h4 class="header-title mt-0 mb-3" style="font-family: Roboto;">@khoikienthuc.TenKhoiKienThuc</h4>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr style="background-color:lightblue">
+                            <th>STT</th>
+                            <th>Mã học phần</th>
+                            <th>Tên học phần</th>
+                            <th>Số tín chỉ</th>
+                            <th>BB/TC</th>
+                            <th>Tiên quyết</th>
+                            <th>Học trước</th>
+                            <th>Song hành</th>
+                            <th>Học kỳ</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var hocphan in ViewData["HocPhan"] as List<WebApplication.Models.HocPhanDaoTao>)
+                        {
+                            if (hocphan.KhoiKienThuc.ID == khoikienthuc.ID)
+                            {
+                                STT++;
+                                <tr>
+                                    <td>@STT</td>
+                                    <td>@hocphan.MaHocPhan</td>
+                                    <td>@hocphan.TenHocPhan</td>
+                                    <td>@hocphan.SoTinChi</td>
+                                    @if (hocphan.ID_HocPhanTuChon == null)
+                                    {
+                                        <td>BB</td>
+                                    }
+                                    else
+                                    {
+                                        <td>TC</td>
+                                    }
+                                    <td>
+                                        @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                        {
+                                            if (rangbuoc.LoaiRangBuoc == "Tiên quyết" && rangbuoc.HocPhanDaoTao1.ID == hocphan.ID)
+                                            {
+                                                if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                {
+                                                    <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                        @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p>
+                                                        @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                    </p>
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                        {
+                                            if (rangbuoc.LoaiRangBuoc == "Học trước" && rangbuoc.HocPhanDaoTao1.ID == hocphan.ID)
+                                            {
+                                                if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                {
+                                                    <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                        @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p>
+                                                        @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                    </p>
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                        {
+                                            if (rangbuoc.LoaiRangBuoc == "Song hành" && rangbuoc.HocPhanDaoTao1.ID == hocphan.ID)
+                                            {
+                                                if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                {
+                                                    <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                        @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p>
+                                                        @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                    </p>
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                    <td>&emsp;@hocphan.HocKy</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

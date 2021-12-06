@@ -37,7 +37,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Khoa" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Khoa" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="KhoiKienThuc">
@@ -301,7 +301,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Khoa" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Khoa" Type="Int32" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ChuongTrinhDaoTaos" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_KhoaDaoTao" FromRole="KhoaDaoTao" ToRole="ChuongTrinhDaoTao" />
         </EntityType>

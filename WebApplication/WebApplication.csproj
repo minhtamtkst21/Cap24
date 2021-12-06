@@ -200,7 +200,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Faculty\Controllers\ChuongTrinhDaoTaoController.cs" />
-    <Compile Include="Areas\Faculty\Controllers\CurriculumsController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -548,6 +547,9 @@
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\SuaHocKyDT.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\TaoMoiHocKy.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\XoaHocKyDT.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ChiTietCTDaoTao.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\InCTDaoTao.cshtml" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
