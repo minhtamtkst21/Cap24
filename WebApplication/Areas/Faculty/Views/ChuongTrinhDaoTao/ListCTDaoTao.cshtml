@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,7 +46,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("UploadCTDaoTao", "ChuongTrinhDaoTao", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("XemTruocCTDaoTao", "ChuongTrinhDaoTao", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Khóa:</label>
@@ -76,11 +76,13 @@
                         </select>
                     </div>
                     <div class="file-upload-wrapper">
-                        <input type="file" id="file" name="UploadedFile" class="dropify" />
+                        <div class="file-upload-wrapper">
+                            <input id="upload" type="file" name="UploadedFile" class="dropify" required accept=".xls,.xlsx" oninvalid="this.setCustomValidity('Không được bỏ trống')" />
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Đóng" />
-                        <input type="submit" class="btn btn-primary" value="Tải lên" />
+                            <input type="submit" class="btn btn-primary" value="Xem trước" />
                     </div>
                 }
             </div>
