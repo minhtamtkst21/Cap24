@@ -2,6 +2,10 @@
     ViewBag.Title = "ChiTietCTDaoTao";
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
     int STT = 0;
+    var ctdtao = ViewData["ctdtao"] as WebApplication.Models.ChuongTrinhDaoTao;
+    var listkkt = ViewData["listkkt"] as List<WebApplication.Models.KhoiKienThuc>;
+    var listhp = ViewData["listhp"] as List<WebApplication.Models.HocPhanDaoTao>;
+    var listhprb = ViewData["listhprb"] as List<WebApplication.Models.RangBuocHocPhan>;
 }
 <style>
     th, tr {
@@ -11,13 +15,14 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="page-title" style="font-family:Roboto">&emsp;CHƯƠNG TRÌNH ĐÀO TẠO KHÓA @ViewData["Khoa"] NGÀNH @ViewData["Nganh"].ToString().ToUpper()</h4>
+            <h4 class="page-title" style="font-family:Roboto">&emsp;CHƯƠNG TRÌNH ĐÀO TẠO KHÓA @ctdtao.KhoaDaoTao.Khoa NGÀNH @ctdtao.NganhDaoTao.Nganh.ToUpper()</h4>
             <div class="page-title-right" id="btnFunction">
-                <form>
+                <form method="post">
                     <button type="submit" id="button" name="button" value="Trở về" class="btn btn-secondary btn-rounded">
                         <i class="mdi mdi-microsoft-excel"></i> Trở về
                     </button>
-                    <button type="button" id="button" name="button" value="Xác nhận" class="btn btn-secondary btn-rounded " data-toggle="modal" data-target="#modelId">
+                    <input type="number" name="xacnhan" value="1" hidden />
+                    <button type="submit" id="button" name="button" value="Xác nhận" class="btn btn-secondary btn-rounded" formmethod="post" formaction="@Url.Action("XemTruocCTDaoTao")">
                         <i class="mdi mdi-delete-outline"></i> Xác nhận
                     </button>
                 </form>
@@ -26,7 +31,7 @@
     </div>
 </div>
 <!-- end page title -->
-@foreach (var khoikienthuc in ViewData["listkkt"] as List<WebApplication.Models.KhoiKienThuc>)
+@foreach (var khoikienthuc in listkkt)
 {
     <div class="col-xl-12">
         <div class="card-box">
@@ -51,7 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var hocphan in ViewData["listhp"] as List<WebApplication.Models.HocPhanDaoTao>)
+                        @foreach (var hocphan in listhp)
                         {
                             if (hocphan.KhoiKienThuc.ID == khoikienthuc.ID)
                             {
@@ -70,9 +75,9 @@
                                         <td>TC</td>
                                     }
                                     <td>
-                                        @foreach (var rangbuoc in ViewData["listhprb"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                        @foreach (var rangbuoc in listhprb)
                                         {
-                                            if (rangbuoc.LoaiRangBuoc == "Tiên quyết" && rangbuoc.HocPhanDaoTao1.ID == hocphan.ID)
+                                            if (rangbuoc.LoaiRangBuoc == "Tiên quyết" && rangbuoc.HocPhanDaoTao1 == hocphan)
                                             {
                                                 if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
                                                 {
@@ -90,9 +95,9 @@
                                         }
                                     </td>
                                     <td>
-                                        @foreach (var rangbuoc in ViewData["listhprb"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                        @foreach (var rangbuoc in listhprb)
                                         {
-                                            if (rangbuoc.LoaiRangBuoc == "Học trước" && rangbuoc.HocPhanDaoTao1.ID == hocphan.ID)
+                                            if (rangbuoc.LoaiRangBuoc == "Học trước" && rangbuoc.HocPhanDaoTao1 == hocphan)
                                             {
                                                 if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
                                                 {
@@ -110,9 +115,9 @@
                                         }
                                     </td>
                                     <td>
-                                        @foreach (var rangbuoc in ViewData["listhprb"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                        @foreach (var rangbuoc in listhprb)
                                         {
-                                            if (rangbuoc.LoaiRangBuoc == "Song hành" && rangbuoc.HocPhanDaoTao.ID == hocphan.ID)
+                                            if (rangbuoc.LoaiRangBuoc == "Song hành" && rangbuoc.HocPhanDaoTao == hocphan)
                                             {
                                                 if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
                                                 {
@@ -138,8 +143,4 @@
             </div>
         </div>
     </div>
-}
-@foreach (var rangbuoc in ViewData["listhprb"] as List<WebApplication.Models.RangBuocHocPhan>)
-{
-    <p>@rangbuoc.HocPhanDaoTao.TenHocPhan và @rangbuoc.HocPhanDaoTao1.TenHocPhan và @rangbuoc.LoaiRangBuoc</p>
 }

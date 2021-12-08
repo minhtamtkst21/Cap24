@@ -1,0 +1,19 @@
+﻿
+@{
+    Layout = null;
+    var test = ViewData["test"] as WebApplication.Models.ChuongTrinhDaoTao;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UploadCTDT</title>
+</head>
+<body>
+    <div>
+        @test.HocKyDaoTao m @test.NganhDaoTao.Nganh m @test.KhoaDaoTao.Khoa
+    </div>
+</body>
+</html>

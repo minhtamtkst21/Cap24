@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "ListCTDaoTao";
+    Layout = "~/Views/Shared/Faculty_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title" style="font-family:Roboto">&emsp;Sinh viên</h4>
+            <div class="page-title-right">
+                <input type="file" id="file" style="display:none;" />
+                <button type="button" id="button" name="button" value="Upload" class="btn btn-secondary btn-rounded" data-toggle="modal" data-target="#exampleModal">
+                    <i class="mdi mdi-microsoft-excel"></i> Import
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: Roboto;">Thêm danh sách sinh viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("XemTruocCTDaoTao", "ChuongTrinhDaoTao", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="file-upload-wrapper">
+                        <div class="file-upload-wrapper">
+                            <input id="upload" type="file" name="UploadedFile" class="dropify" required accept=".xls,.xlsx" oninvalid="this.setCustomValidity('Không được bỏ trống')" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Đóng" />
+                        <input type="number" name="xacnhan" value="0" hidden />
+                        <input type="submit" class="btn btn-primary" value="Xem trước" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
