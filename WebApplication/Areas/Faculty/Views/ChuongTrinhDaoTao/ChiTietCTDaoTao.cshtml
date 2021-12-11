@@ -4,6 +4,7 @@
     ViewBag.Title = "ChiTietCTDaoTao";
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
     int STT = 0;
+    
 }
 <style>
     th, tr {
@@ -63,6 +64,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel" style="font-family: Roboto;">Chỉnh sửa chương trình đào tạo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @using (Html.BeginForm("ChinhSuaCTDaoTao", "ChuongTrinhDaoTao", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <input type="number" name="CTDT" value="@Model.ID" />
+                                    <input type="text" name="Nganh" value="@Model.NganhDaoTao.Nganh" />
+                                    <input type="text" name="Khoa" value="@Model.KhoaDaoTao.Khoa.ToString()" />
+                                    <input type="text" name="HK" value="@Model.HocKyDaoTao.HocKy.ToString()"/>
+                                    <div class="file-upload-wrapper">
+                                        <div class="file-upload-wrapper">
+                                            <input id="excel_file" type="file" name="UploadedFile" class="dropify" accept=".xls,.xlsx" onclick="Clearform()" />
+                                        </div>
+                                        <div id="excel_data" class="table-responsive"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Đóng" />
+                                        <input type="submit" class="btn btn-primary" value="Tải lên" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <script>
@@ -118,9 +150,16 @@
                         {
                             if (hocphan.KhoiKienThuc.ID == khoikienthuc.ID)
                             {
-                                STT++;
                                 <tr>
-                                    <td>@STT</td>
+                                    @if (hocphan.ID_HocPhanTuChon == null)
+                                    {
+                                        STT++;
+                                        <td>@STT</td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
                                     <td>@hocphan.MaHocPhan</td>
                                     <td>@hocphan.TenHocPhan</td>
                                     <td>@hocphan.SoTinChi</td>

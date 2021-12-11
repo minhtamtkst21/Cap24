@@ -538,7 +538,8 @@
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ChiTietCTDaoTao.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\XemTruocCTDT.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\UploadCTDT.cshtml" />
-    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\t.cshtml" />
+    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\test.cshtml" />
+    <Content Include="Models\ChuongTrinhDaoTao.xlsx" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

@@ -6,6 +6,7 @@
     var listkkt = ViewData["listkkt"] as List<WebApplication.Models.KhoiKienThuc>;
     var listhp = ViewData["listhp"] as List<WebApplication.Models.HocPhanDaoTao>;
     var listhprb = ViewData["listhprb"] as List<WebApplication.Models.RangBuocHocPhan>;
+    var file = ViewData["list"] as FileResult;
 }
 <style>
     th, tr {
@@ -21,7 +22,7 @@
                     <button type="submit" id="button" name="button" value="Trở về" class="btn btn-secondary btn-rounded">
                         <i class="mdi mdi-microsoft-excel"></i> Trở về
                     </button>
-                    <input type="number" name="xacnhan" value="1" hidden />
+                    <input id="upload" type="file" name="UploadedFile" class="dropify" value="@file" />
                     <button type="submit" id="button" name="button" value="Xác nhận" class="btn btn-secondary btn-rounded" formmethod="post" formaction="@Url.Action("XemTruocCTDaoTao")">
                         <i class="mdi mdi-delete-outline"></i> Xác nhận
                     </button>
