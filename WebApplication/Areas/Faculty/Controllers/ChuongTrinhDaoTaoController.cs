@@ -17,7 +17,7 @@ namespace WebApplication.Areas.Faculty.Controllers
         public string KiemTraHK(int HK)
         {
             string ListLoi = "";
-            if(HK<=100 || HK >= 1000)
+            if (HK <= 100 || HK >= 1000)
             {
                 ListLoi += "Học kỳ phải có 3 chữ số";
             }
@@ -40,7 +40,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             if (ModelState.IsValid)
             {
                 var ListLoi = KiemTraHK(hocKyDaoTao.HocKy);
-                if(ListLoi != "")
+                if (ListLoi != "")
                 {
                     TempData["Alert"] = ListLoi;
                     return RedirectToAction("ListHocKyDT");
@@ -308,11 +308,16 @@ namespace WebApplication.Areas.Faculty.Controllers
                                 listtenhp.Clear();
                             }
                         }
-                        else if(workSheet.Cells[rowIterator, 3].Value == null)
-                        {
-                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên học phần bắt buộc phải có!</p>";
 
-                        }
+                    }
+                    else if (workSheet.Cells[rowIterator, 3].Value == null)
+                    {
+
+                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên học phần bắt buộc phải có!</p>";
+                    }
+                    else if (workSheet.Cells[rowIterator, 3].Value.ToString().Replace(" ", string.Empty) == null)
+                    {
+                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên học phần bắt buộc phải có!</p>";
                     }
                 }
             }
