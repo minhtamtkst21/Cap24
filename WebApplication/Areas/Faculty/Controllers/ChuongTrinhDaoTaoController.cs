@@ -17,7 +17,7 @@ namespace WebApplication.Areas.Faculty.Controllers
         public string KiemTraHK(int HK)
         {
             string ListLoi = "";
-            if (HK <= 100 || HK >= 1000)
+            if (HK < 100 || HK >= 1000)
             {
                 ListLoi += "Học kỳ phải có 3 chữ số";
             }
@@ -71,6 +71,12 @@ namespace WebApplication.Areas.Faculty.Controllers
         {
             if (ModelState.IsValid)
             {
+                var ListLoi = KiemTraHK(hocKyDaoTao.HocKy);
+                if (ListLoi != "")
+                {
+                    TempData["Alert"] = ListLoi;
+                    return RedirectToAction("ListHocKyDT");
+                }
                 db.Entry(hocKyDaoTao).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ListHocKyDT");
