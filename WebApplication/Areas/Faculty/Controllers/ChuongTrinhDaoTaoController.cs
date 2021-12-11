@@ -284,6 +284,10 @@ namespace WebApplication.Areas.Faculty.Controllers
                                 {
                                     DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Dữ liệu bị trùng, dữ liệu trùng: " + item + "</p>";
                                 }
+                                if (item.Length > 20)
+                                {
+                                    DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Độ dài không quá 20 ký tự, độ dài ký tự: " + item + " là: " + item.Length + "</p>";
+                                }
                                 listmahp.Add(item);
                             }
                             else
@@ -306,6 +310,10 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     {
                                         DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Dữ liệu bị trùng, dữ liệu trùng: " + item + "</p>";
                                     }
+                                    if (item.Length > 200)
+                                    {
+                                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Độ dài không quá 20 ký tự, độ dài ký tự: " + item + " là: " + item.Length + "</p>";
+                                    }
                                     listtenhp.Add(item);
                                 }
                             }
@@ -314,7 +322,6 @@ namespace WebApplication.Areas.Faculty.Controllers
                                 listtenhp.Clear();
                             }
                         }
-
                     }
                     else if (workSheet.Cells[rowIterator, 3].Value == null)
                     {
@@ -324,6 +331,30 @@ namespace WebApplication.Areas.Faculty.Controllers
                     else if (workSheet.Cells[rowIterator, 3].Value.ToString().Replace(" ", string.Empty) == null)
                     {
                         DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên học phần bắt buộc phải có!</p>";
+                    }
+                    if(workSheet.Cells[rowIterator, 5].Value != null)
+                    {
+                        var item = workSheet.Cells[rowIterator, 5].Value.ToString().Replace(" ",string.Empty);
+                        if(item == "BB" || item == "TC") { } else
+                        {
+                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột E: Học phần chỉ chứa ký tự 'BB' hoặc 'TC', dữ liệu bị sai:" + item + "</p>";
+                        }
+                    }
+                    if (workSheet.Cells[rowIterator, 9].Value != null)
+                    {
+                        if (int.TryParse(workSheet.Cells[rowIterator, 9].Value.ToString(), out int i))
+                        {
+                            var item = int.Parse(workSheet.Cells[rowIterator, 9].Value.ToString());
+                            if (item <= 0)
+                            {
+                                DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột I: Học kỳ phải là số nguyên dương, học kỳ bị sai:" + item + "</p>";
+                            }
+                        }
+                        else
+                        {
+                            var item = workSheet.Cells[rowIterator, 9].Value.ToString();
+                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột I: Học kỳ phải là số nguyên dương, học kỳ bị sai:" + item + "</p>";
+                        }
                     }
                 }
             }
