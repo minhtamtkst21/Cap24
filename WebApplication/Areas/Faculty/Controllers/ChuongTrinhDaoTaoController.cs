@@ -270,8 +270,17 @@ namespace WebApplication.Areas.Faculty.Controllers
                 var noOfRow = workSheet.Dimension.End.Row;
                 var listmahp = new List<string>();
                 var listtenhp = new List<string>();
+                var listhp = new List<string>();
                 for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                 {
+                    for (int i = 2; i <= 3; i++)
+                    {
+                        if (workSheet.Cells[rowIterator, i].Value != null)
+                        {
+                            var hocphan = workSheet.Cells[rowIterator, i].Value.ToString().Replace(" ", string.Empty);
+                            listhp.Add(hocphan);
+                        }
+                    }
                     if (workSheet.Cells[rowIterator, 2].Value != null)
                     {
                         var item = workSheet.Cells[rowIterator, 2].Value.ToString();
@@ -312,7 +321,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     }
                                     if (item.Length > 200)
                                     {
-                                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Độ dài không quá 20 ký tự, độ dài ký tự: " + item + " là: " + item.Length + "</p>";
+                                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Độ dài không quá 200 ký tự, độ dài ký tự: " + item + " là: " + item.Length + "</p>";
                                     }
                                     listtenhp.Add(item);
                                 }
@@ -323,21 +332,52 @@ namespace WebApplication.Areas.Faculty.Controllers
                             }
                         }
                     }
-                    else if (workSheet.Cells[rowIterator, 3].Value == null)
+                    else if (workSheet.Cells[rowIterator, 1].Value != null)
                     {
-
-                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên học phần bắt buộc phải có!</p>";
+                        var stt = workSheet.Cells[rowIterator, 1].Value.ToString();
+                        if (int.TryParse(stt, out int i))
+                        {
+                            if (workSheet.Cells[rowIterator, 3].Value == null)
+                            {
+                                DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên học phần bắt buộc phải có!</p>";
+                            }
+                            else if (workSheet.Cells[rowIterator, 3].Value.ToString().Replace(" ", string.Empty) == null)
+                            {
+                                DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên học phần bắt buộc phải có!</p>";
+                            }
+                        }
                     }
-                    else if (workSheet.Cells[rowIterator, 3].Value.ToString().Replace(" ", string.Empty) == null)
+                    if (workSheet.Cells[rowIterator, 5].Value != null)
                     {
-                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên học phần bắt buộc phải có!</p>";
-                    }
-                    if(workSheet.Cells[rowIterator, 5].Value != null)
-                    {
-                        var item = workSheet.Cells[rowIterator, 5].Value.ToString().Replace(" ",string.Empty);
-                        if(item == "BB" || item == "TC") { } else
+                        var item = workSheet.Cells[rowIterator, 5].Value.ToString().Replace(" ", string.Empty);
+                        if (item == "BB" || item == "TC") { }
+                        else
                         {
                             DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột E: Học phần chỉ chứa ký tự 'BB' hoặc 'TC', dữ liệu bị sai:" + item + "</p>";
+                        }
+                    }
+                    if (workSheet.Cells[rowIterator, 6].Value != null)
+                    {
+                        var rangbuoc = workSheet.Cells[rowIterator, 6].Value.ToString().Replace(" ", string.Empty);
+                        if (!CheckHamCon(rangbuoc, listhp))
+                        {
+                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột F: Học phần không tồn tại trong danh sách, học phần bị sai: " + rangbuoc + "</p>";
+                        }
+                    }
+                    if (workSheet.Cells[rowIterator, 7].Value != null)
+                    {
+                        var rangbuoc = workSheet.Cells[rowIterator, 7].Value.ToString().Replace(" ", string.Empty);
+                        if (!CheckHamCon(rangbuoc, listhp))
+                        {
+                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột G: Học phần không tồn tại trong danh sách, học phần bị sai: " + rangbuoc + "</p>";
+                        }
+                    }
+                    if (workSheet.Cells[rowIterator, 8].Value != null)
+                    {
+                        var rangbuoc = workSheet.Cells[rowIterator, 8].Value.ToString().Replace(" ", string.Empty);
+                        if (!CheckHamCon(rangbuoc, listhp))
+                        {
+                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột H: Học phần không tồn tại trong danh sách, học phần bị sai: " + rangbuoc + "</p>";
                         }
                     }
                     if (workSheet.Cells[rowIterator, 9].Value != null)
@@ -359,6 +399,17 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
             }
             return DanhSachLoi;
+        }
+        public bool CheckHamCon(string element, List<string> list)
+        {
+            foreach (var item in list)
+            {
+                if (item.Contains(element))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public bool CheckTonTai(string element, List<string> list)
         {
