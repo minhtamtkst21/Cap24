@@ -226,10 +226,16 @@
     <Compile Include="Models\KhoiKienThuc.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LopQuanLy.cs">
+      <DependentUpon>Cap24.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\NganhDaoTao.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RangBuocHocPhan.cs">
+      <DependentUpon>Cap24.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinhVien.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
@@ -538,7 +544,6 @@
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\ChiTietCTDaoTao.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\XemTruocCTDT.cshtml" />
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\UploadCTDT.cshtml" />
-    <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\test.cshtml" />
     <Content Include="Models\ChuongTrinhDaoTao.xlsx" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

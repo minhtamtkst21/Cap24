@@ -12,22 +12,23 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NganhDaoTao
+    public partial class LopQuanLy
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NganhDaoTao()
+        public LopQuanLy()
         {
-            this.ChuongTrinhDaoTaos = new HashSet<ChuongTrinhDaoTao>();
-            this.LopQuanLies = new HashSet<LopQuanLy>();
+            this.SinhViens = new HashSet<SinhVien>();
         }
     
-        public string Nganh { get; set; }
         public int ID { get; set; }
-        public Nullable<int> MaNganh { get; set; }
+        public string TenLop { get; set; }
+        public string ChuNhiem { get; set; }
+        public Nullable<int> ID_Nganh { get; set; }
+        public Nullable<int> ID_Khoa { get; set; }
     
+        public virtual KhoaDaoTao KhoaDaoTao { get; set; }
+        public virtual NganhDaoTao NganhDaoTao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChuongTrinhDaoTao> ChuongTrinhDaoTaos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LopQuanLy> LopQuanLies { get; set; }
+        public virtual ICollection<SinhVien> SinhViens { get; set; }
     }
 }

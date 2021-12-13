@@ -18,6 +18,7 @@ namespace WebApplication.Models
         public KhoaDaoTao()
         {
             this.ChuongTrinhDaoTaos = new HashSet<ChuongTrinhDaoTao>();
+            this.LopQuanLies = new HashSet<LopQuanLy>();
         }
     
         public int Khoa { get; set; }
@@ -25,5 +26,7 @@ namespace WebApplication.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChuongTrinhDaoTao> ChuongTrinhDaoTaos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LopQuanLy> LopQuanLies { get; set; }
     }
 }

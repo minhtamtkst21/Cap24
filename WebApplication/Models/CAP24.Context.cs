@@ -30,8 +30,10 @@ namespace WebApplication.Models
         public virtual DbSet<HocPhanDaoTao> HocPhanDaoTaos { get; set; }
         public virtual DbSet<KhoaDaoTao> KhoaDaoTaos { get; set; }
         public virtual DbSet<KhoiKienThuc> KhoiKienThucs { get; set; }
+        public virtual DbSet<LopQuanLy> LopQuanLies { get; set; }
         public virtual DbSet<NganhDaoTao> NganhDaoTaos { get; set; }
         public virtual DbSet<RangBuocHocPhan> RangBuocHocPhans { get; set; }
+        public virtual DbSet<SinhVien> SinhViens { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
