@@ -20,16 +20,11 @@ namespace WebApplication.Models
         {
             this.ChuongTrinhDaoTaos = new HashSet<ChuongTrinhDaoTao>();
         }
-<<<<<<< HEAD
         [Required(ErrorMessage = "Không được bỏ trống")]
         [MaxLength(100, ErrorMessage = "Tối đa 100 ký tự")]
         [MinLength(1, ErrorMessage = "Tối thiểu 1 ký tự")]
         [RegularExpression(@"\d{2}", ErrorMessage = "Nhập đúng định dạng")]
-        public string Khoa { get; set; }
-=======
-    
         public int Khoa { get; set; }
->>>>>>> master
         public int ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

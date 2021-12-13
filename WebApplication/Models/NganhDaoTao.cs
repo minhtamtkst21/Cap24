@@ -23,6 +23,7 @@ namespace WebApplication.Models
         [Required(ErrorMessage = "Không được bỏ trống")]
         [MaxLength(100, ErrorMessage = "Tối đa 100 ký tự")]
         [MinLength(1, ErrorMessage = "Tối thiểu 1 ký tự")]
+        //[RegularExpression(@"[aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ ].{6, 100}", ErrorMessage = "Nhập đúng định dạng")]
         public string Nganh { get; set; }
         public int ID { get; set; }
     
