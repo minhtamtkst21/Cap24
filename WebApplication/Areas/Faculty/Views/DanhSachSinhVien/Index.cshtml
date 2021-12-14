@@ -1,0 +1,248 @@
+﻿@model WebApplication.Models.SinhVien
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Faculty_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title" style="font-family:Roboto">DANH SÁCH SINH VIÊN</h4>
+            <div class="page-title-right">
+                <!-- <div class="container" style="left: 0;">
+                    <input type="text" placeholder="Search..." style="color: black;">
+                    <div class="search"></div>
+                </div> -->
+                <button type="button" id="button" name="button" value="Upload" class="btn btn-secondary btn-rounded" data-toggle="modal" data-target="#modelId1"><i class="fas fa-search"></i> Tìm kiếm</button>
+                <input type="file" id="file" style="display:none;" />
+                <button type="button" id="button" name="button" value="Upload" class="btn btn-secondary btn-rounded" data-toggle="modal" data-target="#exampleModal">
+                    <i class="mdi mdi-microsoft-excel"></i> Import
+                </button>
+                <button type="button" id="button" name="button" value="" class="btn btn-secondary btn-rounded"><i class="mdi mdi-microsoft-excel"></i> Export</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card-box taskboard-box">
+            <ul class="sortable-list list-unstyled taskList" id="upcoming">
+                <li>
+                    <div class="kanban-box">
+                        <div class="kanban-detail">
+                            <a class="badge badge-danger float-right" href="#" style="color: white;" data-toggle="modal" data-target="#modelId"><i class="fas fa-times"></i></a>
+                            <h4 class="mt-0"><a href="#" class="text-dark">Danh sách sinh viên Khóa 27</a></h4>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="kanban-box">
+                        <div class="kanban-detail">
+                            <a class="badge badge-danger float-right" href="#" style="color: white;"><i class="fas fa-times"></i></a>
+                            <h4 class="mt-0"><a href="#" class="text-dark">Danh sách sinh viên Khóa 26</a></h4>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="kanban-box">
+                        <div class="kanban-detail">
+                            <a class="badge badge-danger float-right" href="#" style="color: white;"><i class="fas fa-times"></i></a>
+                            <h4 class="mt-0"><a href="#" class="text-dark">Danh sách sinh viên Khóa 25</a></h4>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="kanban-box">
+                        <div class="kanban-detail">
+                            <a class="badge badge-danger float-right" href="#" style="color: white;"><i class="fas fa-times"></i></a>
+                            <h4 class="mt-0"><a href="select-cohort.html" class="text-dark">Danh sách sinh viên Khóa 24</a></h4>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+            <!-- Modal -->
+            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="font-family: Roboto;">Xóa danh sách sinh viên</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid text-center">
+                                Xác nhận xóa Danh sách sinh viên - Khóa 27
+                            </div>
+                            <label for="recipient-name" class="col-form-label">Nhập "Danh sách sinh viên - Khóa 27" để xác nhận xóa:</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="Nhập">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                                        $('#exampleModal').on('show.bs.modal', event => {
+                                            var button = $(event.relatedTarget);
+                                            var modal = $(this);
+                                            // Use above variables to manipulate the DOM
+
+                                        });
+            </script>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modelId1" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="font-family: Roboto;">Tìm kiếm sinh viên</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit">
+                                    <i class="fe-search"></i>
+                                </button>
+                            </div>
+                            <div class="table-responsive text-nowrap">
+                                <table class="table table-striped mb-0 dt-responsive" id="table" id="datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>MSSV</th>
+                                            <th>Họ</th>
+                                            <th>Tên</th>
+                                            <th>Ngày sinh</th>
+                                            <th>Giới tính</th>
+                                            <th>Tình trạng</th>
+                                            <th>Khóa học</th>
+                                            <th>Mã lớp SV</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>187PM20547</td>
+                                            <td>Nguyễn Duy</td>
+                                            <td>Phương</td>
+                                            <td>25/05/1999</td>
+                                            <td>Nam</td>
+                                            <td>Còn học</td>
+                                            <td>K24</td>
+                                            <td>K24T-PM1</td>
+                                            <td><a href="#">Xem thêm</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                                        $('#exampleModal1').on('show.bs.modal', event => {
+                                            var button = $(event.relatedTarget);
+                                            var modal = $(this);
+                                            // Use above variables to manipulate the DOM
+
+                                        });
+            </script>
+        </div>
+    </div><!-- end col -->
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: Roboto;">Thêm danh sách sinh viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="excel_file" class="dropify" />
+                    </div>
+                    <!-- <div id="excel_data" class="table-responsive"> -->
+
+            </div>
+            <!-- <button onclick="myFunction1()">Try it</button>
+            <p id="demo"></p> -->
+            </form>
+            <div class="col-lg-10">
+                <div class="card-box">
+                    <ul class="mb-0">
+                        <li>
+                            Tổng số sinh viên: 1500
+                            <div class="col-xl-6">
+                                <ul>
+                                    <li>
+                                        Khóa 26: 500
+                                        <div class="col-xl-6">
+                                            <ul>
+                                                <li>
+                                                    Ngành CNTT: 300
+                                                    <div class="col-xl-6">
+                                                        <ul>
+                                                            <li>
+                                                                Lớp IT1: 150
+                                                            </li>
+                                                            <li>
+                                                                Lớp IT2: 150
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    Ngành KTPM: 200
+                                                    <div class="col-xl-6">
+                                                        <ul>
+                                                            <li>
+                                                                Lớp PM1: 100
+                                                            </li>
+                                                            <li>
+                                                                Lớp PM2: 100
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- end col -->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-primary"><a href="#" style="color: white;">Import</a></button>
+        </div>
+    </div>
+</div>
+
