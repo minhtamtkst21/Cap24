@@ -18,8 +18,8 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="HocKy" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HocKy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HocPhanDaoTao">
           <Key>
@@ -86,7 +86,7 @@
           <Property Name="Ten" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="NgaySinh" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_TinhTrang" Type="int" Nullable="false" />
           <Property Name="ID_Lop" Type="int" />
           <Property Name="Email_1" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email_2" Type="nvarchar" MaxLength="100" />
@@ -104,6 +104,14 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TinhTrang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoUuTien" Type="int" />
+          <Property Name="TenTinhTrang" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_ChuongTrinhDaoTao_HocKyDaoTao">
           <End Role="HocKyDaoTao" Type="Self.HocKyDaoTao" Multiplicity="0..1" />
@@ -237,6 +245,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SinhVien_TinhTrang">
+          <End Role="TinhTrang" Type="Self.TinhTrang" Multiplicity="1" />
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TinhTrang">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SinhVien">
+              <PropertyRef Name="ID_TinhTrang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CP24Team03ModelStoreContainer">
           <EntitySet Name="ChuongTrinhDaoTao" EntityType="Self.ChuongTrinhDaoTao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HocKyDaoTao" EntityType="Self.HocKyDaoTao" Schema="dbo" store:Type="Tables" />
@@ -248,6 +268,7 @@
           <EntitySet Name="RangBuocHocPhan" EntityType="Self.RangBuocHocPhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TinhTrang" EntityType="Self.TinhTrang" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChuongTrinhDaoTao_HocKyDaoTao" Association="Self.FK_ChuongTrinhDaoTao_HocKyDaoTao">
             <End Role="HocKyDaoTao" EntitySet="HocKyDaoTao" />
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTao" />
@@ -292,6 +313,10 @@
             <End Role="LopQuanLy" EntitySet="LopQuanLy" />
             <End Role="SinhVien" EntitySet="SinhVien" />
           </AssociationSet>
+          <AssociationSet Name="FK_SinhVien_TinhTrang" Association="Self.FK_SinhVien_TinhTrang">
+            <End Role="TinhTrang" EntitySet="TinhTrang" />
+            <End Role="SinhVien" EntitySet="SinhVien" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -308,6 +333,7 @@
           <EntitySet Name="RangBuocHocPhans" EntityType="CP24Team03Model.RangBuocHocPhan" />
           <EntitySet Name="SinhViens" EntityType="CP24Team03Model.SinhVien" />
           <EntitySet Name="sysdiagrams" EntityType="CP24Team03Model.sysdiagram" />
+          <EntitySet Name="TinhTrangs" EntityType="CP24Team03Model.TinhTrang" />
           <AssociationSet Name="FK_ChuongTrinhDaoTao_HocKyDaoTao" Association="CP24Team03Model.FK_ChuongTrinhDaoTao_HocKyDaoTao">
             <End Role="HocKyDaoTao" EntitySet="HocKyDaoTaos" />
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTaos" />
@@ -352,6 +378,10 @@
             <End Role="LopQuanLy" EntitySet="LopQuanLies" />
             <End Role="SinhVien" EntitySet="SinhViens" />
           </AssociationSet>
+          <AssociationSet Name="FK_SinhVien_TinhTrang" Association="CP24Team03Model.FK_SinhVien_TinhTrang">
+            <End Role="TinhTrang" EntitySet="TinhTrangs" />
+            <End Role="SinhVien" EntitySet="SinhViens" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ChuongTrinhDaoTao">
           <Key>
@@ -370,8 +400,8 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="HocKy" Type="Int32" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HocKy" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ChuongTrinhDaoTaos" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_HocKyDaoTao" FromRole="HocKyDaoTao" ToRole="ChuongTrinhDaoTao" />
         </EntityType>
         <EntityType Name="HocPhanDaoTao">
@@ -455,7 +485,7 @@
           <Property Name="Ten" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="GioiTinh" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="TinhTrang" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_TinhTrang" Type="Int32" Nullable="false" />
           <Property Name="ID_Lop" Type="Int32" />
           <Property Name="Email_1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -464,6 +494,7 @@
           <Property Name="DTMe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LopQuanLy" Relationship="CP24Team03Model.FK_SinhVien_Lop" FromRole="SinhVien" ToRole="LopQuanLy" />
+          <NavigationProperty Name="TinhTrang" Relationship="CP24Team03Model.FK_SinhVien_TinhTrang" FromRole="SinhVien" ToRole="TinhTrang" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -474,6 +505,15 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TinhTrang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoUuTien" Type="Int32" />
+          <Property Name="TenTinhTrang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SinhViens" Relationship="CP24Team03Model.FK_SinhVien_TinhTrang" FromRole="TinhTrang" ToRole="SinhVien" />
         </EntityType>
         <Association Name="FK_ChuongTrinhDaoTao_HocKyDaoTao">
           <End Type="CP24Team03Model.HocKyDaoTao" Role="HocKyDaoTao" Multiplicity="0..1" />
@@ -607,6 +647,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SinhVien_TinhTrang">
+          <End Type="CP24Team03Model.TinhTrang" Role="TinhTrang" Multiplicity="1" />
+          <End Type="CP24Team03Model.SinhVien" Role="SinhVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TinhTrang">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SinhVien">
+              <PropertyRef Name="ID_TinhTrang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -626,8 +678,8 @@
           <EntitySetMapping Name="HocKyDaoTaos">
             <EntityTypeMapping TypeName="CP24Team03Model.HocKyDaoTao">
               <MappingFragment StoreEntitySet="HocKyDaoTao">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="HocKy" ColumnName="HocKy" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -702,7 +754,7 @@
                 <ScalarProperty Name="Email_2" ColumnName="Email_2" />
                 <ScalarProperty Name="Email_1" ColumnName="Email_1" />
                 <ScalarProperty Name="ID_Lop" ColumnName="ID_Lop" />
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="ID_TinhTrang" ColumnName="ID_TinhTrang" />
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
                 <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
@@ -720,6 +772,15 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TinhTrangs">
+            <EntityTypeMapping TypeName="CP24Team03Model.TinhTrang">
+              <MappingFragment StoreEntitySet="TinhTrang">
+                <ScalarProperty Name="TenTinhTrang" ColumnName="TenTinhTrang" />
+                <ScalarProperty Name="DoUuTien" ColumnName="DoUuTien" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

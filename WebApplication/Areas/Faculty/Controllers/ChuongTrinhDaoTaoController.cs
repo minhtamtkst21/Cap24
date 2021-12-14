@@ -386,19 +386,33 @@ namespace WebApplication.Areas.Faculty.Controllers
                                         {
                                             DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột A: Mã khối kiến thức bị sai, độ dài ký tự: " + stt + " là: " + stt.Length + "</p>";
                                         }
-                                        if (workSheet.Cells[rowIterator, 3].Value != null)
+                                        if (workSheet.Cells[rowIterator, 2].Value != null)
                                         {
-                                            var tenktt = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                            var tenktt = workSheet.Cells[rowIterator, 2].Value.ToString();
                                             if(tenktt.Length > 200)
                                             {
-                                                DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên khối kiến thức không được quá 200 ký tự, độ dài ký tự: " + stt + " là: " + stt.Length + "</p>";
+                                                DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Tên khối kiến thức không được quá 200 ký tự, độ dài ký tự: " + stt + " là: " + stt.Length + "</p>";
+                                            }
+                                            if (tenktt.Replace(" ",string.Empty) == null)
+                                            {
+                                                DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Tên kiến thức bắt buộc phải có, vui lòng thử lại!!</p>";
                                             }
                                         }
                                         else
                                         {
-                                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột C: Tên kiến thức bắt buộc phải có, vui lòng thử lại!!</p>";
+                                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Tên kiến thức bắt buộc phải có, vui lòng thử lại!!</p>";
                                         }
                                         listmahp.Clear();
+                                    }
+                                }
+                            } else
+                            {
+                                if (workSheet.Cells[rowIterator, 1].Value != null)
+                                {
+                                    var stt = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                    if (!int.TryParse(stt, out int i))
+                                    {
+                                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Tên kiến thức bắt buộc phải có, vui lòng thử lại!!</p>";
                                     }
                                 }
                             }

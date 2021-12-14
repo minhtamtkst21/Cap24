@@ -20,7 +20,7 @@ namespace WebApplication.Models
         public string Ten { get; set; }
         public string GioiTinh { get; set; }
         public string NgaySinh { get; set; }
-        public string TinhTrang { get; set; }
+        public int ID_TinhTrang { get; set; }
         public Nullable<int> ID_Lop { get; set; }
         public string Email_1 { get; set; }
         public string Email_2 { get; set; }
@@ -30,5 +30,6 @@ namespace WebApplication.Models
         public string DiaChi { get; set; }
     
         public virtual LopQuanLy LopQuanLy { get; set; }
+        public virtual TinhTrang TinhTrang { get; set; }
     }
 }
