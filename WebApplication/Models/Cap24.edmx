@@ -53,9 +53,9 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenLop" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="ChuNhiem" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ChuNhiem" Type="nvarchar(max)" />
           <Property Name="ID_Nganh" Type="int" />
           <Property Name="ID_Khoa" Type="int" />
         </EntityType>
@@ -80,15 +80,15 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="MSSV" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Ho" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Ten" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="NgaySinh" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="ID_TinhTrang" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MSSV" Type="varchar" MaxLength="20" />
+          <Property Name="Ho" Type="nvarchar" MaxLength="100" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="100" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
+          <Property Name="NgaySinh" Type="varchar" MaxLength="10" />
+          <Property Name="ID_TinhTrang" Type="int" />
           <Property Name="ID_Lop" Type="int" />
-          <Property Name="Email_1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email_1" Type="nvarchar" MaxLength="100" />
           <Property Name="Email_2" Type="nvarchar" MaxLength="100" />
           <Property Name="DTDD" Type="varchar" MaxLength="20" />
           <Property Name="DTCha" Type="varchar" MaxLength="20" />
@@ -246,7 +246,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SinhVien_TinhTrang">
-          <End Role="TinhTrang" Type="Self.TinhTrang" Multiplicity="1" />
+          <End Role="TinhTrang" Type="Self.TinhTrang" Multiplicity="0..1" />
           <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TinhTrang">
@@ -447,7 +447,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="TenLop" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ChuNhiem" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChuNhiem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ID_Nganh" Type="Int32" />
           <Property Name="ID_Khoa" Type="Int32" />
           <NavigationProperty Name="KhoaDaoTao" Relationship="CP24Team03Model.FK_Lop_KhoaDaoTao" FromRole="LopQuanLy" ToRole="KhoaDaoTao" />
@@ -480,14 +480,14 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="MSSV" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Ho" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Ten" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="GioiTinh" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="NgaySinh" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ID_TinhTrang" Type="Int32" Nullable="false" />
+          <Property Name="MSSV" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Ho" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TinhTrang" Type="Int32" />
           <Property Name="ID_Lop" Type="Int32" />
-          <Property Name="Email_1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DTDD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="DTCha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -648,7 +648,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SinhVien_TinhTrang">
-          <End Type="CP24Team03Model.TinhTrang" Role="TinhTrang" Multiplicity="1" />
+          <End Type="CP24Team03Model.TinhTrang" Role="TinhTrang" Multiplicity="0..1" />
           <End Type="CP24Team03Model.SinhVien" Role="SinhVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TinhTrang">

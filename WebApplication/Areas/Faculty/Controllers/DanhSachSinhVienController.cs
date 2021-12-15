@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication.Models;
+using System.Data;
 using System.Data.Entity;
 using System.Net;
 using OfficeOpenXml;
@@ -156,12 +157,11 @@ namespace WebApplication.Areas.Faculty.Controllers
         {            
             if (Request != null)
             {
-                SinhVien sinhvien = new SinhVien();
+                
                 HttpPostedFileBase file = Request.Files["UploadedFile"];
                 if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                 {
-                    db.SinhViens.Add(sinhvien);
-                    db.SaveChanges();
+                    
                     string fileName = file.FileName;
                     string fileContentType = file.ContentType;
                     byte[] fileBytes = new byte[file.ContentLength];
@@ -175,8 +175,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                             var noOfCol = workSheet.Dimension.End.Column;
                             var noOfRow = workSheet.Dimension.End.Row;
                             if (noOfCol == 15 && noOfRow > 1)
-                            {
-                                string MANGANH = "";
+                            {                                
                                 for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                                 {
                                     SinhVien SaveSV = new SinhVien();
@@ -257,6 +256,8 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     {
                                         
                                     }
+                                    db.SinhViens.Add(SaveSV);
+                                    db.SaveChanges();
                                 }
                             }
                         }
