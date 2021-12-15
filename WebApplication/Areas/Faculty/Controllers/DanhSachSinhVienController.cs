@@ -251,10 +251,30 @@ namespace WebApplication.Areas.Faculty.Controllers
                                             db.SaveChanges();
                                         }
                                     }
-                              
-                                    if (workSheet.Cells[rowIterator, 6].Value != null)
+                                    if(workSheet.Cells[rowIterator, 6].Value != null)
                                     {
-                                        
+                                        var listTinhTrang = db.TinhTrangs.ToList();
+
+                                        var listTinhTrangMoi = new List<string>();
+
+                                        var tenTinhTrang = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                        foreach(var item in listTinhTrang)
+                                        {
+                                            listTinhTrangMoi.Add(item.TenTinhTrang);
+                                        }
+                                        if(CheckTonTai(tenTinhTrang, listTinhTrangMoi))
+                                        {
+                                            var tinhtrang = db.TinhTrangs.FirstOrDefault(s => s.TenTinhTrang == tenTinhTrang);
+                                            SaveSV.TinhTrang = tinhtrang;
+                                        }
+                                        else
+                                        {
+                                            var TinhTrangMoi = new TinhTrang();
+                                            TinhTrangMoi.TenTinhTrang = tenTinhTrang;
+                                            
+                                            db.TinhTrangs.Add(TinhTrangMoi);
+                                            db.SaveChanges();
+                                        }
                                     }
                                     db.SinhViens.Add(SaveSV);
                                     db.SaveChanges();

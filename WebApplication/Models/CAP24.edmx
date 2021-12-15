@@ -233,7 +233,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SinhVien_Lop">
+        <Association Name="FK_SinhVien_LopQuanLy">
           <End Role="LopQuanLy" Type="Self.LopQuanLy" Multiplicity="0..1" />
           <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
           <ReferentialConstraint>
@@ -257,6 +257,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CP24Team03ModelStoreContainer">
           <EntitySet Name="ChuongTrinhDaoTao" EntityType="Self.ChuongTrinhDaoTao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HocKyDaoTao" EntityType="Self.HocKyDaoTao" Schema="dbo" store:Type="Tables" />
@@ -309,7 +340,7 @@
             <End Role="HocPhanDaoTao" EntitySet="HocPhanDaoTao" />
             <End Role="RangBuocHocPhan" EntitySet="RangBuocHocPhan" />
           </AssociationSet>
-          <AssociationSet Name="FK_SinhVien_Lop" Association="Self.FK_SinhVien_Lop">
+          <AssociationSet Name="FK_SinhVien_LopQuanLy" Association="Self.FK_SinhVien_LopQuanLy">
             <End Role="LopQuanLy" EntitySet="LopQuanLy" />
             <End Role="SinhVien" EntitySet="SinhVien" />
           </AssociationSet>
@@ -323,6 +354,36 @@
     <edmx:ConceptualModels>
       <Schema Namespace="CP24Team03Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Cap24" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CP24Team03Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CP24Team03Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="ChuongTrinhDaoTaos" EntityType="CP24Team03Model.ChuongTrinhDaoTao" />
           <EntitySet Name="HocKyDaoTaos" EntityType="CP24Team03Model.HocKyDaoTao" />
           <EntitySet Name="HocPhanDaoTaos" EntityType="CP24Team03Model.HocPhanDaoTao" />
@@ -374,7 +435,7 @@
             <End Role="NganhDaoTao" EntitySet="NganhDaoTaos" />
             <End Role="LopQuanLy" EntitySet="LopQuanLies" />
           </AssociationSet>
-          <AssociationSet Name="FK_SinhVien_Lop" Association="CP24Team03Model.FK_SinhVien_Lop">
+          <AssociationSet Name="FK_SinhVien_LopQuanLy" Association="CP24Team03Model.FK_SinhVien_LopQuanLy">
             <End Role="LopQuanLy" EntitySet="LopQuanLies" />
             <End Role="SinhVien" EntitySet="SinhViens" />
           </AssociationSet>
@@ -382,7 +443,18 @@
             <End Role="TinhTrang" EntitySet="TinhTrangs" />
             <End Role="SinhVien" EntitySet="SinhViens" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="ChuongTrinhDaoTao">
           <Key>
             <PropertyRef Name="ID" />
@@ -445,14 +517,14 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLop" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ChuNhiem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ID_Nganh" Type="Int32" />
           <Property Name="ID_Khoa" Type="Int32" />
           <NavigationProperty Name="KhoaDaoTao" Relationship="CP24Team03Model.FK_Lop_KhoaDaoTao" FromRole="LopQuanLy" ToRole="KhoaDaoTao" />
           <NavigationProperty Name="NganhDaoTao" Relationship="CP24Team03Model.FK_Lop_NganhDaoTao" FromRole="LopQuanLy" ToRole="NganhDaoTao" />
-          <NavigationProperty Name="SinhViens" Relationship="CP24Team03Model.FK_SinhVien_Lop" FromRole="LopQuanLy" ToRole="SinhVien" />
+          <NavigationProperty Name="SinhViens" Relationship="CP24Team03Model.FK_SinhVien_LopQuanLy" FromRole="LopQuanLy" ToRole="SinhVien" />
         </EntityType>
         <EntityType Name="NganhDaoTao">
           <Key>
@@ -479,7 +551,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MSSV" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Ho" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -493,7 +565,7 @@
           <Property Name="DTCha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="DTMe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LopQuanLy" Relationship="CP24Team03Model.FK_SinhVien_Lop" FromRole="SinhVien" ToRole="LopQuanLy" />
+          <NavigationProperty Name="LopQuanLy" Relationship="CP24Team03Model.FK_SinhVien_LopQuanLy" FromRole="SinhVien" ToRole="LopQuanLy" />
           <NavigationProperty Name="TinhTrang" Relationship="CP24Team03Model.FK_SinhVien_TinhTrang" FromRole="SinhVien" ToRole="TinhTrang" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -635,7 +707,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SinhVien_Lop">
+        <Association Name="FK_SinhVien_LopQuanLy">
           <End Type="CP24Team03Model.LopQuanLy" Role="LopQuanLy" Multiplicity="0..1" />
           <End Type="CP24Team03Model.SinhVien" Role="SinhVien" Multiplicity="*" />
           <ReferentialConstraint>
@@ -665,6 +737,30 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CP24Team03ModelStoreContainer" CdmEntityContainer="Cap24">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CP24Team03Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CP24Team03Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CP24Team03Model.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CP24Team03Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CP24Team03Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CP24Team03Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CP24Team03Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CP24Team03Model.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CP24Team03Model.Store.sp_upgraddiagrams" />
           <EntitySetMapping Name="ChuongTrinhDaoTaos">
             <EntityTypeMapping TypeName="CP24Team03Model.ChuongTrinhDaoTao">
               <MappingFragment StoreEntitySet="ChuongTrinhDaoTao">
@@ -784,7 +880,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

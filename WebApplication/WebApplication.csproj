@@ -239,6 +239,12 @@
     <Compile Include="Models\SinhVien.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Cap24.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Cap24.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Cap24.tt</DependentUpon>
     </Compile>
