@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApplication.Models.LopQuanLy>
+
+@{
+    ViewBag.Title = "ListLop";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "TaoMoiLop")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenLop)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChuNhiem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KhoaDaoTao.Khoa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NganhDaoTao.Nganh)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenLop)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChuNhiem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KhoaDaoTao.Khoa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NganhDaoTao.Nganh)
+        </td>
+        <td>
+            @Html.ActionLink("SuaLop", "SuaLop", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "XoaLop", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -94,12 +94,12 @@
             </div>
 
             <script>
-                                        $('#exampleModal').on('show.bs.modal', event => {
-                                            var button = $(event.relatedTarget);
-                                            var modal = $(this);
-                                            // Use above variables to manipulate the DOM
+                $('#exampleModal').on('show.bs.modal', event => {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                    // Use above variables to manipulate the DOM
 
-                                        });
+                });
             </script>
 
             <!-- Modal -->
@@ -161,88 +161,91 @@
             </div>
 
             <script>
-                                        $('#exampleModal1').on('show.bs.modal', event => {
-                                            var button = $(event.relatedTarget);
-                                            var modal = $(this);
-                                            // Use above variables to manipulate the DOM
+                $('#exampleModal1').on('show.bs.modal', event => {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                    // Use above variables to manipulate the DOM
 
-                                        });
+                });
             </script>
         </div>
     </div><!-- end col -->
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="font-family: Roboto;">Thêm danh sách sinh viên</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="file-upload-wrapper">
-                        <input type="file" id="excel_file" class="dropify" />
-                    </div>
-                    <!-- <div id="excel_data" class="table-responsive"> -->
 
-            </div>
-            <!-- <button onclick="myFunction1()">Try it</button>
-            <p id="demo"></p> -->
-            </form>
-            <div class="col-lg-10">
-                <div class="card-box">
-                    <ul class="mb-0">
-                        <li>
-                            Tổng số sinh viên: 1500
-                            <div class="col-xl-6">
-                                <ul>
-                                    <li>
-                                        Khóa 26: 500
-                                        <div class="col-xl-6">
-                                            <ul>
-                                                <li>
-                                                    Ngành CNTT: 300
-                                                    <div class="col-xl-6">
-                                                        <ul>
-                                                            <li>
-                                                                Lớp IT1: 150
-                                                            </li>
-                                                            <li>
-                                                                Lớp IT2: 150
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    Ngành KTPM: 200
-                                                    <div class="col-xl-6">
-                                                        <ul>
-                                                            <li>
-                                                                Lớp PM1: 100
-                                                            </li>
-                                                            <li>
-                                                                Lớp PM2: 100
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-family: Roboto;">Thêm danh sách sinh viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div><!-- end col -->
+                <div class="modal-body">
+                    @using (Html.BeginForm("UploadSinhVien", "DanhSachSinhVien", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="file-upload-wrapper">
+                            <input type="file" name="UploadedFile" class="dropify" required accept=".xls,.xlsx" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    }
+                        <!-- <div id="excel_data" class="table-responsive"> -->
+                    </div>
+                <!-- <button onclick="myFunction1()">Try it</button>
+                <p id="demo"></p> -->
 
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary"><a href="#" style="color: white;">Import</a></button>
+                <div class="col-lg-10">
+                    <div class="card-box">
+                        <ul class="mb-0">
+                            <li>
+                                Tổng số sinh viên: 1500
+                                <div class="col-xl-6">
+                                    <ul>
+                                        <li>
+                                            Khóa 26: 500
+                                            <div class="col-xl-6">
+                                                <ul>
+                                                    <li>
+                                                        Ngành CNTT: 300
+                                                        <div class="col-xl-6">
+                                                            <ul>
+                                                                <li>
+                                                                    Lớp IT1: 150
+                                                                </li>
+                                                                <li>
+                                                                    Lớp IT2: 150
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        Ngành KTPM: 200
+                                                        <div class="col-xl-6">
+                                                            <ul>
+                                                                <li>
+                                                                    Lớp PM1: 100
+                                                                </li>
+                                                                <li>
+                                                                    Lớp PM2: 100
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div><!-- end col -->
+                
+            </div>
         </div>
     </div>
-</div>
+
 
