@@ -1,0 +1,81 @@
+﻿@model IEnumerable<WebApplication.Models.LopQuanLy>
+
+@{
+    ViewBag.Title = "LopSinhVien";
+    Layout = "~/Views/Shared/Faculty_Layout.cshtml";
+    var nganh = ViewData["NganhDaoTao"] as WebApplication.Models.NganhDaoTao;
+    var khoa = ViewData["KhoaDaoTao"] as WebApplication.Models.KhoaDaoTao;
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title" style="font-family:Roboto">Danh sách sinh viên Ngành @ViewData["NganhDaoTao"] - Khóa @ViewData["KhoaDaoTao"]</h4>
+            <div class="page-title-right">
+                <!-- <div class="container">
+                    <input type="text" id="search" placeholder="Search..." style="color: black;">
+                    <div class="search"></div>
+                </div> -->
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="select-class.html">K24T-PM1</a></li>
+                    <li class="breadcrumb-item active">Danh sách sinh viên lớp K24T-PM1</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card-box taskboard-box">
+            @foreach (var item in Model)
+            {
+                <ul class="sortable-list list-unstyled taskList" id="upcoming">
+                    <li>
+                        <div class="kanban-box">
+                            <div class="kanban-detail">
+                                <a class="badge badge-danger float-right" href="#" style="color: white;" data-toggle="modal" data-target="#modelId"><i class="fas fa-times"></i></a>
+                                <h4 class="mt-0" style="font-family: Roboto;"><a href="@Url.Action("ListSinhVien", new { id = item.ID })" style="color: black;">Danh sách sinh viên lớp @item.TenLop </a></h4>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            }
+            <!-- Modal -->
+            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="font-family: Roboto;">Xóa danh sách sinh viên</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid text-center">
+                                Xác nhận xóa danh sách sinh viên Ngành Công nghệ thông tin - Khóa 27
+                            </div>
+                            <label for="recipient-name" class="col-form-label">Nhập "Công nghệ thông tin - Khóa 27" để xác nhận xóa:</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="Nhập">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                    $('#exampleModal').on('show.bs.modal', event => {
+                        var button = $(event.relatedTarget);
+                        var modal = $(this);
+                        // Use above variables to manipulate the DOM
+
+                    });
+            </script>
+        </div>
+    </div><!-- end col -->
+</div>

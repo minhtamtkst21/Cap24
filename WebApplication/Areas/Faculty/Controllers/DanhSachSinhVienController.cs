@@ -14,7 +14,7 @@ namespace WebApplication.Areas.Faculty.Controllers
     public class DanhSachSinhVienController : Controller
     {
         public Cap24 db = new Cap24();
-        
+
         public string KiemTraLop(string tenLop)
         {
             string ListLoi = "";
@@ -22,7 +22,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             if (tenLop.Length > 20)
             {
                 ListLoi += "<p> Tên lớp không được quá 20 ký tự, số ký tự của lớp bạn nhập là: " + tenLop.Length + "</p>";
-            }          
+            }
             var listDBLop = db.LopQuanLies.ToList();
             var listLop = new List<string>();
             foreach (var item in listDBLop)
@@ -147,21 +147,61 @@ namespace WebApplication.Areas.Faculty.Controllers
             db.SaveChanges();
             return RedirectToAction("ListLop");
         }
-        // GET: Faculty/DanhSachSinhVien
-        public ActionResult ListSinhVien()
+        // GET: Faculty/KhoaSinhVien
+        public ActionResult KhoaSinhVien()
         {
+            var khoa = db.KhoaDaoTaos.ToList();
+            return View(khoa);
+        }
+
+        public ActionResult NganhSinhVien(int ID)
+        {
+            var khoa = db.KhoaDaoTaos.Find(ID);
+            ViewData["KhoaDaoTao"] = khoa.Khoa;
+            var nganh = db.NganhDaoTaos.ToList();
+            return View(nganh);
+            //var ctdt = db.ChuongTrinhDaoTaos.Where(s => s.KhoaDaoTao == khoa).ToList();
+            //var listnganh = new List<NganhDaoTao>();
+            //var nganh = new NganhDaoTao();
+            //foreach (var item in ctdt)
+            //{
+            //    nganh = db.NganhDaoTaos.FirstOrDefault(s => s.Nganh == item.NganhDaoTao.Nganh);
+            //    bool dk = false;
+            //    foreach (var e in listnganh)
+            //        if (e == nganh)
+            //            dk = true;
+            //    if (dk == false)
+            //        listnganh.Add(nganh);
+            //}
+            //return View(listnganh);
+        }
+        public ActionResult LopSinhVien(int ID, int ID2)
+        {
+            var khoa = db.KhoaDaoTaos.Find(ID);
+            ViewData["KhoaDaoTao"] = khoa.Khoa;
+            var nganh = db.NganhDaoTaos.Find(ID2);
+            ViewData["NganhDaoTao"] = nganh.Nganh;
+            var lop = db.LopQuanLies.ToList();
+            return View(lop);
+        }
+            // GET: Faculty/DanhSachSinhVien
+            public ActionResult ListSinhVien()
+        {
+            ViewData["KhoaDaoTao"] = db.KhoaDaoTaos.ToList();
+            ViewData["NganhDaoTao"] = db.NganhDaoTaos.ToList();
+            ViewData["LopQuanLy"] = db.LopQuanLies.ToList();
             return View();
         }
         [HttpPost]
         public ActionResult UploadSinhVien(FormCollection formCollection)
-        {            
+        {
             if (Request != null)
             {
-                
+
                 HttpPostedFileBase file = Request.Files["UploadedFile"];
                 if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                 {
-                    
+
                     string fileName = file.FileName;
                     string fileContentType = file.ContentType;
                     byte[] fileBytes = new byte[file.ContentLength];
@@ -175,7 +215,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                             var noOfCol = workSheet.Dimension.End.Column;
                             var noOfRow = workSheet.Dimension.End.Row;
                             if (noOfCol == 15 && noOfRow > 1)
-                            {                                
+                            {
                                 for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                                 {
                                     SinhVien SaveSV = new SinhVien();
@@ -232,11 +272,12 @@ namespace WebApplication.Areas.Faculty.Controllers
                                         var tenLop = workSheet.Cells[rowIterator, 8].Value.ToString();
                                         var maNganh = workSheet.Cells[rowIterator, 11].Value.ToString();
                                         var maKhoa = workSheet.Cells[rowIterator, 7].Value.ToString().Replace("K", string.Empty);
-                                        foreach (var item in listLop){
+                                        foreach (var item in listLop)
+                                        {
                                             listTenLop.Add(item.TenLop);
                                         }
-                                        
-                                        if(CheckTonTai(tenLop, listTenLop))
+
+                                        if (CheckTonTai(tenLop, listTenLop))
                                         {
                                             var lop = db.LopQuanLies.FirstOrDefault(s => s.TenLop == tenLop);
                                             SaveSV.LopQuanLy = lop;
@@ -251,18 +292,18 @@ namespace WebApplication.Areas.Faculty.Controllers
                                             db.SaveChanges();
                                         }
                                     }
-                                    if(workSheet.Cells[rowIterator, 6].Value != null)
+                                    if (workSheet.Cells[rowIterator, 6].Value != null)
                                     {
                                         var listTinhTrang = db.TinhTrangs.ToList();
 
                                         var listTinhTrangMoi = new List<string>();
 
                                         var tenTinhTrang = workSheet.Cells[rowIterator, 6].Value.ToString();
-                                        foreach(var item in listTinhTrang)
+                                        foreach (var item in listTinhTrang)
                                         {
                                             listTinhTrangMoi.Add(item.TenTinhTrang);
                                         }
-                                        if(CheckTonTai(tenTinhTrang, listTinhTrangMoi))
+                                        if (CheckTonTai(tenTinhTrang, listTinhTrangMoi))
                                         {
                                             var tinhtrang = db.TinhTrangs.FirstOrDefault(s => s.TenTinhTrang == tenTinhTrang);
                                             SaveSV.TinhTrang = tinhtrang;
@@ -271,7 +312,14 @@ namespace WebApplication.Areas.Faculty.Controllers
                                         {
                                             var TinhTrangMoi = new TinhTrang();
                                             TinhTrangMoi.TenTinhTrang = tenTinhTrang;
-                                            
+                                            var douutien = 0;
+                                            foreach (var item in listTinhTrang)
+                                            {
+                                                if (item.DoUuTien > douutien)
+                                                    douutien = (int)item.DoUuTien;
+                                            }
+                                            TinhTrangMoi.DoUuTien = douutien + 1;
+
                                             db.TinhTrangs.Add(TinhTrangMoi);
                                             db.SaveChanges();
                                         }

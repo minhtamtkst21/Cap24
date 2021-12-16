@@ -2,50 +2,64 @@
 
 @{
     ViewBag.Title = "ListLop";
+    Layout = "~/Views/Shared/Faculty_Layout.cshtml";
+    int STT = 0;
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title" style="font-family:Roboto">DANH SÁCH LỚP</h4>
+            <div class="page-title-right">
+                <!-- <div class="container">
+                    <input type="text" id="search" placeholder="Search..." style="color: black;">
+                    <div class="search"></div>
+                </div> -->
+                <button type="submit" id="button" formaction="@Url.Action("TaoMoiLop")" class="btn btn-secondary btn-rounded">
+                    Tạo mới
+                </button>
+            </div>
 
-<p>
-    @Html.ActionLink("Create New", "TaoMoiLop")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenLop)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChuNhiem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KhoaDaoTao.Khoa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NganhDaoTao.Nganh)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenLop)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChuNhiem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KhoaDaoTao.Khoa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NganhDaoTao.Nganh)
-        </td>
-        <td>
-            @Html.ActionLink("SuaLop", "SuaLop", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "XoaLop", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped mb-0 dt-responsive" id="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên lớp</th>
+                                <th>Chủ nhiệm lớp</th>
+                                <th>Khóa</th>
+                                <th>Ngành</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                STT++;
+                                <tr>
+                                    <td>@STT</td>
+                                    <td>@item.TenLop</td>
+                                    <td>@item.ChuNhiem</td>
+                                    <td><span>K</span>@item.ID_Khoa</td>
+                                    <td>@item.ID_Nganh</td>
+                                    <td>
+                                        <a href="@Url.Action("SuaLop", new { id = item.ID })">Sửa</a> |
+                                        <a href="@Url.Action("XoaLop", new { id = item.ID })">Xóa</a> |
+                                        <a href="@Url.Action("Details", new { id = item.ID })">Chi tiết</a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                    </table>
+                </div> <!-- end .table-responsive-->
+            </div> <!-- end card-body -->
+        </div> <!-- end card -->
+    </div> <!-- end col -->
+</div> <!-- end row -->
