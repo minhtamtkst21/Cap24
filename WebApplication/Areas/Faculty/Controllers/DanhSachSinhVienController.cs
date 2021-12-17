@@ -160,20 +160,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             ViewData["KhoaDaoTao"] = khoa.Khoa;
             var nganh = db.NganhDaoTaos.ToList();
             return View(nganh);
-            //var ctdt = db.ChuongTrinhDaoTaos.Where(s => s.KhoaDaoTao == khoa).ToList();
-            //var listnganh = new List<NganhDaoTao>();
-            //var nganh = new NganhDaoTao();
-            //foreach (var item in ctdt)
-            //{
-            //    nganh = db.NganhDaoTaos.FirstOrDefault(s => s.Nganh == item.NganhDaoTao.Nganh);
-            //    bool dk = false;
-            //    foreach (var e in listnganh)
-            //        if (e == nganh)
-            //            dk = true;
-            //    if (dk == false)
-            //        listnganh.Add(nganh);
-            //}
-            //return View(listnganh);
         }
         public ActionResult LopSinhVien(int ID, int ID2)
         {
@@ -191,7 +177,14 @@ namespace WebApplication.Areas.Faculty.Controllers
             ViewData["NganhDaoTao"] = db.NganhDaoTaos.ToList();
             ViewData["LopQuanLy"] = db.LopQuanLies.ToList();
             return View();
+        }   
+        [HttpPost]
+        public ActionResult XemTruocThongKe(FormCollection formCollection)
+        {
+            TempData["test"] = "ahihi";
+            return Redirect(Request.UrlReferrer.ToString());
         }
+
         [HttpPost]
         public ActionResult UploadSinhVien(FormCollection formCollection)
         {
