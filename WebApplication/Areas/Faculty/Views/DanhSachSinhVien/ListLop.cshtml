@@ -47,8 +47,8 @@
                                     <td>@STT</td>
                                     <td>@item.TenLop</td>
                                     <td>@item.ChuNhiem</td>
-                                    <td><span>K</span>@item.ID_Khoa</td>
-                                    <td>@item.ID_Nganh</td>
+                                    <td><span>K</span>@item.KhoaDaoTao.Khoa</td>
+                                    <td>@item.NganhDaoTao.Nganh</td>
                                     <td>
                                         <a href="@Url.Action("SuaLop", new { id = item.ID })">Sửa</a> |
                                         <a href="@Url.Action("XoaLop", new { id = item.ID })">Xóa</a> |

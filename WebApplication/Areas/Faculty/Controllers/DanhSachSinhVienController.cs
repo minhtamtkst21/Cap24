@@ -150,34 +150,51 @@ namespace WebApplication.Areas.Faculty.Controllers
         // GET: Faculty/KhoaSinhVien
         public ActionResult KhoaSinhVien()
         {
-            var khoa = db.KhoaDaoTaos.ToList();
+            var lop = db.LopQuanLies.ToList();
+            var khoa = new List<KhoaDaoTao>();
+            var stringkhoa = new List<string>();
+            foreach (var item in lop)
+            {
+                if (!CheckTonTai(item.KhoaDaoTao.Khoa.ToString(), stringkhoa))
+                {
+                    khoa.Add(item.KhoaDaoTao);
+                    stringkhoa.Add(item.KhoaDaoTao.Khoa.ToString());
+                }
+            }
             return View(khoa);
         }
 
         public ActionResult NganhSinhVien(int ID)
         {
             var khoa = db.KhoaDaoTaos.Find(ID);
-            ViewData["KhoaDaoTao"] = khoa.Khoa;
-            var nganh = db.NganhDaoTaos.ToList();
+            var lop = db.LopQuanLies.Where(s => s.KhoaDaoTao.ID == khoa.ID).ToList();
+            var nganh = new List<NganhDaoTao>();
+            var stringnganh = new List<string>();
+            if (lop != null)
+                foreach (var item in lop)
+                {
+                    if (!CheckTonTai(item.NganhDaoTao.Nganh, stringnganh))
+                    {
+                        nganh.Add(item.NganhDaoTao);
+                        stringnganh.Add(item.NganhDaoTao.Nganh);
+                    }
+                }
+            ViewData["KhoaDaoTao"] = khoa;
             return View(nganh);
         }
-        public ActionResult LopSinhVien(int ID, int ID2)
+        public ActionResult LopSinhVien(int idnganh, int idkhoa)
         {
-            var khoa = db.KhoaDaoTaos.Find(ID);
-            ViewData["KhoaDaoTao"] = khoa.Khoa;
-            var nganh = db.NganhDaoTaos.Find(ID2);
-            ViewData["NganhDaoTao"] = nganh.Nganh;
-            var lop = db.LopQuanLies.ToList();
+            var khoa = db.KhoaDaoTaos.Find(idkhoa);
+            var nganh = db.NganhDaoTaos.Find(idnganh);
+            var lop = db.LopQuanLies.Where(s => s.NganhDaoTao.ID == idnganh).Where(s => s.KhoaDaoTao.ID == idkhoa).ToList();
             return View(lop);
         }
-            // GET: Faculty/DanhSachSinhVien
-            public ActionResult ListSinhVien()
+        // GET: Faculty/DanhSachSinhVien
+        public ActionResult ListSinhVien(int id)
         {
-            ViewData["KhoaDaoTao"] = db.KhoaDaoTaos.ToList();
-            ViewData["NganhDaoTao"] = db.NganhDaoTaos.ToList();
-            ViewData["LopQuanLy"] = db.LopQuanLies.ToList();
-            return View();
-        }   
+            var sinhvien = db.SinhViens.OrderBy(s => s.TinhTrang.DoUuTien).Where(s => s.LopQuanLy.ID == id).ToList();
+            return View(sinhvien);
+        }
         [HttpPost]
         public ActionResult XemTruocThongKe(FormCollection formCollection)
         {
@@ -209,6 +226,56 @@ namespace WebApplication.Areas.Faculty.Controllers
                             var noOfRow = workSheet.Dimension.End.Row;
                             if (noOfCol == 15 && noOfRow > 1)
                             {
+                                var listLop = db.LopQuanLies.ToList();
+                                var listTenLop = new List<string>();
+                                foreach (var item in listLop)
+                                {
+                                    listTenLop.Add(item.TenLop);
+                                }
+                                var listTinhTrang = db.TinhTrangs.ToList();
+                                var listTinhTrangMoi = new List<string>();
+                                foreach (var item in listTinhTrang)
+                                {
+                                    listTinhTrangMoi.Add(item.TenTinhTrang);
+                                }
+                                for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                                {
+                                    if (workSheet.Cells[rowIterator, 8].Value != null)
+                                    {
+                                        var tenLop = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                        var maNganh = workSheet.Cells[rowIterator, 11].Value.ToString();
+                                        var maKhoa = workSheet.Cells[rowIterator, 7].Value.ToString().Replace("K", string.Empty);
+
+                                        if (!CheckTonTai(tenLop, listTenLop))
+                                        {
+                                            var lopQL = new LopQuanLy();
+                                            lopQL.TenLop = tenLop;
+                                            lopQL.NganhDaoTao = db.NganhDaoTaos.FirstOrDefault(s => s.MaNganh.ToString() == maNganh);
+                                            lopQL.KhoaDaoTao = db.KhoaDaoTaos.FirstOrDefault(s => s.Khoa.ToString() == maKhoa);
+                                            db.LopQuanLies.Add(lopQL);
+                                            listTenLop.Add(tenLop);
+                                            db.SaveChanges();
+                                        }
+                                    }
+                                    if (workSheet.Cells[rowIterator, 6].Value != null)
+                                    {
+                                        var tenTinhTrang = workSheet.Cells[rowIterator, 6].Value.ToString();
+
+                                        if (!CheckTonTai(tenTinhTrang, listTinhTrangMoi))
+                                        {
+                                            var TinhTrangMoi = new TinhTrang();
+                                            TinhTrangMoi.TenTinhTrang = tenTinhTrang;
+                                            var douutien = 0;
+                                            foreach (var item in listTinhTrang)
+                                                if (item.DoUuTien > douutien)
+                                                    douutien = (int)item.DoUuTien;
+                                            TinhTrangMoi.DoUuTien = douutien + 1;
+                                            db.TinhTrangs.Add(TinhTrangMoi);
+                                            db.SaveChanges();
+                                            listTinhTrangMoi.Add(tenTinhTrang);
+                                        }
+                                    }
+                                }
                                 for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                                 {
                                     SinhVien SaveSV = new SinhVien();
@@ -258,64 +325,13 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     }
                                     if (workSheet.Cells[rowIterator, 8].Value != null)
                                     {
-                                        var listLop = db.LopQuanLies.ToList();
-
-                                        var listTenLop = new List<string>();
-
                                         var tenLop = workSheet.Cells[rowIterator, 8].Value.ToString();
-                                        var maNganh = workSheet.Cells[rowIterator, 11].Value.ToString();
-                                        var maKhoa = workSheet.Cells[rowIterator, 7].Value.ToString().Replace("K", string.Empty);
-                                        foreach (var item in listLop)
-                                        {
-                                            listTenLop.Add(item.TenLop);
-                                        }
-
-                                        if (CheckTonTai(tenLop, listTenLop))
-                                        {
-                                            var lop = db.LopQuanLies.FirstOrDefault(s => s.TenLop == tenLop);
-                                            SaveSV.LopQuanLy = lop;
-                                        }
-                                        else
-                                        {
-                                            var lopQL = new LopQuanLy();
-                                            lopQL.TenLop = tenLop;
-                                            lopQL.NganhDaoTao = db.NganhDaoTaos.FirstOrDefault(s => s.MaNganh.ToString() == maNganh);
-                                            lopQL.KhoaDaoTao = db.KhoaDaoTaos.FirstOrDefault(s => s.Khoa.ToString() == maKhoa);
-                                            db.LopQuanLies.Add(lopQL);
-                                            db.SaveChanges();
-                                        }
+                                        SaveSV.LopQuanLy = db.LopQuanLies.FirstOrDefault(s => s.TenLop == tenLop);
                                     }
                                     if (workSheet.Cells[rowIterator, 6].Value != null)
                                     {
-                                        var listTinhTrang = db.TinhTrangs.ToList();
-
-                                        var listTinhTrangMoi = new List<string>();
-
-                                        var tenTinhTrang = workSheet.Cells[rowIterator, 6].Value.ToString();
-                                        foreach (var item in listTinhTrang)
-                                        {
-                                            listTinhTrangMoi.Add(item.TenTinhTrang);
-                                        }
-                                        if (CheckTonTai(tenTinhTrang, listTinhTrangMoi))
-                                        {
-                                            var tinhtrang = db.TinhTrangs.FirstOrDefault(s => s.TenTinhTrang == tenTinhTrang);
-                                            SaveSV.TinhTrang = tinhtrang;
-                                        }
-                                        else
-                                        {
-                                            var TinhTrangMoi = new TinhTrang();
-                                            TinhTrangMoi.TenTinhTrang = tenTinhTrang;
-                                            var douutien = 0;
-                                            foreach (var item in listTinhTrang)
-                                            {
-                                                if (item.DoUuTien > douutien)
-                                                    douutien = (int)item.DoUuTien;
-                                            }
-                                            TinhTrangMoi.DoUuTien = douutien + 1;
-
-                                            db.TinhTrangs.Add(TinhTrangMoi);
-                                            db.SaveChanges();
-                                        }
+                                        var tinhtrang = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                        SaveSV.TinhTrang = db.TinhTrangs.FirstOrDefault(s => s.TenTinhTrang == tinhtrang);
                                     }
                                     db.SinhViens.Add(SaveSV);
                                     db.SaveChanges();
@@ -329,7 +345,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                     TempData["Alert"] = "File bị trống, vui lòng thử lại!!";
                 }
             }
-            return RedirectToAction("ListSinhVien");
+            return RedirectToAction("KhoaSinhVien");
         }
         protected override void Dispose(bool disposing)
         {

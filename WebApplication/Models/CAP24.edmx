@@ -56,8 +56,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenLop" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="ChuNhiem" Type="nvarchar(max)" />
-          <Property Name="ID_Nganh" Type="int" />
-          <Property Name="ID_Khoa" Type="int" />
+          <Property Name="ID_Nganh" Type="int" Nullable="false" />
+          <Property Name="ID_Khoa" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="NganhDaoTao">
           <Key>
@@ -65,7 +65,7 @@
           </Key>
           <Property Name="Nganh" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaNganh" Type="int" />
+          <Property Name="MaNganh" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RangBuocHocPhan">
           <Key>
@@ -81,18 +81,18 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MSSV" Type="varchar" MaxLength="20" />
-          <Property Name="Ho" Type="nvarchar" MaxLength="100" />
-          <Property Name="Ten" Type="nvarchar" MaxLength="100" />
-          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
-          <Property Name="NgaySinh" Type="varchar" MaxLength="10" />
-          <Property Name="ID_TinhTrang" Type="int" />
-          <Property Name="ID_Lop" Type="int" />
-          <Property Name="Email_1" Type="nvarchar" MaxLength="100" />
+          <Property Name="MSSV" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Ho" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="NgaySinh" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_TinhTrang" Type="int" Nullable="false" />
+          <Property Name="ID_Lop" Type="int" Nullable="false" />
+          <Property Name="Email_1" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email_2" Type="nvarchar" MaxLength="100" />
-          <Property Name="DTDD" Type="varchar" MaxLength="20" />
-          <Property Name="DTCha" Type="varchar" MaxLength="20" />
-          <Property Name="DTMe" Type="varchar" MaxLength="20" />
+          <Property Name="DTDD" Type="varchar" MaxLength="100" />
+          <Property Name="DTCha" Type="varchar" MaxLength="100" />
+          <Property Name="DTMe" Type="varchar" MaxLength="100" />
           <Property Name="DiaChi" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -197,8 +197,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lop_KhoaDaoTao">
-          <End Role="KhoaDaoTao" Type="Self.KhoaDaoTao" Multiplicity="0..1" />
+        <Association Name="FK_LopQuanLy_KhoaDaoTao">
+          <End Role="KhoaDaoTao" Type="Self.KhoaDaoTao" Multiplicity="1" />
           <End Role="LopQuanLy" Type="Self.LopQuanLy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoaDaoTao">
@@ -209,8 +209,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lop_NganhDaoTao">
-          <End Role="NganhDaoTao" Type="Self.NganhDaoTao" Multiplicity="0..1" />
+        <Association Name="FK_LopQuanLy_NganhDaoTao">
+          <End Role="NganhDaoTao" Type="Self.NganhDaoTao" Multiplicity="1" />
           <End Role="LopQuanLy" Type="Self.LopQuanLy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NganhDaoTao">
@@ -233,8 +233,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SinhVien_Lop">
-          <End Role="LopQuanLy" Type="Self.LopQuanLy" Multiplicity="0..1" />
+        <Association Name="FK_SinhVien_LopQuanLy">
+          <End Role="LopQuanLy" Type="Self.LopQuanLy" Multiplicity="1" />
           <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LopQuanLy">
@@ -246,7 +246,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SinhVien_TinhTrang">
-          <End Role="TinhTrang" Type="Self.TinhTrang" Multiplicity="0..1" />
+          <End Role="TinhTrang" Type="Self.TinhTrang" Multiplicity="1" />
           <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TinhTrang">
@@ -297,11 +297,11 @@
             <End Role="ChuongTrinhDaoTao" EntitySet="ChuongTrinhDaoTao" />
             <End Role="KhoiKienThuc" EntitySet="KhoiKienThuc" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lop_KhoaDaoTao" Association="Self.FK_Lop_KhoaDaoTao">
+          <AssociationSet Name="FK_LopQuanLy_KhoaDaoTao" Association="Self.FK_LopQuanLy_KhoaDaoTao">
             <End Role="KhoaDaoTao" EntitySet="KhoaDaoTao" />
             <End Role="LopQuanLy" EntitySet="LopQuanLy" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lop_NganhDaoTao" Association="Self.FK_Lop_NganhDaoTao">
+          <AssociationSet Name="FK_LopQuanLy_NganhDaoTao" Association="Self.FK_LopQuanLy_NganhDaoTao">
             <End Role="NganhDaoTao" EntitySet="NganhDaoTao" />
             <End Role="LopQuanLy" EntitySet="LopQuanLy" />
           </AssociationSet>
@@ -309,7 +309,7 @@
             <End Role="HocPhanDaoTao" EntitySet="HocPhanDaoTao" />
             <End Role="RangBuocHocPhan" EntitySet="RangBuocHocPhan" />
           </AssociationSet>
-          <AssociationSet Name="FK_SinhVien_Lop" Association="Self.FK_SinhVien_Lop">
+          <AssociationSet Name="FK_SinhVien_LopQuanLy" Association="Self.FK_SinhVien_LopQuanLy">
             <End Role="LopQuanLy" EntitySet="LopQuanLy" />
             <End Role="SinhVien" EntitySet="SinhVien" />
           </AssociationSet>
@@ -366,15 +366,15 @@
             <End Role="HocPhanDaoTao" EntitySet="HocPhanDaoTaos" />
             <End Role="RangBuocHocPhan" EntitySet="RangBuocHocPhans" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lop_KhoaDaoTao" Association="CP24Team03Model.FK_Lop_KhoaDaoTao">
+          <AssociationSet Name="FK_LopQuanLy_KhoaDaoTao" Association="CP24Team03Model.FK_LopQuanLy_KhoaDaoTao">
             <End Role="KhoaDaoTao" EntitySet="KhoaDaoTaos" />
             <End Role="LopQuanLy" EntitySet="LopQuanLies" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lop_NganhDaoTao" Association="CP24Team03Model.FK_Lop_NganhDaoTao">
+          <AssociationSet Name="FK_LopQuanLy_NganhDaoTao" Association="CP24Team03Model.FK_LopQuanLy_NganhDaoTao">
             <End Role="NganhDaoTao" EntitySet="NganhDaoTaos" />
             <End Role="LopQuanLy" EntitySet="LopQuanLies" />
           </AssociationSet>
-          <AssociationSet Name="FK_SinhVien_Lop" Association="CP24Team03Model.FK_SinhVien_Lop">
+          <AssociationSet Name="FK_SinhVien_LopQuanLy" Association="CP24Team03Model.FK_SinhVien_LopQuanLy">
             <End Role="LopQuanLy" EntitySet="LopQuanLies" />
             <End Role="SinhVien" EntitySet="SinhViens" />
           </AssociationSet>
@@ -428,7 +428,7 @@
           <Property Name="Khoa" Type="Int32" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ChuongTrinhDaoTaos" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_KhoaDaoTao" FromRole="KhoaDaoTao" ToRole="ChuongTrinhDaoTao" />
-          <NavigationProperty Name="LopQuanLies" Relationship="CP24Team03Model.FK_Lop_KhoaDaoTao" FromRole="KhoaDaoTao" ToRole="LopQuanLy" />
+          <NavigationProperty Name="LopQuanLies" Relationship="CP24Team03Model.FK_LopQuanLy_KhoaDaoTao" FromRole="KhoaDaoTao" ToRole="LopQuanLy" />
         </EntityType>
         <EntityType Name="KhoiKienThuc">
           <Key>
@@ -445,14 +445,14 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLop" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ChuNhiem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Nganh" Type="Int32" />
-          <Property Name="ID_Khoa" Type="Int32" />
-          <NavigationProperty Name="KhoaDaoTao" Relationship="CP24Team03Model.FK_Lop_KhoaDaoTao" FromRole="LopQuanLy" ToRole="KhoaDaoTao" />
-          <NavigationProperty Name="NganhDaoTao" Relationship="CP24Team03Model.FK_Lop_NganhDaoTao" FromRole="LopQuanLy" ToRole="NganhDaoTao" />
-          <NavigationProperty Name="SinhViens" Relationship="CP24Team03Model.FK_SinhVien_Lop" FromRole="LopQuanLy" ToRole="SinhVien" />
+          <Property Name="ID_Nganh" Type="Int32" Nullable="false" />
+          <Property Name="ID_Khoa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="KhoaDaoTao" Relationship="CP24Team03Model.FK_LopQuanLy_KhoaDaoTao" FromRole="LopQuanLy" ToRole="KhoaDaoTao" />
+          <NavigationProperty Name="NganhDaoTao" Relationship="CP24Team03Model.FK_LopQuanLy_NganhDaoTao" FromRole="LopQuanLy" ToRole="NganhDaoTao" />
+          <NavigationProperty Name="SinhViens" Relationship="CP24Team03Model.FK_SinhVien_LopQuanLy" FromRole="LopQuanLy" ToRole="SinhVien" />
         </EntityType>
         <EntityType Name="NganhDaoTao">
           <Key>
@@ -460,9 +460,9 @@
           </Key>
           <Property Name="Nganh" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaNganh" Type="Int32" />
+          <Property Name="MaNganh" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ChuongTrinhDaoTaos" Relationship="CP24Team03Model.FK_ChuongTrinhDaoTao_NganhDaoTao" FromRole="NganhDaoTao" ToRole="ChuongTrinhDaoTao" />
-          <NavigationProperty Name="LopQuanLies" Relationship="CP24Team03Model.FK_Lop_NganhDaoTao" FromRole="NganhDaoTao" ToRole="LopQuanLy" />
+          <NavigationProperty Name="LopQuanLies" Relationship="CP24Team03Model.FK_LopQuanLy_NganhDaoTao" FromRole="NganhDaoTao" ToRole="LopQuanLy" />
         </EntityType>
         <EntityType Name="RangBuocHocPhan">
           <Key>
@@ -479,21 +479,21 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="MSSV" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Ho" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="NgaySinh" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ID_TinhTrang" Type="Int32" />
-          <Property Name="ID_Lop" Type="Int32" />
-          <Property Name="Email_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MSSV" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Ho" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Ten" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TinhTrang" Type="Int32" Nullable="false" />
+          <Property Name="ID_Lop" Type="Int32" Nullable="false" />
+          <Property Name="Email_1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DTDD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DTCha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DTMe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DTDD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DTCha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DTMe" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LopQuanLy" Relationship="CP24Team03Model.FK_SinhVien_Lop" FromRole="SinhVien" ToRole="LopQuanLy" />
+          <NavigationProperty Name="LopQuanLy" Relationship="CP24Team03Model.FK_SinhVien_LopQuanLy" FromRole="SinhVien" ToRole="LopQuanLy" />
           <NavigationProperty Name="TinhTrang" Relationship="CP24Team03Model.FK_SinhVien_TinhTrang" FromRole="SinhVien" ToRole="TinhTrang" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -511,7 +511,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DoUuTien" Type="Int32" />
+          <Property Name="DoUuTien" Type="Int32" Nullable="false" />
           <Property Name="TenTinhTrang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SinhViens" Relationship="CP24Team03Model.FK_SinhVien_TinhTrang" FromRole="TinhTrang" ToRole="SinhVien" />
         </EntityType>
@@ -611,8 +611,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lop_KhoaDaoTao">
-          <End Type="CP24Team03Model.KhoaDaoTao" Role="KhoaDaoTao" Multiplicity="0..1" />
+        <Association Name="FK_LopQuanLy_KhoaDaoTao">
+          <End Type="CP24Team03Model.KhoaDaoTao" Role="KhoaDaoTao" Multiplicity="1" />
           <End Type="CP24Team03Model.LopQuanLy" Role="LopQuanLy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoaDaoTao">
@@ -623,8 +623,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lop_NganhDaoTao">
-          <End Type="CP24Team03Model.NganhDaoTao" Role="NganhDaoTao" Multiplicity="0..1" />
+        <Association Name="FK_LopQuanLy_NganhDaoTao">
+          <End Type="CP24Team03Model.NganhDaoTao" Role="NganhDaoTao" Multiplicity="1" />
           <End Type="CP24Team03Model.LopQuanLy" Role="LopQuanLy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NganhDaoTao">
@@ -635,8 +635,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SinhVien_Lop">
-          <End Type="CP24Team03Model.LopQuanLy" Role="LopQuanLy" Multiplicity="0..1" />
+        <Association Name="FK_SinhVien_LopQuanLy">
+          <End Type="CP24Team03Model.LopQuanLy" Role="LopQuanLy" Multiplicity="1" />
           <End Type="CP24Team03Model.SinhVien" Role="SinhVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LopQuanLy">
@@ -648,7 +648,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SinhVien_TinhTrang">
-          <End Type="CP24Team03Model.TinhTrang" Role="TinhTrang" Multiplicity="0..1" />
+          <End Type="CP24Team03Model.TinhTrang" Role="TinhTrang" Multiplicity="1" />
           <End Type="CP24Team03Model.SinhVien" Role="SinhVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TinhTrang">

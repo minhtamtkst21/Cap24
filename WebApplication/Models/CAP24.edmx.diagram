@@ -24,8 +24,8 @@
         <AssociationConnector Association="CP24Team03Model.FK_HocPhanDaoTao_HocPhanDaoTao" />
         <AssociationConnector Association="CP24Team03Model.FK_HocPhanKhac_HocPhanBatBuoc" />
         <AssociationConnector Association="CP24Team03Model.FK_RangBuocHocPhan_HocPhanBatBuoc" />
-        <AssociationConnector Association="CP24Team03Model.FK_Lop_KhoaDaoTao" />
-        <AssociationConnector Association="CP24Team03Model.FK_Lop_NganhDaoTao" />
+        <AssociationConnector Association="CP24Team03Model.FK_LopQuanLy_KhoaDaoTao" />
+        <AssociationConnector Association="CP24Team03Model.FK_LopQuanLy_NganhDaoTao" />
         <AssociationConnector Association="CP24Team03Model.FK_SinhVien_LopQuanLy" />
         <AssociationConnector Association="CP24Team03Model.FK_SinhVien_TinhTrang" />
       </Diagram>
