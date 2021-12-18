@@ -95,23 +95,13 @@
           <Property Name="DTMe" Type="varchar" MaxLength="100" />
           <Property Name="DiaChi" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="TinhTrang">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DoUuTien" Type="int" />
-          <Property Name="TenTinhTrang" Type="nvarchar" MaxLength="100" />
+          <Property Name="DoUuTien" Type="int" Nullable="false" />
+          <Property Name="TenTinhTrang" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_ChuongTrinhDaoTao_HocKyDaoTao">
           <End Role="HocKyDaoTao" Type="Self.HocKyDaoTao" Multiplicity="0..1" />
@@ -267,7 +257,6 @@
           <EntitySet Name="NganhDaoTao" EntityType="Self.NganhDaoTao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RangBuocHocPhan" EntityType="Self.RangBuocHocPhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhTrang" EntityType="Self.TinhTrang" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChuongTrinhDaoTao_HocKyDaoTao" Association="Self.FK_ChuongTrinhDaoTao_HocKyDaoTao">
             <End Role="HocKyDaoTao" EntitySet="HocKyDaoTao" />
@@ -332,7 +321,6 @@
           <EntitySet Name="NganhDaoTaos" EntityType="CP24Team03Model.NganhDaoTao" />
           <EntitySet Name="RangBuocHocPhans" EntityType="CP24Team03Model.RangBuocHocPhan" />
           <EntitySet Name="SinhViens" EntityType="CP24Team03Model.SinhVien" />
-          <EntitySet Name="sysdiagrams" EntityType="CP24Team03Model.sysdiagram" />
           <EntitySet Name="TinhTrangs" EntityType="CP24Team03Model.TinhTrang" />
           <AssociationSet Name="FK_ChuongTrinhDaoTao_HocKyDaoTao" Association="CP24Team03Model.FK_ChuongTrinhDaoTao_HocKyDaoTao">
             <End Role="HocKyDaoTao" EntitySet="HocKyDaoTaos" />
@@ -496,23 +484,13 @@
           <NavigationProperty Name="LopQuanLy" Relationship="CP24Team03Model.FK_SinhVien_LopQuanLy" FromRole="SinhVien" ToRole="LopQuanLy" />
           <NavigationProperty Name="TinhTrang" Relationship="CP24Team03Model.FK_SinhVien_TinhTrang" FromRole="SinhVien" ToRole="TinhTrang" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TinhTrang">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DoUuTien" Type="Int32" Nullable="false" />
-          <Property Name="TenTinhTrang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TenTinhTrang" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SinhViens" Relationship="CP24Team03Model.FK_SinhVien_TinhTrang" FromRole="TinhTrang" ToRole="SinhVien" />
         </EntityType>
         <Association Name="FK_ChuongTrinhDaoTao_HocKyDaoTao">
@@ -761,17 +739,6 @@
                 <ScalarProperty Name="Ho" ColumnName="Ho" />
                 <ScalarProperty Name="MSSV" ColumnName="MSSV" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CP24Team03Model.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
