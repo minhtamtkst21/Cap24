@@ -21,7 +21,7 @@ namespace WebApplication.Models
         }
     
         public int ID { get; set; }
-        public Nullable<int> DoUuTien { get; set; }
+        public int DoUuTien { get; set; }
         public string TenTinhTrang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

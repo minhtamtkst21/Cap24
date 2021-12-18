@@ -266,9 +266,10 @@ namespace WebApplication.Areas.Faculty.Controllers
                                             var TinhTrangMoi = new TinhTrang();
                                             TinhTrangMoi.TenTinhTrang = tenTinhTrang;
                                             var douutien = 0;
-                                            foreach (var item in listTinhTrang)
-                                                if (item.DoUuTien > douutien)
-                                                    douutien = (int)item.DoUuTien;
+                                            if (db.TinhTrangs.ToList().Count != 0)
+                                            {
+                                                douutien = db.TinhTrangs.OrderByDescending(s => s.DoUuTien).ToList().First().DoUuTien;
+                                            }
                                             TinhTrangMoi.DoUuTien = douutien + 1;
                                             db.TinhTrangs.Add(TinhTrangMoi);
                                             db.SaveChanges();
@@ -333,8 +334,9 @@ namespace WebApplication.Areas.Faculty.Controllers
                                         var tinhtrang = workSheet.Cells[rowIterator, 6].Value.ToString();
                                         SaveSV.TinhTrang = db.TinhTrangs.FirstOrDefault(s => s.TenTinhTrang == tinhtrang);
                                     }
+                                    db.Configuration.AutoDetectChangesEnabled = false;
+                                    db.Configuration.ValidateOnSaveEnabled = false;
                                     db.SinhViens.Add(SaveSV);
-                                    db.SaveChanges();
                                 }
                             }
                         }
@@ -345,6 +347,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                     TempData["Alert"] = "File bị trống, vui lòng thử lại!!";
                 }
             }
+            db.SaveChanges();
             return RedirectToAction("KhoaSinhVien");
         }
         protected override void Dispose(bool disposing)
