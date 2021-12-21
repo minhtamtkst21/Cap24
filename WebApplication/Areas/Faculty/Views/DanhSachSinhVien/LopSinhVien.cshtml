@@ -11,10 +11,11 @@
         <div class="page-title-box d-flex align-items-center justify-content-between">
             <h4 class="page-title" style="font-family:Roboto">DANH SÁCH SINH VIÊN NGÀNH @Model.First().NganhDaoTao.Nganh.ToUpper() - KHÓA @Model.First().KhoaDaoTao.Khoa</h4>
             <div class="page-title-right">
-                <!-- <div class="container">
-                    <input type="text" id="search" placeholder="Search..." style="color: black;">
-                    <div class="search"></div>
-                </div> -->
+                <form>
+                    <input type="number" value="@Model.First().ID_Khoa" name="idkhoa" hidden />
+                    <input type="number" value="@Model.First().ID_Nganh" name="idnganh" hidden />
+                    <button type="submit" formaction="@Url.Action("XuatDSSV")" id="button" name="button" value="" class="btn btn-secondary btn-rounded"><i class="mdi mdi-microsoft-excel"></i> Export</button>
+                </form>
             </div>
         </div>
     </div>
