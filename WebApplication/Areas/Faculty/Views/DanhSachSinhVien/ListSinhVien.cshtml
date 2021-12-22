@@ -5,16 +5,16 @@
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
     int STT = 0;
 }
-
+<link href="@Url.Content("~/Faculty_assets/css/search.css")" rel="stylesheet" type="text/css" />
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-sinhviens-center justify-content-between">
                 <h4 class="page-title" style="font-family:Roboto">DANH SÁCH SINH VIÊN LỚP @Model.First().LopQuanLy.TenLop - NGÀNH @Model.First().LopQuanLy.NganhDaoTao.Nganh.ToUpper() KHÓA @Model.First().LopQuanLy.KhoaDaoTao.Khoa</h4>
                 <div class="page-title-right">
-                    <!-- <div class="container">
+                    <div class="container">
                         <input type="text" id="search" placeholder="Search..." style="color: black;">
                         <div class="search"></div>
-                    </div> -->
+                    </div>
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-sinhvien"><a href="select-class.html"></a></li>
                     </ol>
@@ -48,7 +48,7 @@
                                     <th>Địa chỉ thường trú</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="table">
                                 @foreach (var sinhvien in Model)
                                 {
                                     STT++;
@@ -67,11 +67,22 @@
                                         <td>@sinhvien.DTMe</td>
                                         <td>@sinhvien.DiaChi</td>
                                     </tr>
-                                 }
-                                </tbody>
+
+                                }
+                            </tbody>
                         </table>
                     </div> <!-- end .table-responsive-->
                 </div> <!-- end card-body -->
             </div> <!-- end card -->
         </div> <!-- end col -->
     </div> <!-- end row -->
+    <script>
+        var $rows = $('#table tr');
+        $('#search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>

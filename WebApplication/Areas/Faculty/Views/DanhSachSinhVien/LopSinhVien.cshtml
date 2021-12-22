@@ -50,26 +50,35 @@
                         </div>
                         <div class="modal-body">
                             <div class="container-fluid text-center">
-                                Xác nhận xóa danh sách sinh viên Ngành Công nghệ thông tin - Khóa 27
+                                Xác nhận xóa Danh sách sinh viên lớp 
                             </div>
-                            <label for="recipient-name" class="col-form-label">Nhập "Công nghệ thông tin - Khóa 27" để xác nhận xóa:</label>
-                            <input type="text" class="form-control" id="recipient-name" placeholder="Nhập">
+                            <label for="recipient-name" class="col-form-label">Nhập "Danh sách sinh viên lớp " để xác nhận xóa:</label>
+                            <input type="text" class="form-control" id="textXacNhan" onchange="GetText(this.value)" placeholder="Danh sách sinh viên lớp @lop.TenLop">
+                            <input id="textXacNhan" value="Danh sách sinh viên lớp " hidden />
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary">Xóa</button>
+                            <button type="button" id="XacNhanBtn" class="btn btn-primary" disabled>Xóa</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <script>
-                    $('#exampleModal').on('show.bs.modal', event => {
-                        var button = $(event.relatedTarget);
-                        var modal = $(this);
-                        // Use above variables to manipulate the DOM
+                $('#exampleModal').on('show.bs.modal', event => {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                    // Use above variables to manipulate the DOM
 
-                    });
+                });
+                function GetText(val) {
+                    var text = document.getElementById("textXacNhan").value;
+                    if (val == text) {
+                        document.getElementById("XacNhanBtn").disabled = false;
+                    } else {
+                        document.getElementById("XacNhanBtn").disabled = true;
+                    }
+                }
             </script>
         </div>
     </div><!-- end col -->
