@@ -274,6 +274,7 @@
     <Content Include="Faculty_assets\css\bootstrap.min.css" />
     <Content Include="Faculty_assets\css\icons.css" />
     <Content Include="Faculty_assets\css\icons.min.css" />
+    <Content Include="Faculty_assets\css\search.css" />
     <Content Include="Faculty_assets\fonts\dripicons-v2.svg" />
     <Content Include="Faculty_assets\fonts\dropify.svg" />
     <Content Include="Faculty_assets\fonts\fa-brands-400.svg" />
@@ -469,6 +470,7 @@
     <Content Include="Faculty_assets\libs\treeview\style.css" />
     <Content Include="Faculty_assets\libs\twitter-bootstrap-wizard\jquery.bootstrap.wizard.min.js" />
     <Content Include="Faculty_assets\libs\x-editable\bootstrap-editable.css" />
+    <Content Include="Faculty_assets\libs\x-editable\bootstrap-editable.js" />
     <Content Include="Faculty_assets\libs\x-editable\bootstrap-editable.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -570,6 +572,13 @@
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.6.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.6.0.js" />
+    <Content Include="Scripts\jquery-3.6.0.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.6.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

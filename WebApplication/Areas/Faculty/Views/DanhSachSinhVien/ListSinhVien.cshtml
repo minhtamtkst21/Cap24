@@ -5,69 +5,84 @@
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
     int STT = 0;
 }
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-flex align-sinhviens-center justify-content-between">
-            <h4 class="page-title" style="font-family:Roboto">DANH SÁCH SINH VIÊN LỚP @Model.First().LopQuanLy.TenLop - NGÀNH @Model.First().LopQuanLy.NganhDaoTao.Nganh.ToUpper() KHÓA @Model.First().LopQuanLy.KhoaDaoTao.Khoa</h4>
-            <div class="page-title-right">
-                <form>
-                    <br />
-                    <input type="number" value="@Model.First().LopQuanLy.ID" name="idlop" hidden />
-                    <button type="submit" formaction="@Url.Action("XuatDSSV")" id="button" name="button" value="" class="btn btn-secondary btn-rounded"><i class="mdi mdi-microsoft-excel"></i> Export</button>
-                </form>
+<link href="@Url.Content("~/Faculty_assets/css/search.css")" rel="stylesheet" type="text/css" />
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-sinhviens-center justify-content-between">
+                <h4 class="page-title" style="font-family:Roboto">DANH SÁCH SINH VIÊN LỚP @Model.First().LopQuanLy.TenLop - NGÀNH @Model.First().LopQuanLy.NganhDaoTao.Nganh.ToUpper() KHÓA @Model.First().LopQuanLy.KhoaDaoTao.Khoa</h4>
+                <div class="page-title-right">
+                    <div class="container">
+                        <input type="text" id="search" placeholder="Search..." style="color: black;">
+                        <div class="search"></div>
+                    </div>
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-sinhvien"><a href="select-class.html"></a></li>
+                    </ol>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
-<!-- end page title -->
+    <!-- end page title -->
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-striped mb-0 dt-responsive" id="table">
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>MSSV</th>
-                                <th>Họ</th>
-                                <th>Tên</th>
-                                <th>Ngày sinh</th>
-                                <th>Giới tính</th>
-                                <th>Tình trạng</th>
-                                <th>Email_1</th>
-                                <th>Email_2</th>
-                                <th>Điện thoại di động</th>
-                                <th>ĐTDĐ của cha</th>
-                                <th>ĐTDĐ của mẹ</th>
-                                <th>Địa chỉ thường trú</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var sinhvien in Model)
-                            {
-                                STT++;
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-striped mb-0 dt-responsive" id="table">
+                            <thead>
                                 <tr>
-                                    <td>@STT</td>
-                                    <td>@sinhvien.MSSV</td>
-                                    <td>@sinhvien.Ho</td>
-                                    <td>@sinhvien.Ten</td>
-                                    <td>@sinhvien.NgaySinh</td>
-                                    <td>@sinhvien.GioiTinh</td>
-                                    <td>@sinhvien.TinhTrang.TenTinhTrang</td>
-                                    <td>@sinhvien.Email_1</td>
-                                    <td>@sinhvien.Email_2</td>
-                                    <td>@sinhvien.DTDD</td>
-                                    <td>@sinhvien.DTCha</td>
-                                    <td>@sinhvien.DTMe</td>
-                                    <td>@sinhvien.DiaChi</td>
+                                    <th>STT</th>
+                                    <th>MSSV</th>
+                                    <th>Họ</th>
+                                    <th>Tên</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Giới tính</th>
+                                    <th>Tình trạng</th>
+                                    <th>Email_1</th>
+                                    <th>Email_2</th>
+                                    <th>Điện thoại di động</th>
+                                    <th>ĐTDĐ của cha</th>
+                                    <th>ĐTDĐ của mẹ</th>
+                                    <th>Địa chỉ thường trú</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div> <!-- end .table-responsive-->
-            </div> <!-- end card-body -->
-        </div> <!-- end card -->
-    </div> <!-- end col -->
-</div> <!-- end row -->
+                            </thead>
+                            <tbody id="table">
+                                @foreach (var sinhvien in Model)
+                                {
+                                    STT++;
+                                    <tr>
+                                        <td>@STT</td>
+                                        <td>@sinhvien.MSSV</td>
+                                        <td>@sinhvien.Ho</td>
+                                        <td>@sinhvien.Ten</td>
+                                        <td>@sinhvien.NgaySinh</td>
+                                        <td>@sinhvien.GioiTinh</td>
+                                        <td>@sinhvien.TinhTrang.TenTinhTrang</td>
+                                        <td>@sinhvien.Email_1</td>
+                                        <td>@sinhvien.Email_2</td>
+                                        <td>@sinhvien.DTDD</td>
+                                        <td>@sinhvien.DTCha</td>
+                                        <td>@sinhvien.DTMe</td>
+                                        <td>@sinhvien.DiaChi</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div> <!-- end .table-responsive-->
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+    <script>
+        var $rows = $('#table tr');
+        $('#search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>

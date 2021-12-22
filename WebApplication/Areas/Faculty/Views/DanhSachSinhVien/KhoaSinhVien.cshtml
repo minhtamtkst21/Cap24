@@ -60,12 +60,13 @@
                             <div class="container-fluid text-center">
                                 Xác nhận xóa Danh sách sinh viên
                             </div>
-                            <div for="recipient-name" class="col-form-label">Nhập "Danh sách sinh viên Khóa <span id="textKhoa"></span>" để xác nhận xóa:</div>
-                            <input type="text" class="form-control" id="recipient-name" placeholder="Nhập">
+                            <div for="recipient-name" class="col-form-label">Nhập "Danh sách sinh viên Khóa - <span id="textKhoa"></span>" để xác nhận xóa:</div>
+                            <input type="text" class="form-control" id="textXacNhan" onchange="GetText(this.value)" placeholder="Danh sách sinh viên Khóa - 24">
+                            <input id="textXacNhan" value="Danh sách sinh viên Khóa - 24" hidden/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary">Xóa</button>
+                            <button type="button" id="XacNhanBtn" class="btn btn-primary" disabled>Xóa</button>
                         </div>
                     </div>
                 </div>
@@ -206,9 +207,17 @@
     });
 </script>
 <script>
-    function thisFileUpload() {
-        document.getElementById("file").click();
-    };
+    //function thisFileUpload() {
+    //    document.getElementById("file").click();
+    //};
+    function GetText(val) {
+        var text = document.getElementById("textXacNhan").value;
+        if (val == text) {
+            document.getElementById("XacNhanBtn").disabled = false;
+        } else {
+            document.getElementById("XacNhanBtn").disabled = true;
+        }
+    }
 </script>
 @*<script>
         const excel_file = document.getElementById('file_excel');
