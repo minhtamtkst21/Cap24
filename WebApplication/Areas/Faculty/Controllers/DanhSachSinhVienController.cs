@@ -198,21 +198,191 @@ namespace WebApplication.Areas.Faculty.Controllers
         [HttpPost]
         public ActionResult XemTruocThongKe(FormCollection formCollection)
         {
-            TempData["test"] = "ahihi";
-            TempData["file"] = Request.Files["UploadedFile"];
+            var LuuSinhVien = new List<SinhVien>();
+            var LuuLop = new List<LopQuanLy>();
+            var LuuTinhTrang = new List<TinhTrang>();
+            var soluong = 0;
+            if (Request != null)
+            {
+                HttpPostedFileBase file = Request.Files["UploadedFile"];
+                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                {
+                    string fileName = file.FileName;
+                    string fileContentType = file.ContentType;
+                    byte[] fileBytes = new byte[file.ContentLength];
+                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        if (workSheet.Dimension != null)
+                        {
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            if (noOfCol == 15 && noOfRow > 1)
+                            {
+                                soluong = noOfRow - 1;
+                                var listTenLop = new List<string>();
+                                foreach (var item in LuuLop)
+                                {
+                                    listTenLop.Add(item.TenLop);
+                                }
+                                var listTinhTrangMoi = new List<string>();
+                                foreach (var item in LuuTinhTrang)
+                                {
+                                    listTinhTrangMoi.Add(item.TenTinhTrang);
+                                }
+                                for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                                {
+                                    if (workSheet.Cells[rowIterator, 8].Value != null)
+                                    {
+                                        var tenLop = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                        var maNganh = workSheet.Cells[rowIterator, 11].Value.ToString();
+                                        var maKhoa = workSheet.Cells[rowIterator, 7].Value.ToString().Replace("K", string.Empty);
+
+                                        if (!CheckTonTai(tenLop, listTenLop))
+                                        {
+                                            var lopQL = new LopQuanLy();
+                                            lopQL.TenLop = tenLop;
+                                            lopQL.NganhDaoTao = db.NganhDaoTaos.FirstOrDefault(s => s.MaNganh.ToString() == maNganh);
+                                            lopQL.KhoaDaoTao = db.KhoaDaoTaos.FirstOrDefault(s => s.Khoa.ToString() == maKhoa);
+                                            LuuLop.Add(lopQL);
+                                            listTenLop.Add(tenLop);
+                                        }
+                                    }
+                                    if (workSheet.Cells[rowIterator, 6].Value != null)
+                                    {
+                                        var tenTinhTrang = workSheet.Cells[rowIterator, 6].Value.ToString();
+
+                                        if (!CheckTonTai(tenTinhTrang, listTinhTrangMoi))
+                                        {
+                                            var TinhTrangMoi = new TinhTrang();
+                                            TinhTrangMoi.TenTinhTrang = tenTinhTrang;
+                                            var douutien = 0;
+                                            if (db.TinhTrangs.ToList().Count != 0)
+                                            {
+                                                douutien = db.TinhTrangs.OrderByDescending(s => s.DoUuTien).ToList().First().DoUuTien;
+                                            }
+                                            TinhTrangMoi.DoUuTien = douutien + 1;
+                                            LuuTinhTrang.Add(TinhTrangMoi);
+                                            listTinhTrangMoi.Add(tenTinhTrang);
+                                        }
+                                    }
+                                }
+                                for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                                {
+                                    SinhVien SaveSV = new SinhVien();
+                                    if (workSheet.Cells[rowIterator, 1].Value != null)
+                                    {
+                                        SaveSV.MSSV = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 2].Value != null)
+                                    {
+                                        SaveSV.Ho = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 3].Value != null)
+                                    {
+                                        SaveSV.Ten = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 4].Value != null)
+                                    {
+                                        SaveSV.NgaySinh = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 5].Value != null)
+                                    {
+                                        SaveSV.GioiTinh = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 9].Value != null)
+                                    {
+                                        SaveSV.Email_1 = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 10].Value != null)
+                                    {
+                                        SaveSV.Email_2 = workSheet.Cells[rowIterator, 10].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 12].Value != null)
+                                    {
+                                        SaveSV.DTDD = workSheet.Cells[rowIterator, 12].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 13].Value != null)
+                                    {
+                                        SaveSV.DTCha = workSheet.Cells[rowIterator, 13].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 14].Value != null)
+                                    {
+                                        SaveSV.DTMe = workSheet.Cells[rowIterator, 14].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 15].Value != null)
+                                    {
+                                        SaveSV.DiaChi = workSheet.Cells[rowIterator, 15].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 8].Value != null)
+                                    {
+                                        var tenLop = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                        SaveSV.LopQuanLy = LuuLop.FirstOrDefault(s => s.TenLop == tenLop);
+                                    }
+                                    if (workSheet.Cells[rowIterator, 6].Value != null)
+                                    {
+                                        var tinhtrang = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                        SaveSV.TinhTrang = LuuTinhTrang.FirstOrDefault(s => s.TenTinhTrang == tinhtrang);
+                                    }
+
+                                    LuuSinhVien.Add(SaveSV);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Session["LuuSinhVien"] = LuuSinhVien;
+            Session["LuuLop"] = LuuLop;
+            Session["LuuTinhTrang"] = LuuTinhTrang;
+            //Session["ThongBao"]
+            string thongbao = "<table class='table table-hover mb-0'>";
+            thongbao += "<tr>";
+            thongbao += "<td>Số lượng sinh viên: " + soluong + "</td>";
+            thongbao += "</tr>";
+            foreach (var khoa in db.KhoaDaoTaos)
+            {
+                thongbao += "<tr>"; 
+                thongbao += "<td>Lớp thuộc khóa " + khoa.Khoa + " là: " + LuuLop.Where(s => s.KhoaDaoTao.Khoa == khoa.Khoa).Count() + "</td>";
+                thongbao += "<td></td><td>Sinh viên khóa " + khoa.Khoa + " là: " +LuuSinhVien.Where(s=>s.LopQuanLy.KhoaDaoTao.Khoa == khoa.Khoa).Count() + "</td>";
+                thongbao += "<td></td></tr>";
+                foreach (var nganh in db.NganhDaoTaos)
+                {
+                    thongbao += "<tr>";
+                    thongbao += "<td></td><td>Lớp thuộc ngành " + nganh.Nganh + " là: " + LuuLop.Where(s => s.KhoaDaoTao.Khoa == khoa.Khoa).Where(s => s.NganhDaoTao.Nganh == nganh.Nganh).Count() + "</td>";
+                    thongbao += "<td></td><td>Sinh viên ngành " + nganh.Nganh + " là: " + LuuSinhVien.Where(s => s.LopQuanLy.KhoaDaoTao.Khoa == khoa.Khoa).Where(s => s.LopQuanLy.NganhDaoTao.Nganh == nganh.Nganh).Count() + "</td>";
+                    thongbao += "</tr>";
+                    foreach (var lop in LuuLop.Where(s => s.KhoaDaoTao.Khoa == khoa.Khoa).Where(s => s.NganhDaoTao.Nganh == nganh.Nganh))
+                    {
+                        thongbao += "<tr>";
+                        thongbao += "<td></td><td></td><td></td><td>Sinh viên lớp " + lop.TenLop + " là: " + LuuSinhVien.Where(s => s.LopQuanLy.KhoaDaoTao.Khoa == khoa.Khoa).Where(s => s.LopQuanLy.NganhDaoTao.Nganh == nganh.Nganh).Where(s=>s.LopQuanLy.TenLop == lop.TenLop).Count() + "</td>";
+                        thongbao += "</tr>";
+                    }
+                }
+            }
+            thongbao += "</table>";
+            Session["ThongBao"] = thongbao;
             return Redirect(Request.UrlReferrer.ToString());
         }
-
         [HttpPost]
+        public ActionResult TaiLenSinhVien()
+        {
+            var listSV = Session["LuuSinhVien"] as List<SinhVien>;
+            var listLop = Session["LuuLop"] as List<LopQuanLy>;
+            var listTinhTrang = Session["LuuTinhTrang"] as List<TinhTrang>;
+            Session["ThongBao"] = null;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+            [HttpPost]
         public ActionResult UploadSinhVien(FormCollection formCollection)
         {
             if (Request != null)
             {
-
                 HttpPostedFileBase file = Request.Files["UploadedFile"];
                 if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                 {
-
                     string fileName = file.FileName;
                     string fileContentType = file.ContentType;
                     byte[] fileBytes = new byte[file.ContentLength];
