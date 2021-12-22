@@ -199,6 +199,7 @@ namespace WebApplication.Areas.Faculty.Controllers
         public ActionResult XemTruocThongKe(FormCollection formCollection)
         {
             TempData["test"] = "ahihi";
+            TempData["file"] = Request.Files["UploadedFile"];
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -350,6 +351,70 @@ namespace WebApplication.Areas.Faculty.Controllers
             db.SaveChanges();
             return RedirectToAction("KhoaSinhVien");
         }
+
+        public ActionResult XuatDSSV(int? idnganh, int? idkhoa, int? idlop)
+        {
+            ExcelPackage ep = new ExcelPackage();
+            var sheet = ep.Workbook.Worksheets.Add("Danh Sách Sinh Viên");
+            var sinhvien = db.SinhViens.ToList();
+            if (idkhoa != null)
+            {
+                sinhvien = sinhvien.Where(s => s.LopQuanLy.ID_Khoa == idkhoa).ToList();
+            }
+            if (idnganh != null)
+            {
+                sinhvien = sinhvien.Where(s => s.LopQuanLy.ID_Nganh == idnganh).ToList();
+            }
+            if (idlop != null)
+            {
+                sinhvien = sinhvien.Where(s => s.LopQuanLy.ID == idlop).ToList();
+            }
+            sheet.Cells["A1"].Value = "MSSV";
+            sheet.Cells["B1"].Value = "Họ";
+            sheet.Cells["C1"].Value = "Tên";
+            sheet.Cells["D1"].Value = "Ngày Sinh";
+            sheet.Cells["E1"].Value = "Giới tính";
+            sheet.Cells["F1"].Value = "Tình Trạng";
+            sheet.Cells["G1"].Value = "Khóa";
+            sheet.Cells["H1"].Value = "Lớp";
+            sheet.Cells["I1"].Value = "Email 1";
+            sheet.Cells["J1"].Value = "Email 2";
+            sheet.Cells["K1"].Value = "Mã Ngành";
+            sheet.Cells["L1"].Value = "ĐTDĐ";
+            sheet.Cells["M1"].Value = "ĐT Cha";
+            sheet.Cells["N1"].Value = "ĐT Mẹ";
+            sheet.Cells["O1"].Value = "Địa chỉ";
+            sheet.Cells["A1:O1"].Style.Font.Bold = true;
+
+            int row = 2;
+            foreach (var item in sinhvien)
+            {
+                sheet.Cells[string.Format("A{0}", row)].Value = item.MSSV;
+                sheet.Cells[string.Format("B{0}", row)].Value = item.Ho;
+                sheet.Cells[string.Format("C{0}", row)].Value = item.Ten;
+                sheet.Cells[string.Format("D{0}", row)].Value = item.NgaySinh;
+                sheet.Cells[string.Format("E{0}", row)].Value = item.GioiTinh;
+                sheet.Cells[string.Format("F{0}", row)].Value = item.TinhTrang.TenTinhTrang;
+                sheet.Cells[string.Format("I{0}", row)].Value = item.Email_1;
+                sheet.Cells[string.Format("J{0}", row)].Value = item.Email_2;
+                sheet.Cells[string.Format("L{0}", row)].Value = item.DTDD;
+                sheet.Cells[string.Format("M{0}", row)].Value = item.DTCha;
+                sheet.Cells[string.Format("N{0}", row)].Value = item.DTMe;
+                sheet.Cells[string.Format("O{0}", row)].Value = item.DiaChi;
+                sheet.Cells[string.Format("H{0}", row)].Value = item.LopQuanLy.TenLop;
+                sheet.Cells[string.Format("G{0}", row)].Value = "K" + item.LopQuanLy.KhoaDaoTao.Khoa;
+                sheet.Cells[string.Format("K{0}", row)].Value = item.LopQuanLy.NganhDaoTao.MaNganh;
+                row++;
+            }
+            sheet.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Danh sách sinh viên.xlsx");
+            Response.BinaryWrite(ep.GetAsByteArray());
+            Response.End();
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
