@@ -142,7 +142,7 @@
                             {
                                 <div class="file-upload-wrapper">
                                     <div class="file-upload-wrapper">
-                                        <input type="file" id="file_excel" name="UploadedFile" class="dropify" required accept=".xls,.xlsx" onclick="Clearform()" />
+                                        <input type="file" value="@TempData["file"]" id="file_excel" name="UploadedFile" class="dropify" required accept=".xls,.xlsx" onclick="Clearform()" />
                                     </div>
                                     <div id="excel_data" class="table-responsive"></div>
                                 </div>
@@ -156,28 +156,56 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="ModelCheckFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-family: Roboto;">Thêm mới chương trình đào tạo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                @*@{
+                                        var listsv = Session["LuuSinhVien"] as List<WebApplication.Models.SinhVien>;
+                                    }
+                                    @foreach (var item in listsv)
+                                    {
+                                        <p>@item.Ten</p>
+                                    }*@
+                                @Html.Raw(Session["ThongBao"])
+                            </div>
+                            <div class="modal-footer">
+                                <form>
+                                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Đóng" />
+                                    <input type="submit" class="btn btn-primary" value="Tải lên" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div><!-- end col -->
 </div>
-@*@if (TempData["test"] != null)
-    {
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script>
-            $(document).ready(function () {
-                $('#exampleModal').modal('show');
-            });
-        </script>
-    }
+@if (Session["ThongBao"] != null)
+{
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-        $('#exampleModal').on('show.bs.modal', event => {
-            var button = $(event.relatedTarget);
-            var modal = $(this);
-            // Use above variables to manipulate the DOM
-
+        $(document).ready(function () {
+            $('#ModelCheckFile').modal('show');
         });
-    </script>*@
+    </script>
+}
+<script>
+    $('#ModelCheckFile').on('show.bs.modal', event => {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+    });
+</script>
 <script>
     //function thisFileUpload() {
     //    document.getElementById("file").click();
@@ -191,96 +219,96 @@
         }
     }
 </script>
-<script>
-    const excel_file = document.getElementById('file_excel');
-    excel_file.addEventListener('change', (event) => {
-        if (!['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(event.target.files[0].type)) {
-            document.getElementById('excel_data').innerHTML = '<div class="form-group">Only .xlsx or .xls file format are allowed</div>';
-            return false;
-        }
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(event.target.files[0]);
-        reader.onload = function (event) {
-            var data = new Uint8Array(reader.result);
-            var work_book = XLSX.read(data, { type: 'array' });
-            var sheet_name = work_book.SheetNames;
-            var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], { header: 1 });
-            var soluong = sheet_data.length - 1;
-            if (sheet_data.length > 0) {
-                var table_output = '<div class="row"><div class="col-xl-6"><table class="table table-hover mb-0">';
-                table_output += '<tr>';
-                table_output += '<td>Số lượng sinh viên: ' + soluong + '</td>';
-                table_output += '</tr>';
-                var nganh = new Array();
-                var slnganh = new Array();
-                var khoa = new Array();
-                var slkhoa = new Array();
-                var lop = new Array();
-                var sllop = new Array();
-                for (var i = 1; i < sheet_data.length; i++) {
-                    if (i == 1) {
-                        nganh[0] = sheet_data[1][10];
-                        slnganh[0] = 1;
-                        khoa[0] = sheet_data[1][6];
-                        slkhoa[0] = 1;
-                    }
-                    else {
-                        var dknganh = 0;
-                        var dkkhoa = 0;
-                        var dklop = 0;
-                        for (var item = 0; item < nganh.length; item++) {
-                            if (sheet_data[i][10] == nganh[item]) {
-                                slnganh[item]++;
-                                dknganh++;
-                            }
-                        }
-                        if (dknganh == 0) {
-                            nganh[nganh.length] = sheet_data[i][10];
-                            slnganh[slnganh.length] = 1;
-                        }
-                        for (var item = 0; item < khoa.length; item++) {
-                            if (sheet_data[i][6] == khoa[item]) {
-                                slkhoa[item]++;
-                                dkkhoa++;
-                            }
-                        }
-                        if (dkkhoa == 0) {
-                            khoa[khoa.length] = sheet_data[i][6];
-                            slkhoa[slkhoa.length] = 1;
-                        }
-                        for (var item = 0; item < lop.length; item++) {
-                            if (sheet_data[i][7] == lop[item]) {
-                                sllop[item]++;
-                                dklop++;
-                            }
-                        }
-                        if (dklop == 0) {
-                            lop[lop.length] = sheet_data[i][7];
-                            sllop[sllop.length] = 1;
-                        }
-                    }
-                }
-                for (var i = 0; i < khoa.length; i++) {
-                    table_output += '<tr>';
-                    table_output += '<td> Khóa: ' + khoa[i] + " có số lượng sinh viên là: " + slkhoa[i] + '</td>';
-                    table_output += '</tr>';
-                }
-                for (var i = 0; i < nganh.length; i++) {
-                    table_output += '<tr>';
-                    table_output += '<td> Mã ngành: ' + nganh[i] + " có số lượng sinh viên là: " + slnganh[i] + '</td>';
-                    table_output += '</tr>';
-                }
-                table_output += '</table></div>';
-                table_output += '<div class="col-xl-6"><table class="table table-hover mb-0">';
-                table_output += '<tr><td> Số lượng lớp: ' + lop.length + '</td></tr>';
-                for (var i = 0; i < lop.length; i++) {
-                    table_output += '<tr>';
-                    table_output += '<td> Lớp: ' + lop[i] + " có số lượng sinh viên là: " + sllop[i] + '</td>';
-                    table_output += '</tr>';
-                }
-                table_output += '</table></div></div>';
-                document.getElementById('excel_data').innerHTML = table_output;
+@*<script>
+        const excel_file = document.getElementById('file_excel');
+        excel_file.addEventListener('change', (event) => {
+            if (!['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(event.target.files[0].type)) {
+                document.getElementById('excel_data').innerHTML = '<div class="form-group">Only .xlsx or .xls file format are allowed</div>';
+                return false;
             }
-        }
-    });
-</script>
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(event.target.files[0]);
+            reader.onload = function (event) {
+                var data = new Uint8Array(reader.result);
+                var work_book = XLSX.read(data, { type: 'array' });
+                var sheet_name = work_book.SheetNames;
+                var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], { header: 1 });
+                var soluong = sheet_data.length - 1;
+                if (sheet_data.length > 0) {
+                    var table_output = '<div class="row"><div class="col-xl-6"><table class="table table-hover mb-0">';
+                    table_output += '<tr>';
+                    table_output += '<td>Số lượng sinh viên: ' + soluong + '</td>';
+                    table_output += '</tr>';
+                    var nganh = new Array();
+                    var slnganh = new Array();
+                    var khoa = new Array();
+                    var slkhoa = new Array();
+                    var lop = new Array();
+                    var sllop = new Array();
+                    for (var i = 1; i < sheet_data.length; i++) {
+                        if (i == 1) {
+                            nganh[0] = sheet_data[1][10];
+                            slnganh[0] = 1;
+                            khoa[0] = sheet_data[1][6];
+                            slkhoa[0] = 1;
+                        }
+                        else {
+                            var dknganh = 0;
+                            var dkkhoa = 0;
+                            var dklop = 0;
+                            for (var item = 0; item < nganh.length; item++) {
+                                if (sheet_data[i][10] == nganh[item]) {
+                                    slnganh[item]++;
+                                    dknganh++;
+                                }
+                            }
+                            if (dknganh == 0) {
+                                nganh[nganh.length] = sheet_data[i][10];
+                                slnganh[slnganh.length] = 1;
+                            }
+                            for (var item = 0; item < khoa.length; item++) {
+                                if (sheet_data[i][6] == khoa[item]) {
+                                    slkhoa[item]++;
+                                    dkkhoa++;
+                                }
+                            }
+                            if (dkkhoa == 0) {
+                                khoa[khoa.length] = sheet_data[i][6];
+                                slkhoa[slkhoa.length] = 1;
+                            }
+                            for (var item = 0; item < lop.length; item++) {
+                                if (sheet_data[i][7] == lop[item]) {
+                                    sllop[item]++;
+                                    dklop++;
+                                }
+                            }
+                            if (dklop == 0) {
+                                lop[lop.length] = sheet_data[i][7];
+                                sllop[sllop.length] = 1;
+                            }
+                        }
+                    }
+                    for (var i = 0; i < khoa.length; i++) {
+                        table_output += '<tr>';
+                        table_output += '<td> Khóa: ' + khoa[i] + " có số lượng sinh viên là: " + slkhoa[i] + '</td>';
+                        table_output += '</tr>';
+                    }
+                    for (var i = 0; i < nganh.length; i++) {
+                        table_output += '<tr>';
+                        table_output += '<td> Mã ngành: ' + nganh[i] + " có số lượng sinh viên là: " + slnganh[i] + '</td>';
+                        table_output += '</tr>';
+                    }
+                    table_output += '</table></div>';
+                    table_output += '<div class="col-xl-6"><table class="table table-hover mb-0">';
+                    table_output += '<tr><td> Số lượng lớp: ' + lop.length + '</td></tr>';
+                    for (var i = 0; i < lop.length; i++) {
+                        table_output += '<tr>';
+                        table_output += '<td> Lớp: ' + lop[i] + " có số lượng sinh viên là: " + sllop[i] + '</td>';
+                        table_output += '</tr>';
+                    }
+                    table_output += '</table></div></div>';
+                    document.getElementById('excel_data').innerHTML = table_output;
+                }
+            }
+        });
+    </script>*@
