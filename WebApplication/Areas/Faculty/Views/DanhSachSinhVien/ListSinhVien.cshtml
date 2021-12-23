@@ -23,6 +23,7 @@
             </div>
         </div>
     </div>
+
     <!-- end page title -->
 
     <div class="row">
@@ -40,12 +41,8 @@
                                     <th>Ngày sinh</th>
                                     <th>Giới tính</th>
                                     <th>Tình trạng</th>
-                                    <th>Email_1</th>
-                                    <th>Email_2</th>
-                                    <th>Điện thoại di động</th>
-                                    <th>ĐTDĐ của cha</th>
-                                    <th>ĐTDĐ của mẹ</th>
-                                    <th>Địa chỉ thường trú</th>
+                                    <th>Email </th>
+                                    
                                 </tr>
                             </thead>
                             <tbody id="table">
@@ -54,21 +51,97 @@
                                     STT++;
                                     <tr>
                                         <td>@STT</td>
-                                        <td>@sinhvien.MSSV</td>
-                                        <td>@sinhvien.Ho</td>
-                                        <td>@sinhvien.Ten</td>
+                                        <td>
+                                            <a href="@Url.Action("Details", new { id = sinhvien.ID })"  class="text-dark" data-toggle="modal" data-target="#modelId" onclick="MSSV(@sinhvien.MSSV)"> @sinhvien.MSSV</a>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", new { id = sinhvien.ID })" class="text-dark" data-toggle="modal" data-target="#modelId" onclick="Ho(@sinhvien.Ho)" > @sinhvien.Ho</a>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", new { id = sinhvien.ID })" class="text-dark" data-toggle="modal" data-target="#modelId"> @sinhvien.Ten</a>
+                                        </td>
                                         <td>@sinhvien.NgaySinh</td>
                                         <td>@sinhvien.GioiTinh</td>
                                         <td>@sinhvien.TinhTrang.TenTinhTrang</td>
                                         <td>@sinhvien.Email_1</td>
-                                        <td>@sinhvien.Email_2</td>
-                                        <td>@sinhvien.DTDD</td>
-                                        <td>@sinhvien.DTCha</td>
-                                        <td>@sinhvien.DTMe</td>
-                                        <td>@sinhvien.DiaChi</td>
+                                        <
                                     </tr>
+                                    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" style="font-family: Roboto;"> sinh viên @sinhvien.Ho @sinhvien.Ten - <span id="textMSSV"></span> </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container-fluid text-center">
+                                                        Thông tin sinh viên @sinhvien.Ho @sinhvien.Ten - <span id="textMSSV"></span>
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left" >
+                                                        Mã số sinh viên: <span id="textMSSV" ></span>
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        Họ sinh viên: <span id="textHo"></span>
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        Tên sinh viên: @sinhvien.Ten
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        Ngày sinh: @sinhvien.NgaySinh
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        Giới Tính: @sinhvien.GioiTinh
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        Tình trạng: @sinhvien.TinhTrang.TenTinhTrang
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        Email 1: @sinhvien.Email_1
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        Email 2: @sinhvien.Email_2
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        SDT : @sinhvien.DTDD
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        SDT Cha: @sinhvien.DTCha
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        SDT Mẹ: @sinhvien.DTMe
+                                                    </div>
+                                                    <br />
+                                                    <div class="container-fluid text-lg-left">
+                                                        Địa Chỉ: @sinhvien.DiaChi
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 }
+
+
                             </tbody>
                         </table>
                     </div> <!-- end .table-responsive-->
@@ -77,6 +150,24 @@
         </div> <!-- end col -->
     </div> <!-- end row -->
     <script>
+       
+        
+        function MSSV(val) {
+            document.getElementById("textMSSV").innerHTML = val;
+        }
+        function Ho(val) {
+            document.getElementById("textHo").innerHTML = val;
+        }
+    </script>
+    
+    <script>
+        $('#exampleModal').on('show.bs.modal', event => {
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+           
+        });
+    </script>
+    <script>
         var $rows = $('#table tr');
         $('#search').keyup(function () {
             var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
@@ -84,5 +175,94 @@
                 var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
                 return !~text.indexOf(val);
             }).hide();
+        });
+    </script>
+    <script>
+        const excel_file = document.getElementById('file_excel');
+        excel_file.addEventListener('change', (event) => {
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(event.target.files[0]);
+            reader.onload = function (event) {
+                var data = new Uint8Array(reader.result);
+                var work_book = XLSX.read(data, { type: 'array' });
+                var sheet_name = work_book.SheetNames;
+                var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], { header: 1 });
+                var soluong = sheet_data.length - 1;
+                if (sheet_data.length > 0) {
+                    var table_output = '<div class="row"><div class="col-xl-6"><table class="table table-hover mb-0">';
+                    table_output += '<tr>';
+                    table_output += '<td>Số lượng sinh viên: ' + soluong + '</td>';
+                    table_output += '</tr>';
+                    var nganh = new Array();
+                    var slnganh = new Array();
+                    var khoa = new Array();
+                    var slkhoa = new Array();
+                    var lop = new Array();
+                    var sllop = new Array();
+                    for (var i = 1; i < sheet_data.length; i++) {
+                        if (i == 1) {
+                            nganh[0] = sheet_data[1][10];
+                            slnganh[0] = 1;
+                            khoa[0] = sheet_data[1][6];
+                            slkhoa[0] = 1;
+                        }
+                        else {
+                            var dknganh = 0;
+                            var dkkhoa = 0;
+                            var dklop = 0;
+                            for (var item = 0; item < nganh.length; item++) {
+                                if (sheet_data[i][10] == nganh[item]) {
+                                    slnganh[item]++;
+                                    dknganh++;
+                                }
+                            }
+                            if (dknganh == 0) {
+                                nganh[nganh.length] = sheet_data[i][10];
+                                slnganh[slnganh.length] = 1;
+                            }
+                            for (var item = 0; item < khoa.length; item++) {
+                                if (sheet_data[i][6] == khoa[item]) {
+                                    slkhoa[item]++;
+                                    dkkhoa++;
+                                }
+                            }
+                            if (dkkhoa == 0) {
+                                khoa[khoa.length] = sheet_data[i][6];
+                                slkhoa[slkhoa.length] = 1;
+                            }
+                            for (var item = 0; item < lop.length; item++) {
+                                if (sheet_data[i][7] == lop[item]) {
+                                    sllop[item]++;
+                                    dklop++;
+                                }
+                            }
+                            if (dklop == 0) {
+                                lop[lop.length] = sheet_data[i][7];
+                                sllop[sllop.length] = 1;
+                            }
+                        }
+                    }
+                    for (var i = 0; i < khoa.length; i++) {
+                        table_output += '<tr>';
+                        table_output += '<td> Khóa: ' + khoa[i] + " có số lượng sinh viên là: " + slkhoa[i] + '</td>';
+                        table_output += '</tr>';
+                    }
+                    for (var i = 0; i < nganh.length; i++) {
+                        table_output += '<tr>';
+                        table_output += '<td> Mã ngành: ' + nganh[i] + " có số lượng sinh viên là: " + slnganh[i] + '</td>';
+                        table_output += '</tr>';
+                    }
+                    table_output += '</table></div>';
+                    table_output += '<div class="col-xl-6"><table class="table table-hover mb-0">';
+                    table_output += '<tr><td> Số lượng lớp: ' + lop.length + '</td></tr>';
+                    for (var i = 0; i < lop.length; i++) {
+                        table_output += '<tr>';
+                        table_output += '<td> Lớp: ' + lop[i] + " có số lượng sinh viên là: " + sllop[i] + '</td>';
+                        table_output += '</tr>';
+                    }
+                    table_output += '</table></div></div>';
+                    document.getElementById('excel_data').innerHTML = table_output;
+                }
+            }
         });
     </script>

@@ -59,6 +59,17 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View();
         }
 
+        public ActionResult Details(int ID)
+        {
+            var model = db.SinhViens.Find(ID);
+            if (model == null)
+            {
+                return HttpNotFound();
+
+            }
+            return View(model);
+        }
+
         // POST: Faculty/LopQuanLies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
