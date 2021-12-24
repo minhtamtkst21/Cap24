@@ -167,17 +167,10 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                @*@{
-                                        var listsv = Session["LuuSinhVien"] as List<WebApplication.Models.SinhVien>;
-                                    }
-                                    @foreach (var item in listsv)
-                                    {
-                                        <p>@item.Ten</p>
-                                    }*@
                                 @Html.Raw(Session["ThongBao"])
                             </div>
                             <div class="modal-footer">
-                                <form>
+                                <form action="@Url.Action("TaiLenSinhVien")">
                                     <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Đóng" />
                                     <input type="submit" class="btn btn-primary" value="Tải lên" />
                                 </form>
