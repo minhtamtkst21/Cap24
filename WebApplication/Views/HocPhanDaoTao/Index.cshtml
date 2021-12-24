@@ -1,0 +1,217 @@
+﻿@model IEnumerable<WebApplication.Models.HocPhanDaoTao>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Student_layout.cshtml";
+    int STT = 0;
+}
+
+<header>
+    <div class="container">
+        <div class="header-content d-flex flex-wrap align-items-center">
+            <div class="logo">
+                <a href="index.html" title="" style="font-family: 'GS'; color: #ff3333; font-size: 35px;">
+                    E-Profile
+                </a>
+            </div><!--logo end-->
+
+            <div class="social-links ml-auto">
+                <button class="btn btn-danger" style="border-radius: 15px; width: 120px;"><a href="profile.html">LOGIN</a></button>
+            </div>
+            <div class="menu-btn">
+                <a href="#">
+                    <span class="bar1"></span>
+                    <span class="bar2"></span>
+                    <span class="bar3"></span>
+                </a>
+            </div><!--menu-btn end-->
+        </div><!--header-content end-->
+        <div class="navigation-bar d-flex flex-wrap align-items-center">
+            <nav>
+                <ul>
+                    <li><a href="index.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Home</a></li>
+                    <li>
+                        <a href="KHHT.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Kế hoạch học tập</a>
+                    </li>
+                    <li>
+                        <a href="Grades.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Xem điểm</a>
+                    </li>
+                    <li>
+                        <a class="active" href="training.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Chương trình đào tạo</a>
+                    </li>
+
+                </ul>
+            </nav><!--nav end-->
+            <ul class="social-links ml-auto">
+                <li><a href="#" title=""><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#" title=""><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="#" title=""><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div><!--navigation-bar end-->
+    </div>
+</header><!--header end-->
+
+<section class="pager-section">
+    <div class="container">
+        <div class="pager-content text-center">
+            <h2 style="font-family: 'Montserrat'; font-weight: 600; font-size: 100px; ">Chương trình đào tạo</h2>
+            <ul>
+                <li><a href="#" title="">Home</a></li>
+                <li><span>Chương trình đào tạo</span></li>
+            </ul>
+        </div><!--pager-content end-->
+        <h2 class="page-titlee">E-Profile</h2>
+    </div>
+</section><!--pager-section end-->
+<hr>
+<div class="page-content">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="col-4" style="float: right;">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <!-- end page title -->
+            @foreach (var listHK in ViewData["listHK"] as List<string>)
+            {
+                <div class="col-xl-12">
+                    <div class="card-box">
+                        @if (listHK == "")
+                        {
+                            <h4 class="header-title mt-0 mb-3" style="font-family: 'Dongle2'; color: black; font-size: 30px;">Tự chọn</h4>
+                        }
+                        else
+                        {
+                            <h4 class="header-title mt-0 mb-3" style="font-family: 'Dongle2'; color: black; font-size: 30px;">Học kỳ @listHK</h4>
+                        }
+
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã học phần</th>
+                                        <th>Tên học phần</th>
+                                        <th>Số tín chỉ</th>
+                                        <th>BB/TC</th>
+                                        <th>Tiên quyết</th>
+                                        <th>Học trước</th>
+                                        <th>Song hành</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (item.HocKy.ToString() == listHK)
+                                        {
+                                            <tr>
+                                                @if (item.ID_HocPhanTuChon == null)
+                                                {
+                                                    STT++;
+                                                    <td>@STT</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                <td>@item.MaHocPhan</td>
+                                                <td>@item.TenHocPhan</td>
+                                                <td>@item.SoTinChi</td>
+                                                @if (item.ID_HocPhanTuChon == null)
+                                                {
+                                                    <td>BB</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>TC</td>
+                                                }
+                                                <td>
+                                                    @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                                    {
+                                                        if (rangbuoc.LoaiRangBuoc == "Tiên quyết" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
+                                                        {
+                                                            if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                            {
+                                                                <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                                    @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>
+                                                                    @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                                </p>
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                                    {
+                                                        if (rangbuoc.LoaiRangBuoc == "Học trước" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
+                                                        {
+                                                            if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                            {
+                                                                <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                                    @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>
+                                                                    @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                                </p>
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                                    {
+                                                        if (rangbuoc.LoaiRangBuoc == "Song hành" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
+                                                        {
+                                                            if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                            {
+                                                                <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                                    @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>
+                                                                    @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                                </p>
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
+                                                @*<td>&emsp;@item.HocKy</td>*@
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+            }
+            <hr>
+        </div>
+    </div> <!-- content -->
+</div>
+
+<hr>
+
