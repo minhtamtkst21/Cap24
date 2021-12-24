@@ -355,34 +355,6 @@ namespace WebApplication.Areas.Faculty.Controllers
                                 {
                                     DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột I: Dữ liệu không được để trống <p>";
                                 }
-                                var splitEmail_1 = Email_1.Split('.');
-                                if (workSheet.Cells[rowIterator, 1].Value != null)
-                                {
-                                    var mssv = workSheet.Cells[rowIterator, 1].Value.ToString().ToLower();
-                                    if (splitEmail_1[1] == "vn")
-                                    {
-                                        var mssvmail = splitEmail_1[0].Replace("@vanlanguni", string.Empty).ToLower();
-                                        if (mssv != mssvmail)
-                                        {
-                                            DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột I: Dữ liệu không trùng khớp, dữ liệu MSSV: " + mssv + " khác dữ liệu mail: " + Email_1 + "<p>";
-                                        }
-                                    }
-                                    else if (splitEmail_1.Count() == 3)
-                                    {
-                                        if (splitEmail_1[2] == "vn")
-                                        {
-                                            var mssvmail = splitEmail_1[1].Replace("@vanlanguni", string.Empty).ToLower();
-                                            if (mssv != mssvmail)
-                                            {
-                                                DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột I: Dữ liệu không trùng khớp, dữ liệu MSSV: " + mssv + " khác dữ liệu mail: " + Email_1 + "<p>";
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột I: Dữ liệu sai định dạng, dữ liệu sai: " + Email_1 + "<p>";
-                                    }
-                                }
                                 listEmail.Add(Email_1);
                             }
                             else
@@ -652,6 +624,12 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             thongbao += "</table>";
             Session["ThongBao"] = thongbao;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        public ActionResult XemChiTiet(int id)
+        {
+            Session["sinhvien"] = db.SinhViens.Find(id);
+            Session["tinhtrang"] = db.SinhViens.Find(id).TinhTrang.TenTinhTrang;
             return Redirect(Request.UrlReferrer.ToString());
         }
         public ActionResult TaiLenSinhVien()

@@ -25,7 +25,6 @@
 </div>
 
 <!-- end page title -->
-
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -41,44 +40,50 @@
                                 <th>Ngày sinh</th>
                                 <th>Giới tính</th>
                                 <th>Tình trạng</th>
-                                <th>Email </th>
-
+                                <th>Email</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody id="table">
-                            @foreach (var sinhvien in Model)
+                            @foreach (var s in Model)
                             {
                                 STT++;
                                 <tr data-toggle="modal" data-target="#modelId">
                                     <td>@STT</td>
-                                    <td>@sinhvien.MSSV</td>
-                                    <td>@sinhvien.Ho</td>
-                                    <td>@sinhvien.Ten</td>
-                                    <td>@sinhvien.NgaySinh</td>
-                                    <td>@sinhvien.GioiTinh</td>
-                                    <td>@sinhvien.TinhTrang.TenTinhTrang</td>
-                                    <td>@sinhvien.Email_1</td>
+                                    <td>@s.MSSV</td>
+                                    <td>@s.Ho</td>
+                                    <td>@s.Ten</td>
+                                    <td>@s.NgaySinh</td>
+                                    <td>@s.GioiTinh</td>
+                                    <td>@s.TinhTrang.TenTinhTrang</td>
+                                    <td>@s.Email_1</td>
+                                    <td><a href="@Url.Action("XemChiTiet", new { id = s.ID })">Chi tiết</a></td>
                                 </tr>
-                                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                            }
+                            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                @{ var sinhvien = Session["sinhvien"] as WebApplication.Models.SinhVien; }
+                                @if (sinhvien != null)
+                                {
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" style="font-family: Roboto;"> sinh viên @sinhvien.Ho @sinhvien.Ten - <span id="textMSSV"></span> </h5>
+                                                <h5 class="modal-title" style="font-family: Roboto;"> sinh viên @sinhvien.Ho @sinhvien.Ten</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
+
                                             <div class="modal-body">
                                                 <div class="container-fluid text-center">
-                                                    Thông tin sinh viên @sinhvien.Ho @sinhvien.Ten - <span id="textMSSV"></span>
+                                                    Thông tin sinh viên @sinhvien.Ho @sinhvien.Ten
                                                 </div>
                                                 <br />
                                                 <div class="container-fluid text-lg-left">
-                                                    Mã số sinh viên: <span id="textMSSV"></span>
+                                                    Mã số sinh viên: @sinhvien.MSSV
                                                 </div>
                                                 <br />
                                                 <div class="container-fluid text-lg-left">
-                                                    Họ sinh viên: <span id="textHo"></span>
+                                                    Họ sinh viên: @sinhvien.Ho
                                                 </div>
                                                 <br />
                                                 <div class="container-fluid text-lg-left">
@@ -94,7 +99,7 @@
                                                 </div>
                                                 <br />
                                                 <div class="container-fluid text-lg-left">
-                                                    Tình trạng: @sinhvien.TinhTrang.TenTinhTrang
+                                                    Tình trạng: @Session["tinhtrang"]
                                                 </div>
                                                 <br />
                                                 <div class="container-fluid text-lg-left">
@@ -106,7 +111,7 @@
                                                 </div>
                                                 <br />
                                                 <div class="container-fluid text-lg-left">
-                                                    SDT : @sinhvien.DTDD
+                                                    SDT: @sinhvien.DTDD
                                                 </div>
                                                 <br />
                                                 <div class="container-fluid text-lg-left">
@@ -120,21 +125,14 @@
                                                 <div class="container-fluid text-lg-left">
                                                     Địa Chỉ: @sinhvien.DiaChi
                                                 </div>
-
-
-
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                            }
-
-
+                                }
+                            </div>
                         </tbody>
                     </table>
                 </div> <!-- end .table-responsive-->
@@ -143,23 +141,24 @@
     </div> <!-- end col -->
 </div> <!-- end row -->
 <script>
-
-
-    function MSSV(val) {
-        document.getElementById("textMSSV").innerHTML = val;
-    }
-    function Ho(val) {
-        document.getElementById("textHo").innerHTML = val;
-    }
-</script>
-
-<script>
     $('#exampleModal').on('show.bs.modal', event => {
         var button = $(event.relatedTarget);
         var modal = $(this);
 
     });
 </script>
+@if (Session["sinhvien"] != null)
+{
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#modelId').modal('show');
+        });
+    </script>
+    Session["sinhvien"] = null;
+}
 <script>
     var $rows = $('#table tr');
     $('#search').keyup(function () {
@@ -168,94 +167,5 @@
             var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
             return !~text.indexOf(val);
         }).hide();
-    });
-</script>
-<script>
-    const excel_file = document.getElementById('file_excel');
-    excel_file.addEventListener('change', (event) => {
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(event.target.files[0]);
-        reader.onload = function (event) {
-            var data = new Uint8Array(reader.result);
-            var work_book = XLSX.read(data, { type: 'array' });
-            var sheet_name = work_book.SheetNames;
-            var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], { header: 1 });
-            var soluong = sheet_data.length - 1;
-            if (sheet_data.length > 0) {
-                var table_output = '<div class="row"><div class="col-xl-6"><table class="table table-hover mb-0">';
-                table_output += '<tr>';
-                table_output += '<td>Số lượng sinh viên: ' + soluong + '</td>';
-                table_output += '</tr>';
-                var nganh = new Array();
-                var slnganh = new Array();
-                var khoa = new Array();
-                var slkhoa = new Array();
-                var lop = new Array();
-                var sllop = new Array();
-                for (var i = 1; i < sheet_data.length; i++) {
-                    if (i == 1) {
-                        nganh[0] = sheet_data[1][10];
-                        slnganh[0] = 1;
-                        khoa[0] = sheet_data[1][6];
-                        slkhoa[0] = 1;
-                    }
-                    else {
-                        var dknganh = 0;
-                        var dkkhoa = 0;
-                        var dklop = 0;
-                        for (var item = 0; item < nganh.length; item++) {
-                            if (sheet_data[i][10] == nganh[item]) {
-                                slnganh[item]++;
-                                dknganh++;
-                            }
-                        }
-                        if (dknganh == 0) {
-                            nganh[nganh.length] = sheet_data[i][10];
-                            slnganh[slnganh.length] = 1;
-                        }
-                        for (var item = 0; item < khoa.length; item++) {
-                            if (sheet_data[i][6] == khoa[item]) {
-                                slkhoa[item]++;
-                                dkkhoa++;
-                            }
-                        }
-                        if (dkkhoa == 0) {
-                            khoa[khoa.length] = sheet_data[i][6];
-                            slkhoa[slkhoa.length] = 1;
-                        }
-                        for (var item = 0; item < lop.length; item++) {
-                            if (sheet_data[i][7] == lop[item]) {
-                                sllop[item]++;
-                                dklop++;
-                            }
-                        }
-                        if (dklop == 0) {
-                            lop[lop.length] = sheet_data[i][7];
-                            sllop[sllop.length] = 1;
-                        }
-                    }
-                }
-                for (var i = 0; i < khoa.length; i++) {
-                    table_output += '<tr>';
-                    table_output += '<td> Khóa: ' + khoa[i] + " có số lượng sinh viên là: " + slkhoa[i] + '</td>';
-                    table_output += '</tr>';
-                }
-                for (var i = 0; i < nganh.length; i++) {
-                    table_output += '<tr>';
-                    table_output += '<td> Mã ngành: ' + nganh[i] + " có số lượng sinh viên là: " + slnganh[i] + '</td>';
-                    table_output += '</tr>';
-                }
-                table_output += '</table></div>';
-                table_output += '<div class="col-xl-6"><table class="table table-hover mb-0">';
-                table_output += '<tr><td> Số lượng lớp: ' + lop.length + '</td></tr>';
-                for (var i = 0; i < lop.length; i++) {
-                    table_output += '<tr>';
-                    table_output += '<td> Lớp: ' + lop[i] + " có số lượng sinh viên là: " + sllop[i] + '</td>';
-                    table_output += '</tr>';
-                }
-                table_output += '</table></div></div>';
-                document.getElementById('excel_data').innerHTML = table_output;
-            }
-        }
     });
 </script>
