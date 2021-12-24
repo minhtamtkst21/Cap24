@@ -145,7 +145,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(lopQuanLy);
         }
 
-        // POST: Faculty/LopQuanLies/Delete/5
         [HttpPost, ActionName("XoaLop")]
         [ValidateAntiForgeryToken]
         public ActionResult XacNhanXoaLop(int id)
@@ -155,7 +154,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             db.SaveChanges();
             return RedirectToAction("ListLop");
         }
-        // GET: Faculty/KhoaSinhVien
         public ActionResult KhoaSinhVien()
         {
             var lop = db.LopQuanLies.ToList();
@@ -901,6 +899,36 @@ namespace WebApplication.Areas.Faculty.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+        public ActionResult XacNhanXoaKhoa(int id)
+        {
+            Session["KhoaSV"] = db.KhoaDaoTaos.Find(id).Khoa;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult XoaKhoaSV(int IDKhoa)
+        {
+            var lopsv = db.LopQuanLies.Where(s => s.KhoaDaoTao.Khoa == IDKhoa).ToList();
+            foreach(var item in lopsv)
+            {
+                var list = db.SinhViens.Where(s => s.ID_Lop == item.ID).ToList();
+                foreach(var sv in list)
+                {
+                    db.SinhViens.Remove(sv);
+                    db.SaveChanges();
+                }
+                db.LopQuanLies.Remove(item);
+                db.SaveChanges();
+            }
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult XoaSV(int id)
+        {
+            var sinhvien = db.SinhViens.Find(id);
+            db.SinhViens.Remove(sinhvien);
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

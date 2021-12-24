@@ -22,11 +22,6 @@
         </div>
     </div>
 </div>
-<script>
-    function XacNhanXoa(val) {
-        document.getElementById("textKhoa").innerHTML = val;
-    }
-</script>
 <!-- end page title -->
 <div class="row">
     <div class="col-xl-6">
@@ -38,7 +33,7 @@
                         <div class="kanban-box">
                             <div class="kanban-detail">
                                 <form>
-                                    <a value="@item.Khoa" type="button" class="badge badge-danger float-right" href="#modelId" style="color: white;" data-toggle="modal" data-target="#modelId" onclick="XacNhanXoa(@item.Khoa)"><i class="fas fa-times"></i></a>
+                                    <a value="@item.Khoa" type="button" class="badge badge-danger float-right" href="@Url.Action("XacNhanXoaKhoa", new { id = item.ID })" style="color: white;"><i class="fas fa-times"></i></a>
                                     <h4 class="mt-0"><a href="@Url.Action("NganhSinhVien", new { id = item.ID })" class="text-dark">Danh sách sinh viên Khóa @item.Khoa</a></h4>
                                 </form>
                             </div>
@@ -47,7 +42,7 @@
                 }
             </ul>
             <!-- Modal -->
-            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal fade" id="ModelXoaKhoaSV" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -60,13 +55,16 @@
                             <div class="container-fluid text-center">
                                 Xác nhận xóa Danh sách sinh viên
                             </div>
-                            <div for="recipient-name" class="col-form-label">Nhập "Danh sách sinh viên Khóa - <span id="textkhoa"></span>" để xác nhận xóa:</div>
-                            <input type="text" class="form-control" id="textXacNhan" onchange="GetText(this.value)" placeholder="Danh sách sinh viên Khóa - 24 ">
-                            <input id="textXacNhan" value="Danh sách sinh viên Khóa - 24" hidden/>
+                            <div for="recipient-name" class="col-form-label">Nhập "Danh sách sinh viên Khóa @Session["KhoaSV"]" để xác nhận xóa:</div>
+                            <input type="text" class="form-control" id="textXacNhan" onchange="GetText(this.value)" value="" placeholder="Danh sách sinh viên Khóa @Session["KhoaSV"]">
+                            <input id="textXacNhan" value="Danh sách sinh viên Khóa @Session["KhoaSV"]" hidden />
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="button" id="XacNhanBtn" class="btn btn-primary" disabled>Xóa</button>
+                            <form method="post">
+                                <input type="number" name="IDKhoa" value="@Session["KhoaSV"]" hidden />
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="submit" formaction="@Url.Action("XoaKhoaSV", new { IDKhoa = Session["KhoaSV"]})" id="XacNhanBtn" class="btn btn-primary" disabled>Xóa</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -193,6 +191,18 @@
         });
     </script>
 }
+@if (Session["KhoaSV"] != null)
+{
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#ModelXoaKhoaSV').modal('show');
+        });
+    </script>
+    Session["KhoaSV"] = null;
+}
 <script>
     $('#ModelCheckFile').on('show.bs.modal', event => {
         var button = $(event.relatedTarget);
@@ -200,9 +210,6 @@
     });
 </script>
 <script>
-    //function thisFileUpload() {
-    //    document.getElementById("file").click();
-    //};
     function GetText(val) {
         var text = document.getElementById("textXacNhan").value;
         if (val == text) {
