@@ -1,0 +1,83 @@
+﻿@model IEnumerable<WebApplication.Models.SinhVien>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/Faculty_Layout.cshtml";
+    int STT = 0;
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-sinhviens-center justify-content-between"
+            <h4 class="page-title" style="font-family:Roboto">DANH SÁCH SINH VIÊN LỚP @Model.First().LopQuanLy.TenLop - NGÀNH @Model.First().LopQuanLy.NganhDaoTao.Nganh.ToUpper() KHÓA @Model.First().LopQuanLy.KhoaDaoTao.Khoa</h4>
+            <div class="page-title-right">
+                <div class="container">
+                    <div class="hero__search__form">
+                        <form action="@Url.Action("Search", "DanhSachSinhVien")" method="get">
+                            <input type="text" name="Keyword" placeholder="Bạn tìm gì?" value="@ViewBag.Keyword">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                </div>
+
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-sinhvien"><a href="select-class.html"></a></li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped mb-0 dt-responsive" id="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>MSSV</th>
+                                <th>Họ</th>
+                                <th>Tên</th>
+                                <th>Ngày sinh</th>
+                                <th>Giới tính</th>
+                                <th>Tình trạng</th>
+                                <th>Email_1</th>
+                                <th>Email_2</th>
+                                <th>Điện thoại di động</th>
+                                <th>ĐTDĐ của cha</th>
+                                <th>ĐTDĐ của mẹ</th>
+                                <th>Địa chỉ thường trú</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+                            @foreach (var sinhvien in Model)
+                            {
+                                STT++;
+                                <tr>
+                                    <td>@STT</td>
+                                    <td>@sinhvien.MSSV</td>
+                                    <td>@sinhvien.Ho</td>
+                                    <td>@sinhvien.Ten</td>
+                                    <td>@sinhvien.NgaySinh</td>
+                                    <td>@sinhvien.GioiTinh</td>
+                                    <td>@sinhvien.TinhTrang.TenTinhTrang</td>
+                                    <td>@sinhvien.Email_1</td>
+                                    <td>@sinhvien.Email_2</td>
+                                    <td>@sinhvien.DTDD</td>
+                                    <td>@sinhvien.DTCha</td>
+                                    <td>@sinhvien.DTMe</td>
+                                    <td>@sinhvien.DiaChi</td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div> <!-- end .table-responsive-->
+            </div> <!-- end card-body -->
+        </div> <!-- end card -->
+    </div> <!-- end col -->
+</div> <!-- end row -->
+

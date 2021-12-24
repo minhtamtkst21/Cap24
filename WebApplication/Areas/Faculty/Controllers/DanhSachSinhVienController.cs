@@ -99,6 +99,18 @@ namespace WebApplication.Areas.Faculty.Controllers
             return View(lopQuanLy);
         }
 
+        public ActionResult Search(String keyword)
+        {
+            var sinhvien = db.SinhViens.ToList();
+            ViewBag.Keyword = keyword;
+            //   sinhvien = sinhvien.Where(p => p.Ten.ToLower().Contains(keyword.ToLower())).ToList();
+            sinhvien = (from sv in sinhvien
+                        where sv.Ten.ToLower().Contains(keyword.ToLower())
+                           || sv.MSSV.ToLower().Contains(keyword.ToLower())                      
+                        select sv).ToList();         
+            return View("ListSinhVien", sinhvien);
+        }
+
         // POST: Faculty/LopQuanLies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

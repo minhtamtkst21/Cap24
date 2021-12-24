@@ -11,10 +11,16 @@
             <div class="page-title-box d-flex align-sinhviens-center justify-content-between">
                 <h4 class="page-title" style="font-family:Roboto">DANH SÁCH SINH VIÊN LỚP @Model.First().LopQuanLy.TenLop - NGÀNH @Model.First().LopQuanLy.NganhDaoTao.Nganh.ToUpper() KHÓA @Model.First().LopQuanLy.KhoaDaoTao.Khoa</h4>
                 <div class="page-title-right">
-                    <div class="container">
-                        <input type="text" id="search" placeholder="Search..." style="color: black;">
-                        <div class="search"></div>
-                    </div>
+                  
+    <div class="container">
+        <div class="hero__search__form">
+            <form action="@Url.Action("Search", "DanhSachSinhVien")" method="get">
+                <input type="text" name="Keyword" placeholder="Bạn tìm gì?" value="@ViewBag.Keyword">
+                <button type="submit" class="site-btn">SEARCH</button>
+            </form>
+        </div>
+    </div>
+        
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-sinhvien"><a href="select-class.html"></a></li>
                     </ol>

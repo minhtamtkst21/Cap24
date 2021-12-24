@@ -566,6 +566,7 @@
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\KhoaSinhVien.cshtml" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\NganhSinhVien.cshtml" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\LopSinhVien.cshtml" />
+    <Content Include="Areas\Faculty\Views\DanhSachSinhVien\Search.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
