@@ -275,6 +275,7 @@
     <Content Include="Faculty_assets\css\bootstrap.min.css" />
     <Content Include="Faculty_assets\css\icons.css" />
     <Content Include="Faculty_assets\css\icons.min.css" />
+    <Content Include="Faculty_assets\css\main.css" />
     <Content Include="Faculty_assets\css\search.css" />
     <Content Include="Faculty_assets\fonts\dripicons-v2.svg" />
     <Content Include="Faculty_assets\fonts\dropify.svg" />
@@ -568,6 +569,18 @@
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\NganhSinhVien.cshtml" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\LopSinhVien.cshtml" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\Details.cshtml" />
+    <Content Include="Faculty_assets\fonts\Dongle-Bold.woff" />
+    <Content Include="Faculty_assets\fonts\Dongle-Bold.woff2" />
+    <Content Include="Faculty_assets\fonts\Dongle-Light.woff" />
+    <Content Include="Faculty_assets\fonts\Dongle-Light.woff2" />
+    <Content Include="Faculty_assets\fonts\Dongle-Regular.woff" />
+    <Content Include="Faculty_assets\fonts\Dongle-Regular.woff2" />
+    <Content Include="Faculty_assets\fonts\FZGameOfSquidsVer201.woff" />
+    <Content Include="Faculty_assets\fonts\FZGameOfSquidsVer201.woff2" />
+    <Content Include="Faculty_assets\fonts\GameOfSquids.woff" />
+    <Content Include="Faculty_assets\fonts\GameOfSquids.woff2" />
+    <Content Include="Faculty_assets\fonts\Montserrat-SemiBold.woff" />
+    <Content Include="Faculty_assets\fonts\Montserrat-SemiBold.woff2" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
