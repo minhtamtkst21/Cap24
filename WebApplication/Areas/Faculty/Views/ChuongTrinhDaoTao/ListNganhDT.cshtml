@@ -33,6 +33,7 @@
                         <thead>
                             <tr>
                                 <th>STT</th>
+                                <th>Mã ngành</th>
                                 <th>Tên ngành</th>
                                 <th>Điều chỉnh</th>
                             </tr>
@@ -43,6 +44,7 @@
                                 STT++;
                                 <tr>
                                     <td>@STT</td>
+                                    <td>@item.MaNganh</td>
                                     <td>@item.Nganh</td>
                                     <td>
                                         @*<a href="@Url.Action("SuaNganhDT", new { id = item.ID })">Sửa</a> |*@
