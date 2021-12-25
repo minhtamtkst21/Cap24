@@ -21,7 +21,7 @@ namespace WebApplication.Models
             this.LopQuanLies = new HashSet<LopQuanLy>();
         }
     
-        public string Nganh { get; set; }
+        public String Nganh { get; set; }
         public int ID { get; set; }
         public Nullable<int> MaNganh { get; set; }
     

@@ -1,19 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>E-Profile</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Shelly - Website" />
-	<meta name="author" content="merkulove">
-	<meta name="keywords" content="" />
-	<link rel="icon" href="@Url.Content("~/Student_assets/img/VL.png")">
-	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/animate.css")">
-	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/bootstrap.min.css")">
-	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/font-awesome.min.css")">
-	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/main.css")">
-	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/responsive.css")">
-	<link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>E-Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shelly - Website" />
+    <meta name="author" content="merkulove">
+    <meta name="keywords" content="" />
+    <link rel="icon" href="@Url.Content("~/Student_assets/img/VL.png")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/animate.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/bootstrap.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/font-awesome.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/main.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Student_assets/css/responsive.css")">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <div class="container">
+        <div class="header-content d-flex flex-wrap align-items-center">
+            <div class="logo">
+                <a href="index.html" title="" style="font-family: 'GS'; color: #ff3333; font-size: 35px;">
+                    E-Profile
+                </a>
+            </div><!--logo end-->
+
+            <div class="social-links ml-auto">
+                <button class="btn btn-danger" style="border-radius: 15px; width: 120px;"><a href="@Url.Action("SignIn","Account")">LOGIN</a></button>
+            </div>
+            <div class="menu-btn">
+                <a href="#">
+                    <span class="bar1"></span>
+                    <span class="bar2"></span>
+                    <span class="bar3"></span>
+                </a>
+            </div><!--menu-btn end-->
+        </div><!--header-content end-->
+        <div class="navigation-bar d-flex flex-wrap align-items-center">
+            <nav>
+                <ul>
+                    <li><a href="index.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Home</a></li>
+                    <li>
+                        <a href="KHHT.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Kế hoạch học tập</a>
+                    </li>
+                    <li>
+                        <a href="Grades.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Xem điểm</a>
+                    </li>
+                    <li>
+                        <a class="active" href="training.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Chương trình đào tạo</a>
+                    </li>
+
+                </ul>
+            </nav><!--nav end-->
+            <ul class="social-links ml-auto">
+                <li><a href="#" title=""><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#" title=""><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="#" title=""><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div><!--navigation-bar end-->
+    </div>
 </head>
 
 

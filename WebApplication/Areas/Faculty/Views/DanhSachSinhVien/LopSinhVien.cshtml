@@ -51,15 +51,18 @@
                         </div>
                         <div class="modal-body">
                             <div class="container-fluid text-center">
-                                Xác nhận xóa Danh sách sinh viên lớp 
+                                Xác nhận xóa Danh sách sinh viên lớp
                             </div>
                             <label for="recipient-name" class="col-form-label">Nhập "Danh sách sinh viên lớp " để xác nhận xóa:</label>
                             <input type="text" class="form-control" id="textXacNhan" onchange="GetText(this.value)" placeholder="Danh sách sinh viên lớp ">
                             <input id="textXacNhan" value="Danh sách sinh viên lớp " hidden />
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="button" id="XacNhanBtn" class="btn btn-primary" disabled>Xóa</button>
+                            <form method="post">
+                                <input type="number" name="IDLop" value="@Session["LopSV"]" hidden />
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="button" formaction="@Url.Action("XoaLopSV", new { IDKhoa = Session["LopSV"]})" id="XacNhanBtn" class="btn btn-primary" disabled>Xóa</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -84,3 +87,26 @@
         </div>
     </div><!-- end col -->
 </div>
+@if (Session["ThongBao"] != null)
+{
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#ModelCheckFile').modal('show');
+        });
+    </script>
+}
+@if (Session["LopSV"] != null)
+{
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#ModelXoaNganhSV').modal('show');
+        });
+    </script>
+    Session["LopSV"] = null;
+}

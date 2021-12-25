@@ -8,6 +8,7 @@ using Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
+using Microsoft.Owin.Security.VanLang;
 
 namespace WebApplication
 {
@@ -32,6 +33,7 @@ namespace WebApplication
                     Authority = authority,
                     PostLogoutRedirectUri = postLogoutRedirectUri
                 });
+            app.UseVanLangAuthentication("https://fitlogin.vanlanguni.edu.vn/LoginManagement");
         }
 
         private static string EnsureTrailingSlash(string value)

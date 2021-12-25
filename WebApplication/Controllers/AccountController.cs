@@ -6,11 +6,13 @@ using System.Web.Mvc;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
 
 namespace WebApplication.Controllers
 {
     public class AccountController : Controller
     {
+        [Authorize]
         public void SignIn()
         {
             // Send an OpenID Connect sign-in request.
@@ -21,7 +23,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        public void SignOut()
+    public void SignOut()
         {
             string callbackUrl = Url.Action("SignOutCallback", "Account", routeValues: null, protocol: Request.Url.Scheme);
 

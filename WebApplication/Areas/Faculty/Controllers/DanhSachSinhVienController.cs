@@ -908,10 +908,10 @@ namespace WebApplication.Areas.Faculty.Controllers
         public ActionResult XoaKhoaSV(int IDKhoa)
         {
             var lopsv = db.LopQuanLies.Where(s => s.KhoaDaoTao.Khoa == IDKhoa).ToList();
-            foreach(var item in lopsv)
+            foreach (var item in lopsv)
             {
                 var list = db.SinhViens.Where(s => s.ID_Lop == item.ID).ToList();
-                foreach(var sv in list)
+                foreach (var sv in list)
                 {
                     db.SinhViens.Remove(sv);
                     db.SaveChanges();
@@ -921,14 +921,67 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return Redirect(Request.UrlReferrer.ToString());
         }
+        public ActionResult XacNhanXoaNganh(int IDKhoa, int IDNganh)
+        {
+            Session["KhoaSV"] = db.KhoaDaoTaos.Find(IDKhoa).Khoa;
+            Session["NganhSV"] = db.NganhDaoTaos.Find(IDNganh).Nganh;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult XoaTheoNganh(int IDKhoa, int IDNganh)
+        {
+            var khoa = db.KhoaDaoTaos.Find(IDKhoa);
+            var nganh = db.NganhDaoTaos.Find(IDNganh);
 
+            var lop = db.LopQuanLies.Where(l => l.KhoaDaoTao.ID == khoa.ID).Where(l => l.NganhDaoTao.ID == nganh.ID);
+            if (lop != null)
+            {
+                foreach (var item in lop.ToList())
+                {
+                    var ListSinhVien = db.SinhViens.Where(s => s.ID_Lop == item.ID);
+                    if (ListSinhVien != null)
+                    {
+                        foreach (var sv in ListSinhVien.ToList())
+                        {
+                            db.SinhViens.Remove(sv);
+                            db.SaveChanges();
+                        }
+                    }
+                    db.LopQuanLies.Remove(item);
+                    db.SaveChanges();
+                }
+            }
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        public ActionResult XacNhanXoaLop(int IDLop)
+        {
+            Session["LopSV"] = db.LopQuanLies.Find(IDLop).TenLop;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        public ActionResult XoaLopSV(int id)
+        {
+            var lopsv = db.LopQuanLies.Find(id);
+            var list = db.SinhViens.Where(s => s.ID_Lop == lopsv.ID).ToList();
+            if (lopsv != null)
+                foreach (var sv in list)
+                {
+                    db.SinhViens.Remove(sv);
+                    db.SaveChanges();
+                }
+            db.LopQuanLies.Remove(lopsv);
+            db.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
         public ActionResult XoaSV(int id)
         {
             var sinhvien = db.SinhViens.Find(id);
             db.SinhViens.Remove(sinhvien);
             db.SaveChanges();
             return Redirect(Request.UrlReferrer.ToString());
+
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
