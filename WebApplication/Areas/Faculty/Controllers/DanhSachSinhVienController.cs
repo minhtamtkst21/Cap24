@@ -933,12 +933,12 @@ namespace WebApplication.Areas.Faculty.Controllers
             var khoa = db.KhoaDaoTaos.Find(IDKhoa);
             var nganh = db.NganhDaoTaos.Find(IDNganh);
 
-            var lop = db.LopQuanLies.Where(l => l.KhoaDaoTao.ID == khoa.ID).Where(l => l.NganhDaoTao.ID == nganh.ID);
+            var lop = db.LopQuanLies.Where(l => l.KhoaDaoTao.ID == khoa.ID).Where(l => l.NganhDaoTao.ID == nganh.ID).ToList();
             if (lop != null)
             {
                 foreach (var item in lop.ToList())
                 {
-                    var ListSinhVien = db.SinhViens.Where(s => s.ID_Lop == item.ID);
+                    var ListSinhVien = db.SinhViens.Where(s => s.ID_Lop == item.ID).ToList();
                     if (ListSinhVien != null)
                     {
                         foreach (var sv in ListSinhVien.ToList())
@@ -953,21 +953,25 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return Redirect(Request.UrlReferrer.ToString());
         }
-        public ActionResult XacNhanXoaLop(int IDLop)
+        public ActionResult XacNhanLopXoa(int IDLop)
         {
-            Session["LopSV"] = db.LopQuanLies.Find(IDLop).TenLop;
+            Session["LopSV"] = db.LopQuanLies.Find(IDLop);
             return Redirect(Request.UrlReferrer.ToString());
         }
-        public ActionResult XoaLopSV(int id)
+        [HttpPost]
+        public ActionResult XoaLopSV(int IDLop)
         {
-            var lopsv = db.LopQuanLies.Find(id);
-            var list = db.SinhViens.Where(s => s.ID_Lop == lopsv.ID).ToList();
+            var lopsv = db.LopQuanLies.Find(IDLop);
             if (lopsv != null)
-                foreach (var sv in list)
-                {
-                    db.SinhViens.Remove(sv);
-                    db.SaveChanges();
-                }
+            {
+                var list = db.SinhViens.Where(s => s.ID_Lop == IDLop).ToList();
+                if (list != null)
+                    foreach (var sv in list)
+                    {
+                        db.SinhViens.Remove(sv);
+                        db.SaveChanges();
+                    }
+            }
             db.LopQuanLies.Remove(lopsv);
             db.SaveChanges();
 
