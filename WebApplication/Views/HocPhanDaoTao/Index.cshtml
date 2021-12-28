@@ -14,10 +14,20 @@
                     E-Profile
                 </a>
             </div><!--logo end-->
-
-            <div class="social-links ml-auto">
-                <button class="btn btn-danger" style="border-radius: 15px; width: 120px;"><a href="@Url.Action("SignIn","Account")">LOGIN</a></button>
-            </div>
+            @if (Request.IsAuthenticated)
+            {
+                <div class="social-links ml-auto">
+                    @User.Identity.Name
+                    &ensp;
+                    <button class="btn btn-danger" style="border-radius: 15px; width: 120px;"><a href="@Url.Action("SignOut","Account")">LOGOUT</a></button>
+                </div>
+            }
+            else
+            {
+                <div class="social-links ml-auto">
+                    <button class="btn btn-danger" style="border-radius: 15px; width: 120px;"><a href="@Url.Action("SignIn","Account")">LOGIN</a></button>
+                </div>
+            }
             <div class="menu-btn">
                 <a href="#">
                     <span class="bar1"></span>
@@ -37,7 +47,7 @@
                         <a href="Grades.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Xem điểm</a>
                     </li>
                     <li>
-                        <a class="active" href="training.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Chương trình đào tạo</a>
+                        <a class="active" href="@Url.Action("Index","HocPhanDaoTao")" title="" style="font-family: 'Dongle3'; font-size: 40px;">Chương trình đào tạo</a>
                     </li>
 
                 </ul>
@@ -84,129 +94,138 @@
                 </div>
             </div>
             <br>
-            <!-- end page title -->
-            @foreach (var listHK in ViewData["listHK"] as List<string>)
+            @if (TempData["Alert"] != null)
             {
-                <div class="col-xl-12">
-                    <div class="card-box">
-                        @if (listHK == "")
-                        {
-                            <h4 class="header-title mt-0 mb-3" style="font-family: 'Dongle2'; color: black; font-size: 30px;">Tự chọn</h4>
-                        }
-                        else
-                        {
-                            <h4 class="header-title mt-0 mb-3" style="font-family: 'Dongle2'; color: black; font-size: 30px;">Học kỳ @listHK</h4>
-                        }
+                <div class="alert alert-warning">
+                    @Html.Raw(TempData["Alert"].ToString())
+                </div>
+            }
+            else
+            {
+                foreach (var listHK in ViewData["listHK"] as List<string>)
+                {
+                    <div class="col-xl-12">
+                        <div class="card-box">
+                            @if (listHK == "")
+                            {
+                                <h4 class="header-title mt-0 mb-3" style="font-family: 'Dongle2'; color: black; font-size: 30px;">Tự chọn</h4>
+                            }
+                            else
+                            {
+                                <h4 class="header-title mt-0 mb-3" style="font-family: 'Dongle2'; color: black; font-size: 30px;">Học kỳ @listHK</h4>
+                            }
 
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Mã học phần</th>
-                                        <th>Tên học phần</th>
-                                        <th>Số tín chỉ</th>
-                                        <th>BB/TC</th>
-                                        <th>Tiên quyết</th>
-                                        <th>Học trước</th>
-                                        <th>Song hành</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        if (item.HocKy.ToString() == listHK)
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Mã học phần</th>
+                                            <th>Tên học phần</th>
+                                            <th>Số tín chỉ</th>
+                                            <th>BB/TC</th>
+                                            <th>Tiên quyết</th>
+                                            <th>Học trước</th>
+                                            <th>Song hành</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
                                         {
-                                            <tr>
-                                                @if (item.ID_HocPhanTuChon == null)
-                                                {
-                                                    STT++;
-                                                    <td>@STT</td>
-                                                }
-                                                else
-                                                {
-                                                    <td></td>
-                                                }
-                                                <td>@item.MaHocPhan</td>
-                                                <td>@item.TenHocPhan</td>
-                                                <td>@item.SoTinChi</td>
-                                                @if (item.ID_HocPhanTuChon == null)
-                                                {
-                                                    <td>BB</td>
-                                                }
-                                                else
-                                                {
-                                                    <td>TC</td>
-                                                }
-                                                <td>
-                                                    @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
+                                            if (item.HocKy.ToString() == listHK)
+                                            {
+                                                <tr>
+                                                    @if (item.ID_HocPhanTuChon == null)
                                                     {
-                                                        if (rangbuoc.LoaiRangBuoc == "Tiên quyết" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
+                                                        STT++;
+                                                        <td>@STT</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                    <td>@item.MaHocPhan</td>
+                                                    <td>@item.TenHocPhan</td>
+                                                    <td>@item.SoTinChi</td>
+                                                    @if (item.ID_HocPhanTuChon == null)
+                                                    {
+                                                        <td title="Bắt Buộc">BB</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td title="Tự Chọn">TC</td>
+                                                    }
+                                                    <td>
+                                                        @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
                                                         {
-                                                            if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                            if (rangbuoc.LoaiRangBuoc == "Tiên quyết" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
                                                             {
-                                                                <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
-                                                                    @rangbuoc.HocPhanDaoTao.MaHocPhan
-                                                                </p>
-                                                            }
-                                                            else
-                                                            {
-                                                                <p>
-                                                                    @rangbuoc.HocPhanDaoTao.TenHocPhan
-                                                                </p>
+                                                                if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                                {
+                                                                    <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                                        @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                                    </p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>
+                                                                        @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                                    </p>
+                                                                }
                                                             }
                                                         }
-                                                    }
-                                                </td>
-                                                <td>
-                                                    @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
-                                                    {
-                                                        if (rangbuoc.LoaiRangBuoc == "Học trước" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
+                                                    </td>
+                                                    <td>
+                                                        @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
                                                         {
-                                                            if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                            if (rangbuoc.LoaiRangBuoc == "Học trước" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
                                                             {
-                                                                <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
-                                                                    @rangbuoc.HocPhanDaoTao.MaHocPhan
-                                                                </p>
-                                                            }
-                                                            else
-                                                            {
-                                                                <p>
-                                                                    @rangbuoc.HocPhanDaoTao.TenHocPhan
-                                                                </p>
+                                                                if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                                {
+                                                                    <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                                        @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                                    </p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>
+                                                                        @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                                    </p>
+                                                                }
                                                             }
                                                         }
-                                                    }
-                                                </td>
-                                                <td>
-                                                    @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
-                                                    {
-                                                        if (rangbuoc.LoaiRangBuoc == "Song hành" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
+                                                    </td>
+                                                    <td>
+                                                        @foreach (var rangbuoc in ViewData["RangBuocHocPhan"] as List<WebApplication.Models.RangBuocHocPhan>)
                                                         {
-                                                            if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                            if (rangbuoc.LoaiRangBuoc == "Song hành" && rangbuoc.HocPhanDaoTao1.ID == item.ID)
                                                             {
-                                                                <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
-                                                                    @rangbuoc.HocPhanDaoTao.MaHocPhan
-                                                                </p>
-                                                            }
-                                                            else
-                                                            {
-                                                                <p>
-                                                                    @rangbuoc.HocPhanDaoTao.TenHocPhan
-                                                                </p>
+                                                                if (rangbuoc.HocPhanDaoTao.MaHocPhan != null)
+                                                                {
+                                                                    <p title="@rangbuoc.HocPhanDaoTao.TenHocPhan">
+                                                                        @rangbuoc.HocPhanDaoTao.MaHocPhan
+                                                                    </p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>
+                                                                        @rangbuoc.HocPhanDaoTao.TenHocPhan
+                                                                    </p>
+                                                                }
                                                             }
                                                         }
-                                                    }
-                                                </td>
-                                                @*<td>&emsp;@item.HocKy</td>*@
-                                            </tr>
+                                                    </td>
+                                                    @*<td>&emsp;@item.HocKy</td>*@
+                                                </tr>
+                                            }
                                         }
-                                    }
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                </div><!-- end col -->
+                    </div><!-- end col -->
+                }
+
             }
             <hr>
         </div>
@@ -214,4 +233,3 @@
 </div>
 
 <hr>
-

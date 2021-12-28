@@ -16,7 +16,7 @@ namespace WebApplication.Controllers
             // Send an OpenID Connect sign-in request.
             if (!Request.IsAuthenticated)
             {
-                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = Request.UrlReferrer.ToString() },
+                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "~/CP24Team3/HocPhanDaoTao/Index" },
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }
