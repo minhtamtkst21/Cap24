@@ -884,9 +884,9 @@ namespace WebApplication.Areas.Faculty.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
         [HttpPost]
-        public ActionResult XoaLopSV(string idnganh, int idkhoa)
+        public ActionResult XoaLopSV(string idlop)
         {
-            var lopsv = db.LopQuanLies.Where(s => s.KhoaDaoTao.ID == idkhoa).Where(s => s.NganhDaoTao.Nganh == idnganh).ToList();
+            var lopsv = db.LopQuanLies.Where(s => s.TenLop == idlop).ToList();
             foreach (var item in lopsv)
             {
                 var list = db.SinhViens.Where(s => s.ID_Lop == item.ID).ToList();
