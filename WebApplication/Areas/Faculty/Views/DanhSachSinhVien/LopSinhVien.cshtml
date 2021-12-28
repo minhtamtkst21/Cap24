@@ -31,7 +31,7 @@
                     <li>
                         <div class="kanban-box">
                             <div class="kanban-detail">
-                                <a class="badge badge-danger float-right" href="#" style="color: white;" data-toggle="modal" data-target="#modelId"><i class="fas fa-times"></i></a>
+                                <a class="badge badge-danger float-right" href="@Url.Action("XacNhanXoaLop", new { id = item.ID })" style="color: white;"><i class="fas fa-times"></i></a>
                                 <h4 class="mt-0" style="font-family: Roboto;"><a href="@Url.Action("ListSinhVien", new { id = item.ID })" style="color: black;">Danh sách sinh viên lớp @item.TenLop </a></h4>
 
                             </div>

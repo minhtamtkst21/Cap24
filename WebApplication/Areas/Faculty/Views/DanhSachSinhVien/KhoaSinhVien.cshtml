@@ -56,8 +56,8 @@
                                 Xác nhận xóa Danh sách sinh viên
                             </div>
                             <div for="recipient-name" class="col-form-label">Nhập "Danh sách sinh viên Khóa @Session["KhoaSV"]" để xác nhận xóa:</div>
-                            <input type="text" class="form-control" id="textXacNhan" onchange="GetText(this.value)" value="" placeholder="Danh sách sinh viên Khóa @Session["KhoaSV"]">
-                            <input id="textXacNhan" value="Danh sách sinh viên Khóa @Session["KhoaSV"]" hidden />
+                            <input type="text" class="form-control" id="text" onchange="GetText(this.value)" value="" placeholder="Danh sách sinh viên Khóa @Session["KhoaSV"]">
+                            <input id="textXacNhan" value="Danh sách sinh viên Khóa @Session["KhoaSV"]" hidden/>
                         </div>
                         <div class="modal-footer">
                             <form method="post">
@@ -136,7 +136,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            @using (Html.BeginForm("UploadSinhVien", "DanhSachSinhVien", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("UpdateSinhVien", "DanhSachSinhVien", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 <div class="file-upload-wrapper">
                                     <div class="file-upload-wrapper">
@@ -168,7 +168,7 @@
                                 @Html.Raw(Session["ThongBao"])
                             </div>
                             <div class="modal-footer">
-                                <form action="@Url.Action("TaiLenSinhVien")">
+                                <form action="@Url.Action("UpdateSinhVien")" method="post">
                                     <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Đóng" />
                                     <input type="submit" class="btn btn-primary" value="Tải lên" />
                                 </form>
@@ -180,11 +180,11 @@
         </div>
     </div><!-- end col -->
 </div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 @if (Session["ThongBao"] != null)
 {
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
             $('#ModelCheckFile').modal('show');
@@ -193,9 +193,6 @@
 }
 @if (Session["KhoaSV"] != null)
 {
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
             $('#ModelXoaKhoaSV').modal('show');
@@ -212,10 +209,10 @@
 <script>
     function GetText(val) {
         var text = document.getElementById("textXacNhan").value;
-        if (val == text) {
-            document.getElementById("XacNhanBtn").disabled = false;
-        } else {
+        if (val != text) {
             document.getElementById("XacNhanBtn").disabled = true;
+        } else {
+            document.getElementById("XacNhanBtn").disabled = false;
         }
     }
 </script>

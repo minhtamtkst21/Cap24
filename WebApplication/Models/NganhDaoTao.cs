@@ -19,15 +19,18 @@ namespace WebApplication.Models
         {
             this.ChuongTrinhDaoTaos = new HashSet<ChuongTrinhDaoTao>();
             this.LopQuanLies = new HashSet<LopQuanLy>();
+            this.SinhViens = new HashSet<SinhVien>();
         }
     
         public string Nganh { get; set; }
         public int ID { get; set; }
-        public Nullable<int> MaNganh { get; set; }
+        public int MaNganh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChuongTrinhDaoTao> ChuongTrinhDaoTaos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LopQuanLy> LopQuanLies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SinhVien> SinhViens { get; set; }
     }
 }

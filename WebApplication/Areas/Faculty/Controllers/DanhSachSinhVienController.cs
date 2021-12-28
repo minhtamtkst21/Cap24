@@ -69,91 +69,6 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return View(model);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult TaoMoiLop(LopQuanLy lopQuanLy)
-        {
-            if (ModelState.IsValid)
-            {
-                var ListLoi = KiemTraLop(lopQuanLy.TenLop);
-                if (ListLoi != "")
-                {
-                    TempData["Alert"] = ListLoi;
-                    return RedirectToAction("TaoMoiLop");
-                }
-                db.LopQuanLies.Add(lopQuanLy);
-                db.SaveChanges();
-                return RedirectToAction("DanhSachLop");
-            }
-
-            ViewBag.ID_Khoa = new SelectList(db.KhoaDaoTaos, "ID", "Khoa", lopQuanLy.ID_Khoa);
-            ViewBag.ID_Nganh = new SelectList(db.NganhDaoTaos, "ID", "Nganh", lopQuanLy.ID_Nganh);
-            return View(lopQuanLy);
-        }
-        public ActionResult SuaLop(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            LopQuanLy lopQuanLy = db.LopQuanLies.Find(id);
-            if (lopQuanLy == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ID_Khoa = new SelectList(db.KhoaDaoTaos, "ID", "Khoa", lopQuanLy.ID_Khoa);
-            ViewBag.ID_Nganh = new SelectList(db.NganhDaoTaos, "ID", "Nganh", lopQuanLy.ID_Nganh);
-            return View(lopQuanLy);
-        }
-
-        // POST: Faculty/LopQuanLies/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SuaLop(LopQuanLy lopQuanLy)
-        {
-            if (ModelState.IsValid)
-            {
-                var ListLoi = KiemTraLop(lopQuanLy.TenLop);
-                if (ListLoi != "")
-                {
-                    TempData["Alert"] = ListLoi;
-                    return RedirectToAction("SuaLop", new { id = lopQuanLy.ID });
-                }
-                db.Entry(lopQuanLy).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("ListLop");
-            }
-            ViewBag.ID_Khoa = new SelectList(db.KhoaDaoTaos, "ID", "Khoa", lopQuanLy.ID_Khoa);
-            ViewBag.ID_Nganh = new SelectList(db.NganhDaoTaos, "ID", "Nganh", lopQuanLy.ID_Nganh);
-            return View(lopQuanLy);
-        }
-        // GET: Faculty/LopQuanLies/Delete/5
-        public ActionResult XoaLop(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            LopQuanLy lopQuanLy = db.LopQuanLies.Find(id);
-            if (lopQuanLy == null)
-            {
-                return HttpNotFound();
-            }
-            return View(lopQuanLy);
-        }
-
-        [HttpPost, ActionName("XoaLop")]
-        [ValidateAntiForgeryToken]
-        public ActionResult XacNhanXoaLop(int id)
-        {
-            LopQuanLy lopQuanLy = db.LopQuanLies.Find(id);
-            db.LopQuanLies.Remove(lopQuanLy);
-            db.SaveChanges();
-            return RedirectToAction("ListLop");
-        }
         public ActionResult KhoaSinhVien()
         {
             var lop = db.LopQuanLies.ToList();
@@ -551,6 +466,11 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     {
                                         SaveSV.GioiTinh = workSheet.Cells[rowIterator, 5].Value.ToString();
                                     }
+                                    if (workSheet.Cells[rowIterator, 7].Value != null)
+                                    {
+                                        var khoa = workSheet.Cells[rowIterator, 7].Value.ToString().Replace("K", string.Empty);
+                                        SaveSV.ID_Khoa = db.KhoaDaoTaos.FirstOrDefault(s => s.Khoa.ToString() == khoa).ID;
+                                    }
                                     if (workSheet.Cells[rowIterator, 9].Value != null)
                                     {
                                         SaveSV.Email_1 = workSheet.Cells[rowIterator, 9].Value.ToString();
@@ -558,6 +478,11 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     if (workSheet.Cells[rowIterator, 10].Value != null)
                                     {
                                         SaveSV.Email_2 = workSheet.Cells[rowIterator, 10].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 11].Value != null)
+                                    {
+                                        var nganh = workSheet.Cells[rowIterator, 11].Value.ToString();
+                                        SaveSV.ID_Nganh = db.NganhDaoTaos.FirstOrDefault(s => s.MaNganh.ToString() == nganh).ID;
                                     }
                                     if (workSheet.Cells[rowIterator, 12].Value != null)
                                     {
@@ -785,6 +710,11 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     {
                                         SaveSV.GioiTinh = workSheet.Cells[rowIterator, 5].Value.ToString();
                                     }
+                                    if (workSheet.Cells[rowIterator, 7].Value != null)
+                                    {
+                                        var khoa = workSheet.Cells[rowIterator, 7].Value.ToString().Replace("K", string.Empty);
+                                        SaveSV.ID_Khoa = db.KhoaDaoTaos.FirstOrDefault(s => s.Khoa.ToString() == khoa).ID;
+                                    }
                                     if (workSheet.Cells[rowIterator, 9].Value != null)
                                     {
                                         SaveSV.Email_1 = workSheet.Cells[rowIterator, 9].Value.ToString();
@@ -792,6 +722,11 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     if (workSheet.Cells[rowIterator, 10].Value != null)
                                     {
                                         SaveSV.Email_2 = workSheet.Cells[rowIterator, 10].Value.ToString();
+                                    }
+                                    if (workSheet.Cells[rowIterator, 11].Value != null)
+                                    {
+                                        var nganh = workSheet.Cells[rowIterator, 11].Value.ToString();
+                                        SaveSV.ID_Nganh = db.NganhDaoTaos.FirstOrDefault(s => s.MaNganh.ToString() == nganh).ID;
                                     }
                                     if (workSheet.Cells[rowIterator, 12].Value != null)
                                     {
@@ -822,6 +757,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                                     db.Configuration.AutoDetectChangesEnabled = false;
                                     db.Configuration.ValidateOnSaveEnabled = false;
                                     db.SinhViens.Add(SaveSV);
+                                    db.SaveChanges();
                                 }
                             }
                         }
@@ -832,7 +768,6 @@ namespace WebApplication.Areas.Faculty.Controllers
                     TempData["Alert"] = "File bị trống, vui lòng thử lại!!";
                 }
             }
-            db.SaveChanges();
             return RedirectToAction("KhoaSinhVien");
         }
 
@@ -908,10 +843,10 @@ namespace WebApplication.Areas.Faculty.Controllers
         public ActionResult XoaKhoaSV(int IDKhoa)
         {
             var lopsv = db.LopQuanLies.Where(s => s.KhoaDaoTao.Khoa == IDKhoa).ToList();
-            foreach(var item in lopsv)
+            foreach (var item in lopsv)
             {
                 var list = db.SinhViens.Where(s => s.ID_Lop == item.ID).ToList();
-                foreach(var sv in list)
+                foreach (var sv in list)
                 {
                     db.SinhViens.Remove(sv);
                     db.SaveChanges();
@@ -921,12 +856,135 @@ namespace WebApplication.Areas.Faculty.Controllers
             }
             return Redirect(Request.UrlReferrer.ToString());
         }
-
-        public ActionResult XoaSV(int id)
+        public ActionResult XacNhanXoaNganh(int idnganh)
         {
-            var sinhvien = db.SinhViens.Find(id);
-            db.SinhViens.Remove(sinhvien);
+            Session["NganhSV"] = db.NganhDaoTaos.Find(idnganh).Nganh;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult XoaNganhSV(string idnganh, int idkhoa)
+        {
+            var lopsv = db.LopQuanLies.Where(s=>s.KhoaDaoTao.ID == idkhoa).Where(s => s.NganhDaoTao.Nganh == idnganh).ToList();
+            foreach (var item in lopsv)
+            {
+                var list = db.SinhViens.Where(s => s.ID_Lop == item.ID).ToList();
+                foreach (var sv in list)
+                {
+                    db.SinhViens.Remove(sv);
+                    db.SaveChanges();
+                }
+                db.LopQuanLies.Remove(item);
+                db.SaveChanges();
+            }
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        public ActionResult XacNhanXoaLop(int idlop)
+        {
+            Session["LopSV"] = db.LopQuanLies.Find(idlop).TenLop;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult XoaLopSV(string idnganh, int idkhoa)
+        {
+            var lopsv = db.LopQuanLies.Where(s => s.KhoaDaoTao.ID == idkhoa).Where(s => s.NganhDaoTao.Nganh == idnganh).ToList();
+            foreach (var item in lopsv)
+            {
+                var list = db.SinhViens.Where(s => s.ID_Lop == item.ID).ToList();
+                foreach (var sv in list)
+                {
+                    db.SinhViens.Remove(sv);
+                    db.SaveChanges();
+                }
+                db.LopQuanLies.Remove(item);
+                db.SaveChanges();
+            }
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult UpdateSinhVien(FormCollection formCollection)
+        {
+            if (Request != null)
+            {
+                HttpPostedFileBase file = Request.Files["UploadedFile"];
+                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                {
+                    var listError = KiemTraFile(file);
+                    if (listError != "")
+                    {
+                        TempData["Alert"] = listError;
+                        return Redirect(Request.UrlReferrer.ToString());
+                    }
+                    string fileName = file.FileName;
+                    string fileContentType = file.ContentType;
+                    byte[] fileBytes = new byte[file.ContentLength];
+                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        if (workSheet.Dimension != null)
+                        {
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            if (noOfCol == 15 && noOfRow > 1)
+                            {
+                                for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                                {
+                                    if (workSheet.Cells[rowIterator, 1].Value != null)
+                                    {
+                                        var MSSV = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                        XoaSinhVien(MSSV);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var listMoiSV = Session["LuuSinhVien"] as List<SinhVien>;
+                foreach (var item in listMoiSV)
+                    XoaSinhVien(item.MSSV);
+            }
+            if (Session["LuuSinhVien"] != null)
+                TaiLenSinhVien();
+            else
+                UploadSinhVien(formCollection);
+            Session["ThongBao"] = null;
+            return RedirectToAction("KhoaSinhVien");
+        }
+        public ActionResult XoaSinhVien(string MSSV)
+        {
+            var SinhVien = db.SinhViens.FirstOrDefault(s => s.MSSV == MSSV);
+            if (SinhVien != null)
+            {
+                db.SinhViens.Remove(SinhVien);
+                db.SaveChanges();
+            }
+            return RedirectToAction("KhoaSinhVien");
+        }
+        public ActionResult LuuChuNhiem(int id)
+        {
+            Session["Lop"] = db.LopQuanLies.Find(id);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult LuuChuNhiem(string chunhiem, int? idlop)
+        {
+            if (chunhiem == null)
+            {
+                return HttpNotFound();
+            }
+            if (idlop == null)
+            {
+                return HttpNotFound();
+            }
+            var Lop = db.LopQuanLies.Find(idlop);
+            Lop.ChuNhiem = chunhiem;
+            db.Entry(Lop).State = EntityState.Modified;
             db.SaveChanges();
+            Session["Lop"] = null;
             return Redirect(Request.UrlReferrer.ToString());
         }
         protected override void Dispose(bool disposing)
