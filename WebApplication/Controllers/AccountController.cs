@@ -16,11 +16,10 @@ namespace WebApplication.Controllers
             // Send an OpenID Connect sign-in request.
             if (!Request.IsAuthenticated)
             {
-                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "/" },
+                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = Request.UrlReferrer.ToString() },
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }
-
         public void SignOut()
         {
             string callbackUrl = Url.Action("SignOutCallback", "Account", routeValues: null, protocol: Request.Url.Scheme);
