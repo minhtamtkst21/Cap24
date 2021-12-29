@@ -574,6 +574,7 @@
     <Content Include="Faculty_assets\fonts\GameOfSquids.woff2" />
     <Content Include="Faculty_assets\fonts\Montserrat-SemiBold.woff" />
     <Content Include="Faculty_assets\fonts\Montserrat-SemiBold.woff2" />
+    <Content Include="Areas\Faculty\Views\DanhSachSinhVien\TimKiemSinhVien.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

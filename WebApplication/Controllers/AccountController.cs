@@ -16,13 +16,15 @@ namespace WebApplication.Controllers
             // Send an OpenID Connect sign-in request.
             if (!Request.IsAuthenticated)
             {
-                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "~/CP24Team3/HocPhanDaoTao/Index" },
+                string callbackUrl = Url.Action("Index", "HocPhanDaoTao", routeValues: null, protocol: Request.Url.Scheme);
+
+                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = callbackUrl },
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }
         public void SignOut()
         {
-            string callbackUrl = Url.Action("SignOutCallback", "Account", routeValues: null, protocol: Request.Url.Scheme);
+            string callbackUrl = Url.Action("Index", "HocPhanDaoTao", routeValues: null, protocol: Request.Url.Scheme);
 
             HttpContext.GetOwinContext().Authentication.SignOut(
                 new AuthenticationProperties { RedirectUri = callbackUrl },
@@ -34,7 +36,7 @@ namespace WebApplication.Controllers
             if (Request.IsAuthenticated)
             {
                 // Redirect to home page if the user is authenticated.
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "HocPhanDaoTao");
             }
 
             return View();

@@ -5,62 +5,6 @@
     Layout = "~/Views/Shared/Student_layout.cshtml";
     int STT = 0;
 }
-
-<header>
-    <div class="container">
-        <div class="header-content d-flex flex-wrap align-items-center">
-            <div class="logo">
-                <a href="index.html" title="" style="font-family: 'GS'; color: #ff3333; font-size: 35px;">
-                    E-Profile
-                </a>
-            </div><!--logo end-->
-            @if (Request.IsAuthenticated)
-            {
-                <div class="social-links ml-auto">
-                    @User.Identity.Name
-                    &ensp;
-                    <button class="btn btn-danger" style="border-radius: 15px; width: 120px;"><a href="@Url.Action("SignOut","Account")">LOGOUT</a></button>
-                </div>
-            }
-            else
-            {
-                <div class="social-links ml-auto">
-                    <button class="btn btn-danger" style="border-radius: 15px; width: 120px;"><a href="@Url.Action("SignIn","Account")">LOGIN</a></button>
-                </div>
-            }
-            <div class="menu-btn">
-                <a href="#">
-                    <span class="bar1"></span>
-                    <span class="bar2"></span>
-                    <span class="bar3"></span>
-                </a>
-            </div><!--menu-btn end-->
-        </div><!--header-content end-->
-        <div class="navigation-bar d-flex flex-wrap align-items-center">
-            <nav>
-                <ul>
-                    <li><a href="index.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Home</a></li>
-                    <li>
-                        <a href="KHHT.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Kế hoạch học tập</a>
-                    </li>
-                    <li>
-                        <a href="Grades.html" title="" style="font-family: 'Dongle3'; font-size: 40px;">Xem điểm</a>
-                    </li>
-                    <li>
-                        <a class="active" href="@Url.Action("Index","HocPhanDaoTao")" title="" style="font-family: 'Dongle3'; font-size: 40px;">Chương trình đào tạo</a>
-                    </li>
-
-                </ul>
-            </nav><!--nav end-->
-            <ul class="social-links ml-auto">
-                <li><a href="#" title=""><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#" title=""><i class="fab fa-linkedin-in"></i></a></li>
-                <li><a href="#" title=""><i class="fab fa-instagram"></i></a></li>
-            </ul>
-        </div><!--navigation-bar end-->
-    </div>
-</header><!--header end-->
-
 <section class="pager-section">
     <div class="container">
         <div class="pager-content text-center">
@@ -70,7 +14,7 @@
                 <li><span>Chương trình đào tạo</span></li>
             </ul>
         </div><!--pager-content end-->
-        <h2 class="page-titlee">E-Profile</h2>
+        <h4 class="page-titlee">E-Profile</h4>
     </div>
 </section><!--pager-section end-->
 <hr>
