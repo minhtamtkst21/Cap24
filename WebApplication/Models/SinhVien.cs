@@ -28,8 +28,12 @@ namespace WebApplication.Models
         public string DTCha { get; set; }
         public string DTMe { get; set; }
         public string DiaChi { get; set; }
+        public Nullable<int> ID_Khoa { get; set; }
+        public Nullable<int> ID_Nganh { get; set; }
     
+        public virtual KhoaDaoTao KhoaDaoTao { get; set; }
         public virtual LopQuanLy LopQuanLy { get; set; }
+        public virtual NganhDaoTao NganhDaoTao { get; set; }
         public virtual TinhTrang TinhTrang { get; set; }
     }
 }

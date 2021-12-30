@@ -802,9 +802,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
             }
             return RedirectToAction("ChitietCTDaoTao", new { id = CTDT });
-
         }
-
         public ActionResult ChiTietCTDaoTao(int? id)
         {
             if (id is null)

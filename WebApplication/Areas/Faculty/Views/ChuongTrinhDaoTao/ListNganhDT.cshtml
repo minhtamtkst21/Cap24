@@ -5,6 +5,11 @@
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
     int STT = 0;
 }
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -19,34 +24,38 @@
         </div>
     </div>
 </div>
-<div class="col-xl-12">
-    <div class="card-box">
-        <div class="dropdown float-right">
-        </div>
-        <div class="table-responsive" style="overflow: auto; height: 300px;">
-            <table class="table table-hover mb-0">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Tên ngành</th>
-                        <th>Điều chỉnh</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        STT++;
-                        <tr>
-                            <td>@STT</td>
-                            <td>@item.Nganh</td>
-                            <td>
-                                @*<a href="@Url.Action("SuaNganhDT", new { id = item.ID })">Sửa</a> |*@
-                                <a href="@Url.Action("XoaNganhDT", new { id = item.ID })">Xóa</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped mb-0 dt-responsive" id="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã ngành</th>
+                                <th>Tên ngành</th>
+                                <th>Điều chỉnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                STT++;
+                                <tr>
+                                    <td>@STT</td>
+                                    <td>@item.MaNganh</td>
+                                    <td>@item.Nganh</td>
+                                    <td>
+                                        @*<a href="@Url.Action("SuaNganhDT", new { id = item.ID })">Sửa</a> |*@
+                                        <a href="@Url.Action("XoaNganhDT", new { id = item.ID })">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
