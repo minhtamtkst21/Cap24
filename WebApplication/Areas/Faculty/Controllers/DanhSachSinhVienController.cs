@@ -72,7 +72,11 @@ namespace WebApplication.Areas.Faculty.Controllers
             if (checkmssv != null)
                 foreach (var item in checkmssv)
                     model.Add(item);
-                ViewBag.Keyword = texttimkiem;
+            var checkho = db.SinhViens.ToList().Where(p => RemoveUnicode(p.Ho.ToLower()).Contains(text.ToLower())).ToList();
+            if (checkho != null)
+                foreach (var item in checkho)
+                    model.Add(item);
+            ViewBag.Keyword = texttimkiem;
             return View(model);
         }
         public string KiemTraLop(string tenLop)
@@ -814,10 +818,8 @@ namespace WebApplication.Areas.Faculty.Controllers
                                         var tinhtrang = workSheet.Cells[rowIterator, 6].Value.ToString();
                                         SaveSV.TinhTrang = db.TinhTrangs.FirstOrDefault(s => s.TenTinhTrang == tinhtrang);
                                     }
-                                    db.Configuration.AutoDetectChangesEnabled = false;
-                                    db.Configuration.ValidateOnSaveEnabled = false;
                                     db.SinhViens.Add(SaveSV);
-                                    db.SaveChanges();
+                                    
                                 }
                             }
                         }
@@ -828,6 +830,9 @@ namespace WebApplication.Areas.Faculty.Controllers
                     TempData["Alert"] = "File bị trống, vui lòng thử lại!!";
                 }
             }
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.ValidateOnSaveEnabled = false;
+            db.SaveChanges();
             return RedirectToAction("KhoaSinhVien");
         }
 

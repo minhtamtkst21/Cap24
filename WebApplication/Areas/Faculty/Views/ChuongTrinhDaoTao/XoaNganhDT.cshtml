@@ -4,30 +4,21 @@
     ViewBag.Title = "DeleteNganh";
     Layout = "~/Views/Shared/Faculty_Layout.cshtml";
 }
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<h2 class="page-title" style="font-family:Roboto">Xóa ngành @Model.Nganh</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên ngành: @Model.Nganh
+        </dt>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<div class="container mt-3">
-    <h2 class="page-title" style="font-family:Roboto">Xóa ngành @Model.Nganh</h2>
-
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                Tên ngành: @Model.Nganh
-            </dt>
-
-        </dl>
-
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-actions no-color">
-                <input type="submit" value="Xóa Ngành" class="btn btn-secondary btn-rounded" />
-                <input type="submit" value="Trở về" class="btn btn-secondary btn-rounded" formaction="@Url.Action("ListNganhDT")" />
-            </div>
-        }
-    </div>
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa Ngành" class="btn btn-secondary btn-rounded" />
+            <input type="submit" value="Trở về" class="btn btn-secondary btn-rounded" formaction="@Url.Action("ListNganhDT")" />
+        </div>
+    }
 </div>

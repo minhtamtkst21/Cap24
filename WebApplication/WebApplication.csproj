@@ -555,9 +555,7 @@
     <Content Include="Areas\Faculty\Views\ChuongTrinhDaoTao\UploadCTDT.cshtml" />
     <Content Include="Models\ChuongTrinhDaoTao.xlsx" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\ListSinhVien.cshtml" />
-    <Content Include="Areas\Faculty\Views\DanhSachSinhVien\TaoMoiLop.cshtml" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\XoaLop.cshtml" />
-    <Content Include="Areas\Faculty\Views\DanhSachSinhVien\SuaLop.cshtml" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\ListLop.cshtml" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\KhoaSinhVien.cshtml" />
     <Content Include="Areas\Faculty\Views\DanhSachSinhVien\NganhSinhVien.cshtml" />

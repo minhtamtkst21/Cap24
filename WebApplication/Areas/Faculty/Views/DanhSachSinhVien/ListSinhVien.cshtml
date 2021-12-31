@@ -11,6 +11,13 @@
     <div class="col-12">
         <div class="page-title-box d-flex align-sinhviens-center justify-content-between">
             <h4 class="page-title" style="font-family:Roboto">DANH SÁCH SINH VIÊN LỚP @Model.First().LopQuanLy.TenLop - NGÀNH @Model.First().LopQuanLy.NganhDaoTao.Nganh.ToUpper() KHÓA @Model.First().LopQuanLy.KhoaDaoTao.Khoa</h4>
+            <div class="page-title-right">
+                <form>
+                    <br />
+                    <input type="number" value="@Model.First().ID_Lop" name="idlop" hidden />
+                    <button type="submit" formaction="@Url.Action("XuatDSSV")" id="button" name="button" value="" class="btn btn-secondary btn-rounded"><i class="mdi mdi-microsoft-excel"></i> Export</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

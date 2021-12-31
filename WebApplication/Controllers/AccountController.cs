@@ -16,9 +16,7 @@ namespace WebApplication.Controllers
             // Send an OpenID Connect sign-in request.
             if (!Request.IsAuthenticated)
             {
-                string callbackUrl = Url.Action("Index", "HocPhanDaoTao", routeValues: null, protocol: Request.Url.Scheme);
-
-                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = callbackUrl },
+                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "/" },
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }
