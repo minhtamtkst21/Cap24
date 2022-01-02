@@ -300,6 +300,12 @@
                             @Html.Raw(TempData["Alert"].ToString())
                         </div>
                     }
+                    @if (TempData["ThongBao"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @Html.Raw(TempData["ThongBao"].ToString())
+                        </div>
+                    }
                     @RenderBody()
                 </div>
             </div> <!-- content -->

@@ -69,63 +69,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="modelId1" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" style="font-family: Roboto;">Tìm kiếm sinh viên</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <div class="input-group-append">
-                                <button class="btn btn-secondary" type="submit">
-                                    <i class="fe-search"></i>
-                                </button>
-                            </div>
-                            <div class="table-responsive text-nowrap">
-                                <table class="table table-striped mb-0 dt-responsive" id="search">
-                                    <thead>
-                                        <tr>
-                                            <th>STT</th>
-                                            <th>MSSV</th>
-                                            <th>Họ</th>
-                                            <th>Tên</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Giới tính</th>
-                                            <th>Tình trạng</th>
-                                            <th>Khóa học</th>
-                                            <th>Mã lớp SV</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>187PM20547</td>
-                                            <td>Nguyễn Duy</td>
-                                            <td>Phương</td>
-                                            <td>25/05/1999</td>
-                                            <td>Nam</td>
-                                            <td>Còn học</td>
-                                            <td>K24</td>
-                                            <td>K24T-PM1</td>
-                                            <td><a href="#">Xem thêm</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <!-- <button type="button" class="btn btn-primary">Save</button> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
@@ -213,6 +157,30 @@
             document.getElementById("XacNhanBtn").disabled = true;
         } else {
             document.getElementById("XacNhanBtn").disabled = false;
+        }
+    }
+</script>
+<script>
+    function sortTable() {
+        var tables, sort, i, x, y, tableSort;
+        tables = document.getElementById("SortmyTable");
+        sort = true;
+        while (sort) {
+            sort = false;
+            tblrow = tables.rows;
+            for (i = 1; i < (tblrow.length - 1); i++) {
+                tableSort = false;
+                x = tblrow[i].getElementsByTagName("td")[n];
+                y = tblrow[i + 1].getElementsByTagName("td")[n];
+                if (x.innerHTML.toUpperCase() > y.innerHTML.toUpperCase()) {
+                    tableSort = true;
+                    break;
+                }
+            }
+            if (tableSort) {
+                tblrow[i].parentNode.insertBefore(tblrow[i + 1], tblrow[i]);
+                sort = true;
+            }
         }
     }
 </script>

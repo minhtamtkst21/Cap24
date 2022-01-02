@@ -57,6 +57,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
                 db.HocKyDaoTaos.Add(hocKyDaoTao);
                 db.SaveChanges();
+                TempData["ThongBao"] = "Tạo mới học kỳ thành công";
                 return RedirectToAction("ListHocKyDT");
             }
             return View(hocKyDaoTao);
@@ -89,6 +90,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
                 db.Entry(hocKyDaoTao).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["ThongBao"] = "Sửa học kỳ thành công";
                 return RedirectToAction("ListHocKyDT");
             }
             return View(hocKyDaoTao);
@@ -116,6 +118,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             HocKyDaoTao hocKyDaoTao = db.HocKyDaoTaos.Find(id);
             db.HocKyDaoTaos.Remove(hocKyDaoTao);
             db.SaveChanges();
+            TempData["ThongBao"] = "Xóa học kỳ thành công";
             return RedirectToAction("ListHocKyDT");
         }
 
@@ -124,11 +127,11 @@ namespace WebApplication.Areas.Faculty.Controllers
             string ListLoi = "";
             if (khoa <= 0)
             {
-                ListLoi += "<p> Khóa đào tạo phải là số nguyên dương lớn hơn 0, khóa đào tạo bạn nhập là: " + khoa +"</p>";
+                ListLoi += "<p> Khóa đào tạo phải là số nguyên dương lớn hơn 0, khóa đào tạo bạn nhập là: " + khoa + "</p>";
             }
             var listDBKhoa = db.KhoaDaoTaos.ToList();
             var listKhoa = new List<string>();
-            foreach(var item in listDBKhoa)
+            foreach (var item in listDBKhoa)
             {
                 listKhoa.Add(item.Khoa.ToString());
             }
@@ -162,6 +165,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
                 db.KhoaDaoTaos.Add(khoaDaoTao);
                 db.SaveChanges();
+                TempData["ThongBao"] = "Tạo mới khóa thành công";
                 return RedirectToAction("ListKhoaDT");
             }
             return View(khoaDaoTao);
@@ -194,6 +198,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
                 db.Entry(khoaDaoTao).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["ThongBao"] = "Sửa khóa thành công";
                 return RedirectToAction("ListKhoaDT");
             }
             return View(khoaDaoTao);
@@ -221,6 +226,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             KhoaDaoTao khoaDaoTao = db.KhoaDaoTaos.Find(id);
             db.KhoaDaoTaos.Remove(khoaDaoTao);
             db.SaveChanges();
+            TempData["ThongBao"] = "Xóa khóa thành công";
             return RedirectToAction("ListKhoaDT");
         }
 
@@ -269,6 +275,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
                 db.NganhDaoTaos.Add(nganhDaoTao);
                 db.SaveChanges();
+                TempData["ThongBao"] = "Tạo mới ngành thành công";
                 return RedirectToAction("ListNganhDT");
             }
             return View(nganhDaoTao);
@@ -301,6 +308,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
                 db.Entry(nganhDaoTao).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["ThongBao"] = "Sửa ngành thành công";
                 return RedirectToAction("ListNganhDT");
             }
             return View(nganhDaoTao);
@@ -328,6 +336,7 @@ namespace WebApplication.Areas.Faculty.Controllers
             NganhDaoTao nganhDaoTao = db.NganhDaoTaos.Find(id);
             db.NganhDaoTaos.Remove(nganhDaoTao);
             db.SaveChanges();
+            TempData["ThongBao"] = "Xóa ngành thành công";
             return RedirectToAction("ListNganhDT");
         }
 
@@ -389,11 +398,11 @@ namespace WebApplication.Areas.Faculty.Controllers
                                         if (workSheet.Cells[rowIterator, 2].Value != null)
                                         {
                                             var tenktt = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                            if(tenktt.Length > 200)
+                                            if (tenktt.Length > 200)
                                             {
                                                 DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Tên khối kiến thức không được quá 200 ký tự, độ dài ký tự: " + stt + " là: " + stt.Length + "</p>";
                                             }
-                                            if (tenktt.Replace(" ",string.Empty) == null)
+                                            if (tenktt.Replace(" ", string.Empty) == null)
                                             {
                                                 DanhSachLoi += "<p> Lỗi ở dòng " + rowIterator + ", cột B: Tên kiến thức bắt buộc phải có, vui lòng thử lại!!</p>";
                                             }
@@ -405,7 +414,8 @@ namespace WebApplication.Areas.Faculty.Controllers
                                         listmahp.Clear();
                                     }
                                 }
-                            } else
+                            }
+                            else
                             {
                                 if (workSheet.Cells[rowIterator, 1].Value != null)
                                 {
@@ -766,6 +776,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                             }
                         }
                     }
+                    TempData["ThongBao"] = "Thêm mới thành công chương trình đào tạo";
                     return RedirectToAction("ChitietCTDaoTao", new { id = CHUONGTRINHDAOTAO.ID });
                 }
                 else
@@ -991,6 +1002,7 @@ namespace WebApplication.Areas.Faculty.Controllers
                 }
             db.ChuongTrinhDaoTaos.Remove(ChuongTrinhDaoTao);
             db.SaveChanges();
+            TempData["ThongBao"] = "Xóa thành công chương trình đào tạo";
             return RedirectToAction("ChiTietCTDaoTao", new { id });
         }
 
