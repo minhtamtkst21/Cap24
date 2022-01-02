@@ -75,6 +75,8 @@ namespace WebApplication.Areas.Faculty.Controllers
                 ViewBag.Keyword = texttimkiem;
             return View(model);
         }
+
+        //test Github
         public string KiemTraLop(string tenLop)
         {
             string ListLoi = "";
